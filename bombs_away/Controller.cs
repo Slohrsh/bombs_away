@@ -9,90 +9,28 @@ namespace bombs_away
 {
 	class Controller
 	{
-		//private Box2D obstacle = new Box2D(-0.2f, 1, 0.4f, 0.2f);
-		private Box2D player = new Box2D(0.0f, -0.95f, 0.2f, 0.2f);
-        private const String JUMPING_UP = "JUMPING_UP";
-        private const String JUMPING_DOWN = "JUMPING_DOWN";
-        private const String WALKING = "WALKING";
-        private String state = WALKING;
+        private Player player = new Player();
 
 		private void Update(float updatePeriod)
 		{
-			if(Keyboard.GetState()[Key.Left] && player.MinX > -1)
+			if(Keyboard.GetState()[Key.Left])
 			{
-				player.MinX -= updatePeriod;
+                player.shiftLeft(updatePeriod);
 			}
-			else if (Keyboard.GetState()[Key.Right] && player.MaxX < 1)
+			else if (Keyboard.GetState()[Key.Right])
 			{
-				player.MinX += updatePeriod;
+                player.shiftRight(updatePeriod);
 			}
-            if(Keyboard.GetState()[Key.Space] && state == WALKING)
+            if (Keyboard.GetState()[Key.Space])
 			{
-				state = JUMPING_UP;
+                player.Jump(updatePeriod);
 			}
-
-
-
-            if (state == JUMPING_UP)
-            {
-                player.MinY += updatePeriod;
-                if(player.MinY > -0.8) 
-                { 
-                    state = JUMPING_DOWN; 
-                }
-            }else if (state == JUMPING_DOWN)
-            {
-                player.MinY -= updatePeriod;
-                if(player.MinY < -1) 
-                { 
-                    state = WALKING; 
-                }
-            }
-
 		}
 
 		private void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
-
-			//GL.Color3(Color.CornflowerBlue);
-			DrawComplex(player);
-			//DrawComplex(obstacle);
-
-			GL.LineWidth(2.0f);
-			//GL.Color3(Color.YellowGreen);
-			DrawBoxOutline(player);
-			//DrawBoxOutline(obstacle);
-		}
-
-		private void DrawBoxOutline(Box2D rect)
-		{
-			GL.Begin(PrimitiveType.LineLoop);
-			GL.Vertex2(rect.MinX, rect.MinY);
-			GL.Vertex2(rect.MaxX, rect.MinY);
-			GL.Vertex2(rect.MaxX, rect.MaxY);
-			GL.Vertex2(rect.MinX, rect.MaxY);
-			GL.End();
-		}
-
-		private void DrawComplex(Box2D rect)
-		{
-			var xQuarter = rect.MinX + rect.SizeX * 0.25f;
-			var x3Quarter = rect.MinX + rect.SizeX * 0.75f;
-			var yThird = rect.MinY + rect.SizeY * 0.33f;
-			var y2Third = rect.MinY + rect.SizeY * 0.66f;
-			GL.Begin(PrimitiveType.Polygon);
-			GL.Vertex2(rect.CenterX, rect.MaxY);
-			GL.Vertex2(x3Quarter, y2Third);
-			GL.Vertex2(rect.MaxX, rect.CenterY);
-			GL.Vertex2(x3Quarter, yThird);
-			GL.Vertex2(rect.MaxX, rect.MinY);
-			GL.Vertex2(rect.CenterX, yThird);
-			GL.Vertex2(rect.MinX, rect.MinY);
-			GL.Vertex2(xQuarter, yThird);
-			GL.Vertex2(rect.MinX, rect.CenterY);
-			GL.Vertex2(xQuarter, y2Third);
-			GL.End();
+            player.draw();
 		}
 
 		[STAThread]
