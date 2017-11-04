@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using OpenTK.Graphics.OpenGL;
 using Zenseless.Geometry;
 
-namespace bombs_away
+namespace bombs_away.ui
 {
     class Drawable
     {
@@ -29,7 +29,7 @@ namespace bombs_away
             }
             else
             {
-                throw new Exception("component not set");
+                throw new ComponentNotSetException();
             }
         }
 

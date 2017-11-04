@@ -72,10 +72,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawable.cs" />
+    <Compile Include="ui\ComponentNotSetException.cs" />
+    <Compile Include="ui\Drawable.cs" />
     <Compile Include="GameMapBuilder.cs" />
     <Compile Include="Controller.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="ui\elements\enemy\Enemy.cs" />
+    <Compile Include="ui\elements\obstacle\ObstacleUndestroyable.cs" />
+    <Compile Include="ui\elements\obstacle\ObstacleDestroyable.cs" />
+    <Compile Include="ui\elements\obstacle\Obstacle.cs" />
+    <Compile Include="ui\elements\player\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

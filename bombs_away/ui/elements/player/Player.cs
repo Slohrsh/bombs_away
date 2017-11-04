@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Zenseless.Geometry;
 
-namespace bombs_away
+namespace bombs_away.ui.elements.player
 {
     class Player : Drawable
     {

@@ -4,14 +4,15 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Input;
 using System;
 using System.Drawing;
+using bombs_away.ui.elements.player;
 
-namespace bombs_away
+namespace bombs_away.controller
 {
 	class Controller
 	{
         private Player player = new Player();
 
-		private void Update(float updatePeriod)
+		public void Update(float updatePeriod)
 		{
 			if(Keyboard.GetState()[Key.Left])
 			{
@@ -27,20 +28,10 @@ namespace bombs_away
 			}
 		}
 
-		private void Render()
+		public void Render()
 		{
 			GL.Clear(ClearBufferMask.ColorBufferBit);
             player.draw();
-		}
-
-		[STAThread]
-		private static void Main()
-		{
-			var window = new ExampleWindow();
-			var controller = new Controller();
-			window.Render += controller.Render;
-			window.Update += controller.Update;
-			window.Run();
 		}
 	}
 }
