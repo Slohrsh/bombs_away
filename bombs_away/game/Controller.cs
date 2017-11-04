@@ -5,33 +5,32 @@ using OpenTK.Input;
 using System;
 using System.Drawing;
 using bombs_away.ui.elements.player;
+using bombs_away.controller;
 
 namespace bombs_away.game
 {
 	class Controller
 	{
-        private Player player = new Player();
 
+        private GameLogic logic;
+        private GameView view;
+        private GameMapBuilder builder;
+
+        public Controller()
+        {
+            builder = new GameMapBuilder();
+            logic = builder.GetState();
+            view = new GameView();
+    }
 		public void Update(float updatePeriod)
 		{
-			if(Keyboard.GetState()[Key.Left])
-			{
-                player.shiftLeft(updatePeriod);
-			}
-			else if (Keyboard.GetState()[Key.Right])
-			{
-                player.shiftRight(updatePeriod);
-			}
-            if (Keyboard.GetState()[Key.Space])
-			{
-                player.Jump(updatePeriod);
-			}
+            float axisLeftRight = Keyboard.GetState()[Key.Left] ? -1.0f : Keyboard.GetState()[Key.Right] ? 1.0f : 0.0f;
+            logic.Update(updatePeriod, axisLeftRight);
 		}
 
 		public void Render()
 		{
-			GL.Clear(ClearBufferMask.ColorBufferBit);
-            player.draw();
+            view.DrawScreen(logic.Player, logic.Enemies, logic.Obstacles, logic.Bombs);
 		}
 	}
 }
