@@ -72,10 +72,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="game\GameLogic.cs" />
+    <Compile Include="game\GameView.cs" />
+    <Compile Include="Main.cs" />
     <Compile Include="ui\ComponentNotSetException.cs" />
     <Compile Include="ui\Drawable.cs" />
     <Compile Include="GameMapBuilder.cs" />
-    <Compile Include="Controller.cs" />
+    <Compile Include="game\Controller.cs" />
+    <Compile Include="ui\elements\bomb\Bomb.cs" />
     <Compile Include="ui\elements\enemy\Enemy.cs" />
     <Compile Include="ui\elements\obstacle\ObstacleUndestroyable.cs" />
     <Compile Include="ui\elements\obstacle\ObstacleDestroyable.cs" />
@@ -87,6 +91,9 @@
     <None Include="App.config" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ressources\game\map\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

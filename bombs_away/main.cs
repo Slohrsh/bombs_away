@@ -8,7 +8,7 @@ using Zenseless.Application;
 
 namespace bombs_away
 {
-    class Main
+    class main
     {
         [STAThread]
         private static void Main()

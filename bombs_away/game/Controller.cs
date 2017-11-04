@@ -6,7 +6,7 @@ using System;
 using System.Drawing;
 using bombs_away.ui.elements.player;
 
-namespace bombs_away.controller
+namespace bombs_away.game
 {
 	class Controller
 	{
