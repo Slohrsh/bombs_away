@@ -21,24 +21,24 @@ namespace bombs_away.controller
             {
                 foreach (Obstacle obstacle in obstacles)
                 {
-                    obstacle.draw();
+                    obstacle.Draw();
                 }
             }
             if (enemies != null)
             {
                 foreach (Enemy enemie in enemies)
                 {
-                    enemie.draw();
+                    enemie.Draw();
                 }
             }
             if (bombs != null)
             {
                 foreach (Bomb bomb in bombs)
                 {
-                    bomb.draw();
+                    bomb.Draw();
                 }
             }
-            player.draw();
+            player.Draw();
         }
     }
 }

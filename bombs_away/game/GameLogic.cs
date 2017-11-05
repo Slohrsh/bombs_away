@@ -1,7 +1,9 @@
-﻿using bombs_away.ui.elements;
+﻿using bombs_away.listener;
+using bombs_away.ui.elements;
 using bombs_away.ui.elements.bomb;
 using bombs_away.ui.elements.enemy;
 using bombs_away.ui.elements.player;
+using bombs_away.ui.enums;
 using OpenTK.Input;
 using System;
 using System.Collections.Generic;
@@ -13,6 +15,10 @@ namespace bombs_away.controller
 {
     class GameLogic
     {
+        public event EventHandler onLost;
+        public event EventHandler onThrowBomb;
+        public event EventHandler onEnemyDestroy;
+
         private Player player;
         private List<Enemy> enemies;
         private List<Obstacle> obstacles;
@@ -31,19 +37,35 @@ namespace bombs_away.controller
             this.bombs = bombs;
         }
 
-        public void Update(float updatePeriod, float axisLeftRight)
+        public void Update(float updatePeriod, Movement movement)
         {
-            if (Keyboard.GetState()[Key.Left])
+            HandleCollisions();
+            player.Execute(movement, updatePeriod);
+        }
+
+        private void HandleCollisions()
+        {
+            foreach(Enemy enemy in enemies)
             {
-                player.shiftLeft(updatePeriod);
-            }
-            else if (Keyboard.GetState()[Key.Right])
-            {
-                player.shiftRight(updatePeriod);
-            }
-            if (Keyboard.GetState()[Key.Space])
-            {
-                player.Jump(updatePeriod);
+                if(player.Intersects(enemy))
+                {
+                    onLost?.Invoke(this, null);
+                }
+               
+                foreach (Bomb bomb in bombs)
+                {
+                    if (bomb.State == BombState.EXPLODE)
+                    {
+                        if (enemy.Intersects(bomb))
+                        {
+                            onEnemyDestroy?.Invoke(this, null);
+                        }
+                        if(player.Intersects(bomb))
+                        {
+                            onLost?.Invoke(this, null);
+                        }
+                    }
+                }
             }
         }
     }
