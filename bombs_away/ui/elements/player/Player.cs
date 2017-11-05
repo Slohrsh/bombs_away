@@ -9,7 +9,6 @@ namespace bombs_away.ui.elements.player
 {
     class Player : Drawable
     {
-        public event EventHandler OnIntersection;
         public Player()
         {
 
