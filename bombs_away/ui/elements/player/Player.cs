@@ -1,4 +1,5 @@
-﻿using System;
+﻿using bombs_away.ui.enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using Zenseless.Geometry;
 
 namespace bombs_away.ui.elements.player
 {
-    class Player : Drawable
+    class Player : Movable
     {
         public Player()
         {
@@ -15,6 +16,7 @@ namespace bombs_away.ui.elements.player
             this.component = new Box2D(0.0f, -0.95f, 0.2f, 0.2f);
         }
 
+        
         
 
 

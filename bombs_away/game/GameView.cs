@@ -8,6 +8,7 @@ using bombs_away.ui.elements.player;
 using bombs_away.ui.elements;
 using bombs_away.ui.elements.bomb;
 using bombs_away.ui.elements.enemy;
+using bombs_away.ui.elements.obstacle;
 
 namespace bombs_away.controller
 {

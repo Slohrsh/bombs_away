@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using bombs_away.ui.elements.obstacle;
 
 namespace bombs_away
 {
@@ -12,7 +13,9 @@ namespace bombs_away
     {
         public GameLogic GetState()
         {
-            return new GameLogic(new Player(), null, null, null);
+            List<Obstacle> obstacles = new List<Obstacle>();
+            obstacles.Add(new Obstacle());
+            return new GameLogic(new Player(), null, obstacles, null);
         }
     }
 }

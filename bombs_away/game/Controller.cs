@@ -7,6 +7,7 @@ using System.Drawing;
 using bombs_away.ui.elements.player;
 using bombs_away.controller;
 using bombs_away.ui.enums;
+using System.Diagnostics;
 
 namespace bombs_away.game
 {
@@ -17,6 +18,9 @@ namespace bombs_away.game
         private GameView view;
         private GameMapBuilder builder;
 
+        private Stopwatch timeSource = new Stopwatch();
+        private float lastUpdateTime = 0.0f;
+
         public Controller()
         {
             builder = new GameMapBuilder();
@@ -25,11 +29,16 @@ namespace bombs_away.game
             logic.onLost += (sender, args) => { };
             logic.onThrowBomb += (sender, args) => {  };
             logic.onEnemyDestroy += (sender, args) => { };
+            timeSource.Start();
         }
 		public void Update(float updatePeriod)
 		{
+            float absoluteTime = (float)timeSource.Elapsed.TotalSeconds;
+            var timeDelta = absoluteTime - lastUpdateTime;
+            lastUpdateTime = absoluteTime;
+
             Movement movement = getUserInput();
-            logic.Update(updatePeriod, movement);
+            logic.Update((float)timeSource.Elapsed.TotalSeconds, updatePeriod, movement);
 		}
 
         private Movement getUserInput()

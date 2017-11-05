@@ -1,7 +1,7 @@
-﻿using bombs_away.listener;
-using bombs_away.ui.elements;
+﻿using bombs_away.ui.elements;
 using bombs_away.ui.elements.bomb;
 using bombs_away.ui.elements.enemy;
+using bombs_away.ui.elements.obstacle;
 using bombs_away.ui.elements.player;
 using bombs_away.ui.enums;
 using OpenTK.Input;
@@ -32,15 +32,19 @@ namespace bombs_away.controller
         public GameLogic(Player player, List<Enemy> enemies, List<Obstacle> obstacles, List<Bomb> bombs)
         {
             this.player = player;
-            this.enemies = enemies;
-            this.obstacles = obstacles;
-            this.bombs = bombs;
+            this.enemies = enemies != null ? enemies : new List<Enemy>();
+            this.obstacles = obstacles != null ? obstacles : new List<Obstacle>();
+            this.bombs = bombs != null ? bombs : new List<Bomb>(); ;
         }
 
-        public void Update(float updatePeriod, Movement movement)
+        public void Update(float absoluteTime, float updatePeriod, Movement movement)
         {
             HandleCollisions();
-            player.Execute(movement, updatePeriod);
+            player.Execute(movement, absoluteTime, updatePeriod);
+            /*foreach(Obstacle obstacle in obstacles)
+            {
+                obstacle.Execute(Movement.IDLE, absoluteTime, updatePeriod);
+            }*/
         }
 
         private void HandleCollisions()
@@ -65,6 +69,15 @@ namespace bombs_away.controller
                             onLost?.Invoke(this, null);
                         }
                     }
+                }
+            }
+            foreach(Obstacle obstacle in obstacles)
+            {
+                
+                if (obstacle.Intersects(player))
+                {
+                    Console.WriteLine(obstacle.Intersects(player));
+                    player.setStateWalking();
                 }
             }
         }
