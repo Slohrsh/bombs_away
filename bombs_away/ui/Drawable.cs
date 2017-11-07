@@ -14,7 +14,7 @@ namespace bombs_away.ui
 
         protected Box2D component;
 
-        public Box2D Component { get; }
+        public Box2D Component { get { return component; } }
 
         public void Draw()
         {
@@ -35,7 +35,7 @@ namespace bombs_away.ui
 
         public bool Intersects(Drawable rectangle)
         {
-            if (rectangle != null)
+            if (rectangle == null)
             {
                 return false;
             }
