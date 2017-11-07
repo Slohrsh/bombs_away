@@ -1,4 +1,5 @@
 ﻿using bombs_away.ui.enums;
+using OpenTK.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,53 +10,47 @@ namespace bombs_away.ui
 {
     class Movable : Drawable
     {
-        private enum State { JUMPING, WALKING, IN_AIR }
-        private State state = State.WALKING;
-        float timeDelta = 0;
-        float timeOnJumpSwitched = 0;
 
-        public void setStateWalking()
+        float acceleration = 98.1f;
+        float jumpAcc = 10;
+        float velocity = 0;
+
+        private bool grounded = false;
+        public bool Grounded
         {
-            state = State.WALKING;
-            timeDelta = 0;
+            set
+            {
+                if (value)
+                {
+                    velocity = 0f;
+                    grounded = value;
+                }
+                grounded = value;
+            } }
+
+        private void HandleUserInput(float updatePeriod)
+        {
+            if (Keyboard.GetState()[Key.Left])
+            {
+                ShiftLeft(updatePeriod);
+            }
+            if (Keyboard.GetState()[Key.Right])
+            {
+                ShiftRight(updatePeriod);
+            }
+            if (Keyboard.GetState()[Key.Space])
+            {
+                Jump(updatePeriod);
+            }
         }
-        public virtual void Execute(Movement movement, float updatePeriod)
+
+        public virtual void Execute(float updatePeriod)
         {
-            switch (movement)
-            {
-                case Movement.UP:
-                    ShiftUp(updatePeriod);
-                    break;
-                case Movement.DOWN:
-                    ShiftDown(updatePeriod);
-                    break;
-                case Movement.LEFT:
-                    ShiftLeft(updatePeriod);
-                    break;
-                case Movement.RIGTH:
-                    ShiftRight(updatePeriod);
-                    break;
-                case Movement.JUMP:
-                    Jump();
-                    break;
-            }
-            if (state != State.JUMPING)
-            {
-                ShiftDown(updatePeriod);
-            }
-            if (state == State.JUMPING)
-            {
-                timeDelta = absoluteTime - timeOnJumpSwitched;
-                Console.WriteLine(timeDelta);
-                if (timeDelta < 0.3f)
-                {
-                    ShiftUp(updatePeriod);
-                }
-                else
-                {
-                    state = State.IN_AIR;
-                }
-            }
+            velocity = acceleration * updatePeriod;
+            HandleUserInput(updatePeriod);
+            
+            ShiftDown(velocity * updatePeriod);
+            Console.WriteLine(velocity* updatePeriod);
         }
 
         public void ShiftLeft(float value)
@@ -84,14 +79,20 @@ namespace bombs_away.ui
 
         public void ShiftDown(float value)
         {
-            if (component.MinY > -1)
+            if (component.MinY > -1&& !grounded)
             {
                 component.MinY -= value;
             }
         }
 
-        public void Jump()
+        public void Jump(float updatePeriod)
         {
+            if (!grounded)
+            {
+                return;
+            }
+            ShiftUp(jumpAcc * updatePeriod);
+            Grounded = false;
             /*if (state == State.WALKING)
             {
                 state = State.JUMPING;

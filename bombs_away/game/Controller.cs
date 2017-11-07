@@ -8,6 +8,7 @@ using bombs_away.ui.elements.player;
 using bombs_away.controller;
 using bombs_away.ui.enums;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace bombs_away.game
 {
@@ -31,26 +32,8 @@ namespace bombs_away.game
         }
 		public void Update(float updatePeriod)
 		{
-            Movement movement = getUserInput();
-            logic.Update(updatePeriod, movement);
+            logic.Update(updatePeriod);
 		}
-
-        private Movement getUserInput()
-        {
-            if (Keyboard.GetState()[Key.Left])
-            {
-                return Movement.LEFT;
-            }
-            if (Keyboard.GetState()[Key.Right])
-            {
-                return Movement.RIGTH;
-            }
-            if (Keyboard.GetState()[Key.Space])
-            {
-                return Movement.JUMP;
-            }
-            return Movement.IDLE;
-        }
 
         public void Render()
 		{

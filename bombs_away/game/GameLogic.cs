@@ -37,10 +37,10 @@ namespace bombs_away.controller
             this.bombs = bombs != null ? bombs : new List<Bomb>(); ;
         }
 
-        public void Update(float updatePeriod, Movement movement)
+        public void Update(float updatePeriod)
         {
             HandleCollisions();
-            player.Execute(movement, updatePeriod);
+            player.Execute(updatePeriod);
             /*foreach(Obstacle obstacle in obstacles)
             {
                 obstacle.Execute(Movement.IDLE, absoluteTime, updatePeriod);
@@ -77,7 +77,12 @@ namespace bombs_away.controller
                 if (obstacle.Intersects(player))
                 {
                     Console.WriteLine(obstacle.Intersects(player));
-                    player.setStateWalking();
+                    player.Grounded = true;
+                }
+                else
+                {
+                    player.Grounded = false;
+
                 }
             }
         }
