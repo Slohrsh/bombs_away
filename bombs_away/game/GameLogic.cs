@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zenseless.Geometry;
 
 namespace bombs_away.controller
 {
@@ -78,6 +79,9 @@ namespace bombs_away.controller
                 {
                     Console.WriteLine(obstacle.Intersects(player));
                     player.Grounded = true;
+                    Box2dExtensions.UndoOverlap(player.Component, obstacle.Component);
+                    //Aus overlap schauen ob er auf dem Obstacle steht -> Overlap in Y richtung
+                    //Box2dExtensions.Overlap(player.Component, obstacle.Component)
                 }
                 else
                 {

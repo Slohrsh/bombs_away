@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zenseless.Geometry;
 
 namespace bombs_away.ui.elements.bomb
 {
@@ -12,7 +13,7 @@ namespace bombs_away.ui.elements.bomb
     {
         public BombBigRadius(Vector2 position)
         {
-            this.component = Box2DFactory.getSquare(position, 0.2f);
+            this.component = Box2DFactory.CreateSquare(position, 0.2f);
         }
     }
 }

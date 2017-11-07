@@ -13,7 +13,7 @@ namespace bombs_away.ui.elements.obstacle
     {
         public ObstacleDestroyable(Vector2 position)
         {
-            this.component = Box2DFactory.getSquare(position, 0.2f);
+            this.component = Box2DFactory.CreateSquare(position, 0.2f);
         }
     }
 }
