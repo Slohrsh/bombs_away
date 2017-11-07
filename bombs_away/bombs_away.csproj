@@ -80,6 +80,7 @@
     <Compile Include="GameMapBuilder.cs" />
     <Compile Include="game\Controller.cs" />
     <Compile Include="ui\elements\bomb\Bomb.cs" />
+    <Compile Include="ui\elements\bomb\BombBigRadius.cs" />
     <Compile Include="ui\elements\enemy\Enemy.cs" />
     <Compile Include="ui\elements\obstacle\ObstacleUndestroyable.cs" />
     <Compile Include="ui\elements\obstacle\ObstacleDestroyable.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="ui\enums\BombState.cs" />
     <Compile Include="ui\enums\Movement.cs" />
     <Compile Include="ui\Movable.cs" />
+    <Compile Include="ui\zenseless\Box2DFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

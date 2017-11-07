@@ -1,4 +1,6 @@
 ﻿using bombs_away.ui.enums;
+using bombs_away.ui.zenseless;
+using OpenTK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +12,10 @@ namespace bombs_away.ui.elements.player
 {
     class Player : Movable
     {
-        public Player()
+        public Player(Vector2 position)
         {
-
-            this.component = new Box2D(0.0f, -0.95f, 0.2f, 0.2f);
+            this.component = Box2DFactory.getSquare(position, 0.2f);
         }
-
-        
-        
-
 
     }
 }

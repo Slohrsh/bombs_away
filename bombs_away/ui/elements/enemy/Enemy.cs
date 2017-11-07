@@ -1,4 +1,6 @@
-﻿using System;
+﻿using bombs_away.ui.zenseless;
+using OpenTK;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +10,9 @@ namespace bombs_away.ui.elements.enemy
 {
     class Enemy : Drawable
     {
-        public Enemy()
+        public Enemy(Vector2 position)
         {
-            this.component = new Zenseless.Geometry.Box2D(0.0f, -0.95f, 0.2f, 0.2f);
+            this.component = Box2DFactory.getSquare(position, 0.2f);
         }
     }
 }
