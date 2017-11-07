@@ -18,7 +18,6 @@ namespace bombs_away.game
         private GameView view;
         private GameMapBuilder builder;
 
-        private Stopwatch timeSource = new Stopwatch();
         private float lastUpdateTime = 0.0f;
 
         public Controller()
@@ -29,16 +28,11 @@ namespace bombs_away.game
             logic.onLost += (sender, args) => { };
             logic.onThrowBomb += (sender, args) => {  };
             logic.onEnemyDestroy += (sender, args) => { };
-            timeSource.Start();
         }
 		public void Update(float updatePeriod)
 		{
-            float absoluteTime = (float)timeSource.Elapsed.TotalSeconds;
-            var timeDelta = absoluteTime - lastUpdateTime;
-            lastUpdateTime = absoluteTime;
-
             Movement movement = getUserInput();
-            logic.Update((float)timeSource.Elapsed.TotalSeconds, updatePeriod, movement);
+            logic.Update(updatePeriod, movement);
 		}
 
         private Movement getUserInput()

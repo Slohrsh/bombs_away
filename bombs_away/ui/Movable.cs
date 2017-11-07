@@ -19,29 +19,29 @@ namespace bombs_away.ui
             state = State.WALKING;
             timeDelta = 0;
         }
-        public virtual void Execute(Movement movement, float absoluteTime, float value)
+        public virtual void Execute(Movement movement, float updatePeriod)
         {
             switch (movement)
             {
                 case Movement.UP:
-                    ShiftUp(value);
+                    ShiftUp(updatePeriod);
                     break;
                 case Movement.DOWN:
-                    ShiftDown(value);
+                    ShiftDown(updatePeriod);
                     break;
                 case Movement.LEFT:
-                    ShiftLeft(value);
+                    ShiftLeft(updatePeriod);
                     break;
                 case Movement.RIGTH:
-                    ShiftRight(value);
+                    ShiftRight(updatePeriod);
                     break;
                 case Movement.JUMP:
-                    Jump(absoluteTime);
+                    Jump();
                     break;
             }
             if (state != State.JUMPING)
             {
-                ShiftDown(value);
+                ShiftDown(updatePeriod);
             }
             if (state == State.JUMPING)
             {
@@ -49,7 +49,7 @@ namespace bombs_away.ui
                 Console.WriteLine(timeDelta);
                 if (timeDelta < 0.3f)
                 {
-                    ShiftUp(value);
+                    ShiftUp(updatePeriod);
                 }
                 else
                 {
@@ -90,13 +90,13 @@ namespace bombs_away.ui
             }
         }
 
-        public void Jump(float absoluteTime)
+        public void Jump()
         {
-            if (state == State.WALKING)
+            /*if (state == State.WALKING)
             {
                 state = State.JUMPING;
                 timeOnJumpSwitched = absoluteTime;
-            }
+            }*/
         }
     }
 }

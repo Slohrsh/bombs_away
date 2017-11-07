@@ -35,7 +35,6 @@ namespace bombs_away.ui
 
         public bool Intersects(Drawable rectangle)
         {
-            Console.WriteLine(component.Intersects(rectangle.Component));
             if (rectangle == null)
             {
                 return false;

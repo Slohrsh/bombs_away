@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using bombs_away.ui.elements.obstacle;
+using OpenTK;
 
 namespace bombs_away
 {
@@ -14,8 +15,8 @@ namespace bombs_away
         public GameLogic GetState()
         {
             List<Obstacle> obstacles = new List<Obstacle>();
-            obstacles.Add(new Obstacle());
-            return new GameLogic(new Player(), null, obstacles, null);
+            obstacles.Add(new ObstacleUndestroyable(new Vector2(0,0)));
+            return new GameLogic(new Player(new Vector2(0f, -0.5f)), null, obstacles, null);
         }
     }
 }

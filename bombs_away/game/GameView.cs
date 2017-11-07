@@ -18,7 +18,10 @@ namespace bombs_away.controller
         internal void DrawScreen(Player player, List<Enemy> enemies, List<Obstacle> obstacles, List<Bomb> bombs)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit);
-            if(obstacles != null)
+            //Wichtig für Kamera:
+            //GL.Translate()
+            //GL.Scale()
+            if (obstacles != null)
             {
                 foreach (Obstacle obstacle in obstacles)
                 {

@@ -37,10 +37,10 @@ namespace bombs_away.controller
             this.bombs = bombs != null ? bombs : new List<Bomb>(); ;
         }
 
-        public void Update(float absoluteTime, float updatePeriod, Movement movement)
+        public void Update(float updatePeriod, Movement movement)
         {
             HandleCollisions();
-            player.Execute(movement, absoluteTime, updatePeriod);
+            player.Execute(movement, updatePeriod);
             /*foreach(Obstacle obstacle in obstacles)
             {
                 obstacle.Execute(Movement.IDLE, absoluteTime, updatePeriod);
