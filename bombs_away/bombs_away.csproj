@@ -79,6 +79,7 @@
     <Compile Include="game\GameView.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="ui\exceptions\ComponentNotSetException.cs" />
+    <Compile Include="ui\interactive\Patrol.cs" />
     <Compile Include="ui\openGL\Drawable.cs" />
     <Compile Include="GameMapBuilder.cs" />
     <Compile Include="game\Controller.cs" />

@@ -10,10 +10,11 @@ namespace bombs_away.ui.physics
     class PhysicsObject : Drawable
     {
         private float acceleration = 98.1f;
-        private float jumpAcc = 10;
+        private float jumpAcc = 50;
         private float velocity = 0;
 
         private bool grounded = false;
+
         public bool Grounded
         {
             set

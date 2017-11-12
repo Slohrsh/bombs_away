@@ -40,12 +40,25 @@ namespace bombs_away.controller
 
         public void Update(float updatePeriod)
         {
+            ExecuteAllElements(updatePeriod);
             HandleCollisions();
-            player.Execute(updatePeriod);
             /*foreach(Obstacle obstacle in obstacles)
             {
                 obstacle.Execute(Movement.IDLE, absoluteTime, updatePeriod);
             }*/
+        }
+
+        private void ExecuteAllElements(float updatePeriod)
+        {
+            player.Execute(updatePeriod);
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Execute(updatePeriod);
+            }
+            foreach (Obstacle obstacle in obstacles)
+            {
+                obstacle.Execute(updatePeriod);
+            }
         }
 
         private void HandleCollisions()
@@ -54,6 +67,7 @@ namespace bombs_away.controller
             {
                 if(player.Intersects(enemy))
                 {
+                    Console.WriteLine("Lost");
                     onLost?.Invoke(this, null);
                 }
                
