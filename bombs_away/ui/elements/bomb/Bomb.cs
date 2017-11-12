@@ -1,4 +1,5 @@
 ﻿using bombs_away.ui.enums;
+using bombs_away.ui.physics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace bombs_away.ui.elements.bomb
 {
-    abstract class Bomb : Drawable
+    abstract class Bomb : PhysicsObject
     {
         private BombState state = BombState.IDLE;
         public BombState State { get; }

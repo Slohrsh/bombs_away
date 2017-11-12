@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace bombs_away.ui
+namespace bombs_away.ui.exceptions
 {
     class ComponentNotSetException : Exception
     {

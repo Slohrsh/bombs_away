@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using OpenTK.Graphics.OpenGL;
 using Zenseless.Geometry;
 using bombs_away.ui.enums;
+using bombs_away.ui.exceptions;
 
-namespace bombs_away.ui
+namespace bombs_away.ui.openGL
 {
     class Drawable
     {

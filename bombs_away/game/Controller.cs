@@ -19,8 +19,6 @@ namespace bombs_away.game
         private GameView view;
         private GameMapBuilder builder;
 
-        private float lastUpdateTime = 0.0f;
-
         public Controller()
         {
             builder = new GameMapBuilder();

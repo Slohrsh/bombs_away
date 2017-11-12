@@ -1,4 +1,5 @@
-﻿using System;
+﻿using bombs_away.ui.physics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using Zenseless.Geometry;
 
 namespace bombs_away.ui.elements.obstacle
 {
-    abstract class Obstacle : Drawable
+    abstract class Obstacle : PhysicsObject
     {
     }
 }
