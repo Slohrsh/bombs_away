@@ -65,42 +65,43 @@ namespace bombs_away.controller
         {
             foreach(Enemy enemy in enemies)
             {
-                if(player.Intersects(enemy))
+                if(enemy.Intersects(player))
                 {
                     Console.WriteLine("Lost");
                     onLost?.Invoke(this, null);
                 }
-               
                 foreach (Bomb bomb in bombs)
                 {
                     if (bomb.State == BombState.EXPLODE)
                     {
-                        if (enemy.Intersects(bomb))
+                        if (bomb.Intersects(enemy))
                         {
                             onEnemyDestroy?.Invoke(this, null);
                         }
-                        if(player.Intersects(bomb))
+                        if(bomb.Intersects(player))
                         {
                             onLost?.Invoke(this, null);
                         }
                     }
                 }
-            }
-            foreach(Obstacle obstacle in obstacles)
-            {
-                
-                if (obstacle.Intersects(player))
+                foreach (Obstacle obstacle in obstacles)
                 {
-                    Console.WriteLine(obstacle.Intersects(player));
-                    player.Grounded = true;
-                    Box2dExtensions.UndoOverlap(player.Component, obstacle.Component);
-                    //Aus overlap schauen ob er auf dem Obstacle steht -> Overlap in Y richtung
-                    //Box2dExtensions.Overlap(player.Component, obstacle.Component)
-                }
-                else
-                {
-                    player.Grounded = false;
-
+                    if(enemy.Intersects(obstacle))
+                    {
+                        Box2dExtensions.UndoOverlap(enemy.Component, obstacle.Component);
+                    }
+                    if (obstacle.Intersects(player))
+                    {
+                        Console.WriteLine(obstacle.Intersects(player));
+                        player.Grounded = true;
+                        Box2dExtensions.UndoOverlap(player.Component, obstacle.Component);
+                        //Aus overlap schauen ob er auf dem Obstacle steht -> Overlap in Y richtung
+                        //Box2dExtensions.Overlap(player.Component, obstacle.Component)
+                    }
+                    else
+                    {
+                        player.Grounded = false;
+                    }
                 }
             }
         }
