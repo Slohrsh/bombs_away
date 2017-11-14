@@ -13,12 +13,21 @@ namespace bombs_away.ui.elements.bomb
         float timeDeltaToExplode = 3;
         
         private BombState state = BombState.IDLE;
-        public BombState State { get; }
+        public BombState State { get { return state; } }
+
+        public override void Execute(float updatePeriod)
+        {
+            timeDeltaToExplode -= updatePeriod;
+            if (timeDeltaToExplode < 0)
+            {
+                explode();
+            }
+            base.Execute(updatePeriod);
+        }
 
         public virtual void explode()
         {
-
-
+            Console.Write("Explode");
             state = BombState.EXPLODE;
             //expand rectangle
         }

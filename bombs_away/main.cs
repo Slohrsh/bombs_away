@@ -17,7 +17,7 @@ namespace bombs_away
             var window = new ExampleWindow();
             var controller = new Controller();
             window.Render += controller.Render;
-            window.Update += controller.Update;
+            window.Update += (t) => controller.Update(t*1f);
             window.Run();
         }
     }

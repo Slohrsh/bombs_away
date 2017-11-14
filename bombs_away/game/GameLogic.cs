@@ -56,55 +56,140 @@ namespace bombs_away.controller
             {
                 obstacle.Execute(updatePeriod);
             }
+            foreach (Bomb bomb in bombs)
+            {
+                bomb.Execute(updatePeriod);
+            }
         }
 
         private void HandleCollisions()
         {
-            foreach(Enemy enemy in enemies)
+            player.Grounded = false;
+
+            foreach (Obstacle obstacle in obstacles)
             {
-                if(enemy.Intersects(player))
+                if (player.Intersects(obstacle))
                 {
-                    Console.WriteLine("Lost");
-                    onLost?.Invoke(this, null);
+                    Directions pushDirection = Box2DextensionsCustom.UndoOverlap(player.Component, obstacle.Component);
+                    if (pushDirection == Directions.UP)
+                    {
+                        player.Grounded = true;
+                    }
+                    //Aus overlap schauen ob er auf dem Obstacle steht -> Overlap in Y richtung
+                    //Box2dExtensions.Overlap(player.Component, obstacle.Component)
                 }
-                foreach (Bomb bomb in bombs)
+
+                foreach (Bomb bomb in bombs.ToList())
                 {
+                    if (bomb.Intersects(obstacle))
+                    {
+                        bomb.Grounded = true;
+                        Directions pushDirection = Box2DextensionsCustom.UndoOverlap(bomb.Component, obstacle.Component);
+                        Console.WriteLine(pushDirection);
+                    }
+
                     if (bomb.State == BombState.EXPLODE)
                     {
-                        if (bomb.Intersects(enemy))
-                        {
-                            onEnemyDestroy?.Invoke(this, null);
-                        }
-                        if(bomb.Intersects(player))
+                        if (bomb.Intersects(player))
                         {
                             onLost?.Invoke(this, null);
                         }
+                        bombs.Remove(bomb);
                     }
                 }
-                player.Grounded = false;
-                foreach (Obstacle obstacle in obstacles)
+
+                foreach (Enemy enemy in enemies)
                 {
-                    if(enemy.Intersects(obstacle))
+                    if (enemy.Intersects(player))
+                    {
+                        Console.WriteLine("Lost");
+                        onLost?.Invoke(this, null);
+                    }
+
+                    if (enemy.Intersects(obstacle))
                     {
                         Directions pushDirection = Box2DextensionsCustom.UndoOverlap(enemy.Component, obstacle.Component);
                         if (pushDirection == Directions.LEFT || pushDirection == Directions.RIGHT)
                         {
                             enemy.IsMovingRight = !enemy.IsMovingRight;
                         }
-                        
+
                     }
-                    if (player.Intersects(obstacle))
+
+                    foreach (Bomb bomb in bombs.ToList())
                     {
-                        Directions pushDirection = Box2DextensionsCustom.UndoOverlap(player.Component, obstacle.Component);
-                        if(pushDirection == Directions.UP)
+                        if (bomb.State == BombState.EXPLODE)
                         {
-                            player.Grounded = true;
+                            if (bomb.Intersects(enemy))
+                            {
+                                onEnemyDestroy?.Invoke(this, null);
+                            }
+                            bombs.Remove(bomb);
                         }
-                        //Aus overlap schauen ob er auf dem Obstacle steht -> Overlap in Y richtung
-                        //Box2dExtensions.Overlap(player.Component, obstacle.Component)
                     }
                 }
             }
         }
     }
+
+    //    private void HandleCollisions()
+    //    {
+    //        foreach(Enemy enemy in enemies)
+    //        {
+    //            if(enemy.Intersects(player))
+    //            {
+    //                Console.WriteLine("Lost");
+    //                onLost?.Invoke(this, null);
+    //            }
+    //            foreach (Bomb bomb in bombs.ToList())
+    //            {
+    //                if (bomb.State == BombState.EXPLODE)
+    //                {
+    //                    if (bomb.Intersects(enemy))
+    //                    {
+    //                        onEnemyDestroy?.Invoke(this, null);
+    //                    }
+    //                    if(bomb.Intersects(player))
+    //                    {
+    //                        onLost?.Invoke(this, null);
+    //                    }
+    //                    bombs.Remove(bomb);
+    //                }
+    //            }
+
+
+    //            player.Grounded = false;
+    //            foreach (Obstacle obstacle in obstacles)
+    //            {
+    //                if(enemy.Intersects(obstacle))
+    //                {
+    //                    Directions pushDirection = Box2DextensionsCustom.UndoOverlap(enemy.Component, obstacle.Component);
+    //                    if (pushDirection == Directions.LEFT || pushDirection == Directions.RIGHT)
+    //                    {
+    //                        enemy.IsMovingRight = !enemy.IsMovingRight;
+    //                    }
+                        
+    //                }
+    //                if (player.Intersects(obstacle))
+    //                {
+    //                    Directions pushDirection = Box2DextensionsCustom.UndoOverlap(player.Component, obstacle.Component);
+    //                    if(pushDirection == Directions.UP)
+    //                    {
+    //                        player.Grounded = true;
+    //                    }
+    //                    //Aus overlap schauen ob er auf dem Obstacle steht -> Overlap in Y richtung
+    //                    //Box2dExtensions.Overlap(player.Component, obstacle.Component)
+    //                }
+    //                foreach (Bomb bomb in bombs)
+    //                {
+    //                    if (obstacle.Intersects(bomb))
+    //                    {
+    //                        Directions pushDirection = Box2DextensionsCustom.UndoOverlap(bomb.Component, obstacle.Component);
+    //                        Console.WriteLine(pushDirection);
+    //                    }
+    //                }       
+    //            }
+    //        }
+    //    }
+    //}
 }

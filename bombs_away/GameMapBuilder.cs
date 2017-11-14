@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using bombs_away.ui.elements.obstacle;
 using OpenTK;
 using bombs_away.ui.elements.enemy;
+using bombs_away.ui.elements.bomb;
 
 namespace bombs_away
 {
@@ -30,6 +31,7 @@ namespace bombs_away
             obstacles.Add(new ObstacleUndestroyable(new Vector2(-1, -0.8f)));
             obstacles.Add(new ObstacleUndestroyable(new Vector2(0.8f, -0.8f)));
             obstacles.Add(new ObstacleUndestroyable(new Vector2(0, -0.4f)));
+           
 
 
 
@@ -41,7 +43,11 @@ namespace bombs_away
             Enemy enemy;
             enemy = new Enemy(new OpenTK.Vector2(0, -0.8f));
             enemies.Add(enemy);
-            return new GameLogic(new Player(new Vector2(0f, 0f)), enemies, obstacles, null);
+
+            List<Bomb> bombs = new List<Bomb>();
+            bombs.Add(new BombBigRadius(new OpenTK.Vector2(0, 0)));
+
+            return new GameLogic(new Player(new Vector2(0f, 0f)), enemies, obstacles, bombs);
         }
     }
 }
