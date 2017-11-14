@@ -4,6 +4,7 @@ using bombs_away.ui.elements.enemy;
 using bombs_away.ui.elements.obstacle;
 using bombs_away.ui.elements.player;
 using bombs_away.ui.enums;
+using bombs_away.ui.zenseless;
 using OpenTK.Input;
 using System;
 using System.Collections.Generic;
@@ -80,23 +81,27 @@ namespace bombs_away.controller
                         }
                     }
                 }
+                player.Grounded = false;
                 foreach (Obstacle obstacle in obstacles)
                 {
                     if(enemy.Intersects(obstacle))
                     {
-                        Box2dExtensions.UndoOverlap(enemy.Component, obstacle.Component);
+                        Directions pushDirection = Box2DextensionsCustom.UndoOverlap(enemy.Component, obstacle.Component);
+                        if (pushDirection == Directions.LEFT || pushDirection == Directions.RIGHT)
+                        {
+                            enemy.IsMovingRight = !enemy.IsMovingRight;
+                        }
+                        
                     }
-                    if (obstacle.Intersects(player))
+                    if (player.Intersects(obstacle))
                     {
-                        Console.WriteLine(obstacle.Intersects(player));
-                        player.Grounded = true;
-                        Box2dExtensions.UndoOverlap(player.Component, obstacle.Component);
+                        Directions pushDirection = Box2DextensionsCustom.UndoOverlap(player.Component, obstacle.Component);
+                        if(pushDirection == Directions.UP)
+                        {
+                            player.Grounded = true;
+                        }
                         //Aus overlap schauen ob er auf dem Obstacle steht -> Overlap in Y richtung
                         //Box2dExtensions.Overlap(player.Component, obstacle.Component)
-                    }
-                    else
-                    {
-                        player.Grounded = false;
                     }
                 }
             }

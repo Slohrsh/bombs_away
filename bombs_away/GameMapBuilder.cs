@@ -16,12 +16,30 @@ namespace bombs_away
         public GameLogic GetState()
         {
             List<Obstacle> obstacles = new List<Obstacle>();
-            obstacles.Add(new ObstacleDestroyable(new Vector2(0,-0.5f)));
+            obstacles.Add(new ObstacleUndestroyable(new Vector2(-1f, -1f)));
+            obstacles.Add(new ObstacleUndestroyable(new Vector2(-0.8f, -1f)));
+            obstacles.Add(new ObstacleUndestroyable(new Vector2(-0.6f, -1f)));
+            obstacles.Add(new ObstacleUndestroyable(new Vector2(-0.4f, -1f)));
+            obstacles.Add(new ObstacleUndestroyable(new Vector2(-0.2f, -1f)));
+            obstacles.Add(new ObstacleUndestroyable(new Vector2(0, -1f)));
+            obstacles.Add(new ObstacleUndestroyable(new Vector2(0.2f, -1f)));
+            obstacles.Add(new ObstacleUndestroyable(new Vector2(0.4f, -1f)));
+            obstacles.Add(new ObstacleUndestroyable(new Vector2(0.6f, -1f)));
+            obstacles.Add(new ObstacleUndestroyable(new Vector2(0.8f, -1f)));
+            obstacles.Add(new ObstacleUndestroyable(new Vector2(1, -1f)));
+            obstacles.Add(new ObstacleUndestroyable(new Vector2(-1, -0.8f)));
+            obstacles.Add(new ObstacleUndestroyable(new Vector2(0.8f, -0.8f)));
+            obstacles.Add(new ObstacleUndestroyable(new Vector2(0, -0.4f)));
+
+
+
+
+
+
 
             List<Enemy> enemies = new List<Enemy>();
             Enemy enemy;
-            enemy = new Enemy(new OpenTK.Vector2(0, 1));
-            enemy.Patrol = new ui.interactive.Patrol(2f);
+            enemy = new Enemy(new OpenTK.Vector2(0, -0.8f));
             enemies.Add(enemy);
             return new GameLogic(new Player(new Vector2(0f, 0f)), enemies, obstacles, null);
         }

@@ -15,5 +15,10 @@ namespace bombs_away.ui.elements.obstacle
         {
             this.component = Box2DFactory.CreateSquare(position, 0.2f);
         }
+
+        public override void Execute(float updatePeriod)
+        {
+            
+        }
     }
 }
