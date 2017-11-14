@@ -9,10 +9,7 @@ using OpenTK.Graphics;
 
 namespace bombs_away.ui.elements.obstacle
 {
-    abstract class Obstacle : PhysicsObject, IDrawable
+    abstract class Obstacle : PhysicsObject
     {
-        public Box2D Bounds => throw new NotImplementedException();
-
-        public Color4 Color => throw new NotImplementedException();
     }
 }

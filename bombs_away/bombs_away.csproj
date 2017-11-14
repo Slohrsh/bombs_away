@@ -79,12 +79,13 @@
   <ItemGroup>
     <Compile Include="game\GameLogic.cs" />
     <Compile Include="game\GameView.cs" />
+    <Compile Include="game\Level.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="ui\elements\obstacle\IDrawable.cs" />
     <Compile Include="ui\enums\Directions.cs" />
     <Compile Include="ui\exceptions\ComponentNotSetException.cs" />
-    <Compile Include="ui\openGL\Drawable.cs" />
-    <Compile Include="GameMapBuilder.cs" />
+    <Compile Include="ui\GameObject.cs" />
+    <Compile Include="LevelLoader.cs" />
     <Compile Include="game\Controller.cs" />
     <Compile Include="ui\elements\bomb\Bomb.cs" />
     <Compile Include="ui\elements\bomb\BombBigRadius.cs" />

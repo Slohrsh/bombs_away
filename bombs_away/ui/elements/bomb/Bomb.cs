@@ -27,7 +27,7 @@ namespace bombs_away.ui.elements.bomb
 
         public virtual void explode()
         {
-            Console.Write("Explode");
+            Console.WriteLine("Explode");
             state = BombState.EXPLODE;
             //expand rectangle
         }

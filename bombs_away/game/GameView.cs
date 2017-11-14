@@ -1,49 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenTK.Graphics.OpenGL;
-using bombs_away.ui.elements.player;
-using bombs_away.ui.elements;
+﻿using OpenTK.Graphics.OpenGL;
 using bombs_away.ui.elements.bomb;
 using bombs_away.ui.elements.enemy;
 using bombs_away.ui.elements.obstacle;
 using OpenTK.Graphics;
+using bombs_away.game;
+using Zenseless.Geometry;
 
 namespace bombs_away.controller
 {
     class GameView
     {
+        private Level level;
 
-        internal void DrawScreen(Player player, List<Enemy> enemies, List<Obstacle> obstacles, List<Bomb> bombs)
+        public GameView(Level level)
+        {
+            this.level = level;
+        }
+
+        internal void DrawScreen()
         {
             GL.Clear(ClearBufferMask.ColorBufferBit);
             //Wichtig für Kamera:
             //GL.Translate()
             //GL.Scale()
-            if (obstacles != null)
+            if (level.obstacles != null)
             {
-                foreach (Obstacle obstacle in obstacles)
+                foreach (Obstacle obstacle in level.obstacles)
                 {
-                    obstacle.Draw(Color4.White);
+                    Draw(obstacle.Component, Color4.White);
                 }
             }
-            if (enemies != null)
+            if (level.enemies != null)
             {
-                foreach (Enemy enemie in enemies)
+                foreach (Enemy enemy in level.enemies)
                 {
-                    enemie.Draw(Color4.Red);
+                    Draw(enemy.Component, Color4.Red);
                 }
             }
-            if (bombs != null)
+            if (level.bombs != null)
             {
-                foreach (Bomb bomb in bombs)
+                foreach (Bomb bomb in level.bombs)
                 {
-                    bomb.Draw(Color4.Pink);
+                    Draw(bomb.Component, Color4.Pink);
                 }
             }
-            player.Draw(Color4.Green);
+            Draw(level.player.Component, Color4.Green);
+        }
+
+        private void Draw(Box2D component, Color4 color)
+        {
+            if (component != null)
+            {
+                GL.Begin(PrimitiveType.LineLoop);
+                GL.Color4(color);
+                GL.Vertex2(component.MinX, component.MinY);
+                GL.Vertex2(component.MaxX, component.MinY);
+                GL.Vertex2(component.MaxX, component.MaxY);
+                GL.Vertex2(component.MinX, component.MaxY);
+                GL.End();
+            }
         }
     }
 }

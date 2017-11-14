@@ -9,12 +9,13 @@ using bombs_away.ui.elements.obstacle;
 using OpenTK;
 using bombs_away.ui.elements.enemy;
 using bombs_away.ui.elements.bomb;
+using bombs_away.game;
 
 namespace bombs_away
 {
-    class GameMapBuilder
+    class LevelLoader
     {
-        public GameLogic GetState()
+        public Level Load()
         {
             List<Obstacle> obstacles = new List<Obstacle>();
             obstacles.Add(new ObstacleUndestroyable(new Vector2(-1f, -1f)));
@@ -32,22 +33,15 @@ namespace bombs_away
             obstacles.Add(new ObstacleUndestroyable(new Vector2(0.8f, -0.8f)));
             obstacles.Add(new ObstacleUndestroyable(new Vector2(0, -0.4f)));
            
-
-
-
-
-
-
-
             List<Enemy> enemies = new List<Enemy>();
             Enemy enemy;
             enemy = new Enemy(new OpenTK.Vector2(0, -0.8f));
             enemies.Add(enemy);
 
             List<Bomb> bombs = new List<Bomb>();
-            bombs.Add(new BombBigRadius(new OpenTK.Vector2(0, 0)));
+            bombs.Add(new BombBigRadius(new OpenTK.Vector2(0.3f, 0)));
 
-            return new GameLogic(new Player(new Vector2(0f, 0f)), enemies, obstacles, bombs);
+            return new Level(new Player(new Vector2(0f, 0f)), enemies, obstacles, bombs);
         }
     }
 }

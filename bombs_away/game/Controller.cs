@@ -16,14 +16,16 @@ namespace bombs_away.game
 	{
 
         private GameLogic logic;
+        private Level level;
         private GameView view;
-        private GameMapBuilder builder;
+        private LevelLoader builder;
 
         public Controller()
         {
-            builder = new GameMapBuilder();
-            logic = builder.GetState();
-            view = new GameView();
+            builder = new LevelLoader();
+            level = builder.Load();
+            logic = new GameLogic(level);
+            view = new GameView(level);
             logic.onLost += (sender, args) => { };
             logic.onThrowBomb += (sender, args) => {  };
             logic.onEnemyDestroy += (sender, args) => { };
@@ -35,7 +37,7 @@ namespace bombs_away.game
 
         public void Render()
 		{
-            view.DrawScreen(logic.Player, logic.Enemies, logic.Obstacles, logic.Bombs);
+            view.DrawScreen();
 		}
 	}
 }

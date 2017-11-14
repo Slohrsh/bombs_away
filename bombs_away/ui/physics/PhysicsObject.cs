@@ -1,17 +1,10 @@
-﻿using bombs_away.ui.openGL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace bombs_away.ui.physics
 {
-    //Nicht jedes physics object is drawable, kann unsichtbare physics objekte geben
-    //Jedes objekt erbt von OpenTK 
-    //Logik und zeichnen in einer klasse --> mvc broke
-    class PhysicsObject : Drawable
+    class PhysicsObject : GameObject
     {
+        
         private float acceleration = 9.81f;
         private float jumpAcc = 1;
         private float velocity = 0;
