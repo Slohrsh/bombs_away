@@ -16,7 +16,7 @@ namespace bombs_away
         public GameLogic GetState()
         {
             List<Obstacle> obstacles = new List<Obstacle>();
-            obstacles.Add(new ObstacleUndestroyable(new Vector2(0,-1)));
+            obstacles.Add(new ObstacleDestroyable(new Vector2(0,-0.5f)));
 
             List<Enemy> enemies = new List<Enemy>();
             Enemy enemy;

@@ -42,10 +42,6 @@ namespace bombs_away.controller
         {
             ExecuteAllElements(updatePeriod);
             HandleCollisions();
-            /*foreach(Obstacle obstacle in obstacles)
-            {
-                obstacle.Execute(Movement.IDLE, absoluteTime, updatePeriod);
-            }*/
         }
 
         private void ExecuteAllElements(float updatePeriod)
