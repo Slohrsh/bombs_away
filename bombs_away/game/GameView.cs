@@ -9,6 +9,7 @@ using bombs_away.ui.elements;
 using bombs_away.ui.elements.bomb;
 using bombs_away.ui.elements.enemy;
 using bombs_away.ui.elements.obstacle;
+using OpenTK.Graphics;
 
 namespace bombs_away.controller
 {
@@ -25,24 +26,24 @@ namespace bombs_away.controller
             {
                 foreach (Obstacle obstacle in obstacles)
                 {
-                    obstacle.Draw();
+                    obstacle.Draw(Color4.White);
                 }
             }
             if (enemies != null)
             {
                 foreach (Enemy enemie in enemies)
                 {
-                    enemie.Draw();
+                    enemie.Draw(Color4.Red);
                 }
             }
             if (bombs != null)
             {
                 foreach (Bomb bomb in bombs)
                 {
-                    bomb.Draw();
+                    bomb.Draw(Color4.Pink);
                 }
             }
-            player.Draw();
+            player.Draw(Color4.Green);
         }
     }
 }

@@ -7,21 +7,26 @@ using OpenTK.Graphics.OpenGL;
 using Zenseless.Geometry;
 using bombs_away.ui.enums;
 using bombs_away.ui.exceptions;
+using OpenTK.Graphics;
+using bombs_away.ui.elements.obstacle;
 
 namespace bombs_away.ui.openGL
 {
-    class Drawable
+    class Drawable : IDrawable
     {
 
         protected Box2D component;
 
         public Box2D Component { get { return component; } }
 
-        public void Draw()
+        public Color4 Color => throw new NotImplementedException();
+
+        public void Draw(Color4 color)
         {
             if (component != null)
             {
                 GL.Begin(PrimitiveType.LineLoop);
+                GL.Color4(color);
                 GL.Vertex2(component.MinX, component.MinY);
                 GL.Vertex2(component.MaxX, component.MinY);
                 GL.Vertex2(component.MaxX, component.MaxY);

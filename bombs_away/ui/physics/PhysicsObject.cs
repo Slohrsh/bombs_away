@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace bombs_away.ui.physics
 {
+    //Nicht jedes physics object is drawable, kann unsichtbare physics objekte geben
+    //Jedes objekt erbt von OpenTK 
+    //Logik und zeichnen in einer klasse --> mvc broke
     class PhysicsObject : Drawable
     {
         private float acceleration = 9.81f;
