@@ -9,9 +9,10 @@ namespace bombs_away.ui.physics
 {
     class PhysicsObject : Drawable
     {
-        private float acceleration = 98.1f;
-        private float jumpAcc = 50;
+        private float acceleration = 9.81f;
+        private float jumpAcc = 1;
         private float velocity = 0;
+        private const float JUMP_ACC = -20;
 
         private bool grounded = false;
 
@@ -30,7 +31,7 @@ namespace bombs_away.ui.physics
 
         public virtual void Execute(float updatePeriod)
         {
-            velocity = acceleration * updatePeriod;
+            velocity += acceleration * jumpAcc * updatePeriod;
 
             ShiftDown(velocity * updatePeriod);
         }
@@ -39,9 +40,10 @@ namespace bombs_away.ui.physics
         {
             if (!grounded)
             {
+                jumpAcc = 1;
                 return;
             }
-            ShiftUp(jumpAcc * updatePeriod);
+            jumpAcc = JUMP_ACC;
             Grounded = false;
         }
 
