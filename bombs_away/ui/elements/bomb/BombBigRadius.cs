@@ -11,9 +11,9 @@ namespace bombs_away.ui.elements.bomb
 {
     class BombBigRadius : Bomb
     {
-        public BombBigRadius(Vector2 position)
+        public BombBigRadius(Vector2 position, float squareSize)
         {
-            this.component = Box2DFactory.CreateSquare(position, 0.2f);
+            this.component = Box2DFactory.CreateSquare(position, squareSize);
         }
     }
 }

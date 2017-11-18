@@ -11,9 +11,9 @@ namespace bombs_away.ui.elements.enemy
 {
     class Enemy : MovableStaticMoves
     {
-        public Enemy(Vector2 position)
+        public Enemy(Vector2 position, float squareSize)
         {
-            this.component = Box2DFactory.CreateSquare(position, 0.2f);
+            this.component = Box2DFactory.CreateSquare(position, squareSize);
         }
     }
 }

@@ -1,22 +1,25 @@
-﻿using bombs_away.ui.enums;
-using OpenTK.Input;
+﻿using OpenTK.Input;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace bombs_away.ui.interactive
 {
     class MovableUserInput : Moveable
     {
+
+        public event EventHandler onPlantBomb;
+
+        private float timeDelta;
+
         private void HandleUserInput(float updatePeriod)
         {
-            if (Keyboard.GetState()[Key.Left])
+
+            timeDelta += updatePeriod;
+
+            if (Keyboard.GetState()[Key.Left] || Keyboard.GetState()[Key.A])
             {
                 ShiftLeft(updatePeriod);
             }
-            if (Keyboard.GetState()[Key.Right])
+            if (Keyboard.GetState()[Key.Right] || Keyboard.GetState()[Key.D])
             {
                 ShiftRight(updatePeriod);
             }
@@ -24,6 +27,20 @@ namespace bombs_away.ui.interactive
             {
                 Jump(updatePeriod);
             }
+            if(Keyboard.GetState()[Key.E])
+            {
+                if(timeDelta > 3f)
+                {
+                    plantBomb();
+                    timeDelta = 0;
+                }
+            }
+        }
+
+
+        public void plantBomb()
+        {
+            onPlantBomb?.Invoke(this, null);
         }
 
         public override void Execute(float updatePeriod)

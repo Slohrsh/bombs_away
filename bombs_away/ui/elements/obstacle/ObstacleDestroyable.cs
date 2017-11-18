@@ -11,9 +11,9 @@ namespace bombs_away.ui.elements.obstacle
 {
     class ObstacleDestroyable : Obstacle
     {
-        public ObstacleDestroyable(Vector2 position)
+        public ObstacleDestroyable(Vector2 position, float squareSize)
         {
-            this.component = Box2DFactory.CreateSquare(position, 0.2f);
+            this.component = Box2DFactory.CreateSquare(position, squareSize);
         }
     }
 }

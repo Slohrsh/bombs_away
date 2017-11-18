@@ -81,7 +81,6 @@
     <Compile Include="game\GameView.cs" />
     <Compile Include="game\Level.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="ui\elements\obstacle\IDrawable.cs" />
     <Compile Include="ui\enums\Directions.cs" />
     <Compile Include="ui\exceptions\ComponentNotSetException.cs" />
     <Compile Include="ui\GameObject.cs" />
@@ -110,8 +109,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="eventhandler\" />
     <Folder Include="resources\game\map\" />
+    <Folder Include="util\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

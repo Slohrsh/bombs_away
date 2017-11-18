@@ -1,18 +1,13 @@
-﻿using bombs_away.game;
-using bombs_away.ui.elements;
-using bombs_away.ui.elements.bomb;
+﻿using bombs_away.ui.elements.bomb;
 using bombs_away.ui.elements.enemy;
 using bombs_away.ui.elements.obstacle;
 using bombs_away.ui.elements.player;
 using bombs_away.ui.enums;
 using bombs_away.ui.zenseless;
-using OpenTK.Input;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Zenseless.Geometry;
+using OpenTK;
+using bombs_away.ui.interactive;
 
 namespace bombs_away.game
 {
@@ -27,6 +22,14 @@ namespace bombs_away.game
         public GameLogic(Level level)
         {
             this.level = level;
+            level.player.onPlantBomb += (sender, args) => plantBomb(sender, args);
+        }
+
+        private void plantBomb(object sender, EventArgs args)
+        {
+            MovableUserInput user = (MovableUserInput)sender;
+            level.bombs.Add(new BombBigRadius(new Vector2(user.Component.MinX, user.Component.MinY),
+                user.Component.SizeX));
         }
 
         public void Update(float updatePeriod)
@@ -67,8 +70,6 @@ namespace bombs_away.game
                     }
                 }
 
-                
-
                 foreach (Enemy enemy in level.enemies.ToList())
                 {
                     if (enemy.Intersects(level.player))
@@ -80,6 +81,7 @@ namespace bombs_away.game
                     if (enemy.Intersects(obstacle))
                     {
                         Directions pushDirection = Box2DextensionsCustom.UndoOverlap(enemy.Component, obstacle.Component);
+                        enemy.Grounded = true;
                         if (pushDirection == Directions.LEFT || pushDirection == Directions.RIGHT)
                         {
                             enemy.IsMovingRight = !enemy.IsMovingRight;

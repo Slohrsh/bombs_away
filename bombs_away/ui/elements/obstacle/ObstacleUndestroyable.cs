@@ -11,9 +11,9 @@ namespace bombs_away.ui.elements.obstacle
 {
     class ObstacleUndestroyable : Obstacle
     {
-        public ObstacleUndestroyable(Vector2 position)
+        public ObstacleUndestroyable(Vector2 position, float squareSize)
         {
-            this.component = Box2DFactory.CreateSquare(position, 0.2f);
+            this.component = Box2DFactory.CreateSquare(position, squareSize);
         }
 
         public override void Execute(float updatePeriod)

@@ -23,6 +23,7 @@ namespace bombs_away.ui.interactive
             {
                 ShiftLeft(updatePeriod);
             }
+            base.Execute(updatePeriod);
         }
     }
 }
