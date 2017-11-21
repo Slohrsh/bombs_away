@@ -11,29 +11,26 @@ namespace bombs_away.ui.elements.bomb
 {
     abstract class Bomb : PhysicsObject
     {
-        float timeDeltaToExplode = 3;
-        
         private BombState state = BombState.IDLE;
         public BombState State { get { return state; } }
+
+        protected float timeDeltaToExplode;
 
         public override void Execute(float updatePeriod)
         {
             timeDeltaToExplode -= updatePeriod;
             if (timeDeltaToExplode < 0)
             {
-                Console.WriteLine(timeDeltaToExplode);
-                explode(updatePeriod);
+                Explode(updatePeriod);
             }
+
             base.Execute(updatePeriod);
         }
 
-        public virtual void explode(float updatePeriod)
+        public virtual void Explode(float updatePeriod)
         {
             Console.WriteLine("Explode");
-            component.SizeX += component.SizeX * 7.5f * updatePeriod;
-            component.MinX -= updatePeriod * 2;
             state = BombState.EXPLODE;
-            //expand rectangle
         }
     }
 }

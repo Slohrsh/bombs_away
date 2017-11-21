@@ -7,22 +7,16 @@ using System.Threading.Tasks;
 
 namespace bombs_away.ui.interactive
 {
-    class Moveable : PhysicsObject
+    class Moveable : GameObject
     {
-        protected void ShiftLeft(float value)
+        protected void MoveX(float value)
         {
-            if (component.MinX > -1)
-            {
-                component.MinX -= value;
-            }
+            component.MinX += value;
         }
 
-        protected void ShiftRight(float value)
+        protected void MoveY(float value)
         {
-            if (component.MaxX < 1)
-            {
-                component.MinX += value;
-            }
+            component.MinY += value;
         }
     }
 }

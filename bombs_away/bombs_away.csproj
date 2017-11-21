@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="game\GameLogic.cs" />
     <Compile Include="game\GameView.cs" />
+    <Compile Include="game\InputHandler.cs" />
     <Compile Include="game\Level.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="ui\elements\portal\Portal.cs" />
@@ -97,7 +98,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ui\enums\BombState.cs" />
     <Compile Include="ui\enums\Movement.cs" />
-    <Compile Include="ui\interactive\MovableUserInput.cs" />
     <Compile Include="ui\interactive\MovableStaticMoves.cs" />
     <Compile Include="ui\interactive\Moveable.cs" />
     <Compile Include="ui\physics\PhysicsObject.cs" />

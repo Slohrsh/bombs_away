@@ -1,4 +1,5 @@
 ﻿using bombs_away.ui.enums;
+using bombs_away.ui.physics;
 using OpenTK.Input;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace bombs_away.ui.interactive
 {
-    class MovableStaticMoves : Moveable
+    class MovableStaticMoves : PhysicsObject
     {
         private bool isMovingRight = true;
         public bool IsMovingRight { get { return isMovingRight; } set { isMovingRight = value; } }
@@ -17,11 +18,11 @@ namespace bombs_away.ui.interactive
         {
             if (isMovingRight)
             {
-                ShiftRight(updatePeriod);
+                MoveX(updatePeriod);
             }
             else
             {
-                ShiftLeft(updatePeriod);
+                MoveX(-1*updatePeriod);
             }
             base.Execute(updatePeriod);
         }

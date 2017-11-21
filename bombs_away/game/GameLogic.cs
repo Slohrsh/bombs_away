@@ -28,9 +28,9 @@ namespace bombs_away.game
 
         private void plantBomb(object sender, EventArgs args)
         {
-            MovableUserInput user = (MovableUserInput)sender;
-            level.bombs.Add(new BombBigRadius(new Vector2(user.Component.MinX, user.Component.MinY),
-                user.Component.SizeX));
+            Player player = (Player)sender;
+            level.bombs.Add(new BombBigRadius(new Vector2(player.Component.MinX, player.Component.MinY),
+                player.Component.SizeX));
         }
 
         public void Update(float updatePeriod)
@@ -97,6 +97,7 @@ namespace bombs_away.game
                     if (enemy.Intersects(obstacle))
                     {
                         Directions pushDirection = Box2DextensionsCustom.UndoOverlap(enemy.Component, obstacle.Component);
+                        Console.WriteLine(pushDirection);
                         enemy.Grounded = true;
                         if (pushDirection == Directions.LEFT || pushDirection == Directions.RIGHT)
                         {
