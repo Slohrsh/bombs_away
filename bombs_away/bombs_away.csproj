@@ -81,6 +81,7 @@
     <Compile Include="game\GameView.cs" />
     <Compile Include="game\Level.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="ui\elements\portal\Portal.cs" />
     <Compile Include="ui\enums\Directions.cs" />
     <Compile Include="ui\exceptions\ComponentNotSetException.cs" />
     <Compile Include="ui\GameObject.cs" />

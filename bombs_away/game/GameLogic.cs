@@ -16,6 +16,7 @@ namespace bombs_away.game
         public event EventHandler onLost;
         public event EventHandler onThrowBomb;
         public event EventHandler onEnemyDestroy;
+        private bool isGameOver = false;
 
         private Level level;
 
@@ -34,8 +35,15 @@ namespace bombs_away.game
 
         public void Update(float updatePeriod)
         {
-            ExecuteAllElements(updatePeriod);
-            HandleCollisions();
+            if (!isGameOver)
+            {
+                ExecuteAllElements(updatePeriod);
+                HandleCollisions(updatePeriod);
+                if (!level.enemies.Any())
+                {
+                    ShowPortal();
+                }
+            }
         }
 
         private void ExecuteAllElements(float updatePeriod)
@@ -54,11 +62,19 @@ namespace bombs_away.game
                 bomb.Execute(updatePeriod);
             }
         }
-
-        private void HandleCollisions()
+        private float timeDelta;
+        private void HandleCollisions(float updatePeriod)
         {
             level.player.Grounded = false;
 
+            if(level.portal.IsVisible)
+            {
+                if(level.player.Intersects(level.portal))
+                {
+                    Win();
+                }
+            }
+           
             foreach (Obstacle obstacle in level.obstacles)
             {
                 if (level.player.Intersects(obstacle))
@@ -75,7 +91,7 @@ namespace bombs_away.game
                     if (enemy.Intersects(level.player))
                     {
                         Console.WriteLine("Lost");
-                        onLost?.Invoke(this, null);
+                        Lost();
                     }
 
                     if (enemy.Intersects(obstacle))
@@ -112,15 +128,35 @@ namespace bombs_away.game
 
                     if (bomb.State == BombState.EXPLODE)
                     {
+                        timeDelta += updatePeriod;
                         if (bomb.Intersects(level.player))
                         {
                             Console.WriteLine("Oh snap! I committed suicide!");
-                            onLost?.Invoke(this, null);
+                            Lost();
                         }
-                        level.bombs.Remove(bomb);
+                        if(timeDelta > 3)
+                        {
+                            level.bombs.Remove(bomb);
+                            timeDelta = 0;
+                        }
                     }
                 }
             }
+        }
+
+        private void ShowPortal()
+        {
+            level.portal.setVisible();
+        }
+
+        private void Lost()
+        {
+            isGameOver = true;
+            onLost?.Invoke(this, null);
+        }
+        private void Win()
+        {
+            isGameOver = true;
         }
     }
 }

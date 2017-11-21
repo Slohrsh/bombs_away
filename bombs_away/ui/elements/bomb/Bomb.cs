@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zenseless.Geometry;
 
 namespace bombs_away.ui.elements.bomb
 {
@@ -20,14 +21,17 @@ namespace bombs_away.ui.elements.bomb
             timeDeltaToExplode -= updatePeriod;
             if (timeDeltaToExplode < 0)
             {
-                explode();
+                Console.WriteLine(timeDeltaToExplode);
+                explode(updatePeriod);
             }
             base.Execute(updatePeriod);
         }
 
-        public virtual void explode()
+        public virtual void explode(float updatePeriod)
         {
             Console.WriteLine("Explode");
+            component.SizeX += component.SizeX * 7.5f * updatePeriod;
+            component.MinX -= updatePeriod * 2;
             state = BombState.EXPLODE;
             //expand rectangle
         }

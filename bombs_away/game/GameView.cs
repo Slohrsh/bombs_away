@@ -27,37 +27,41 @@ namespace bombs_away.controller
             {
                 foreach (Obstacle obstacle in level.obstacles)
                 {
-                    Draw(obstacle.Component, Color4.White);
+                    Draw(obstacle.Component, Color4.White, obstacle.IsVisible);
                 }
             }
             if (level.enemies != null)
             {
                 foreach (Enemy enemy in level.enemies)
                 {
-                    Draw(enemy.Component, Color4.Red);
+                    Draw(enemy.Component, Color4.Red, enemy.IsVisible);
                 }
             }
             if (level.bombs != null)
             {
                 foreach (Bomb bomb in level.bombs)
                 {
-                    Draw(bomb.Component, Color4.Pink);
+                    Draw(bomb.Component, Color4.Pink, bomb.IsVisible);
                 }
             }
-            Draw(level.player.Component, Color4.Green);
+            Draw(level.player.Component, Color4.Green, level.player.IsVisible);
+            Draw(level.portal.Component, Color4.Blue, level.portal.IsVisible);
         }
 
-        private void Draw(Box2D component, Color4 color)
+        private void Draw(Box2D component, Color4 color, bool isVisible)
         {
-            if (component != null)
+            if (isVisible)
             {
-                GL.Begin(PrimitiveType.LineLoop);
-                GL.Color4(color);
-                GL.Vertex2(component.MinX, component.MinY);
-                GL.Vertex2(component.MaxX, component.MinY);
-                GL.Vertex2(component.MaxX, component.MaxY);
-                GL.Vertex2(component.MinX, component.MaxY);
-                GL.End();
+                if (component != null)
+                {
+                    GL.Begin(PrimitiveType.LineLoop);
+                    GL.Color4(color);
+                    GL.Vertex2(component.MinX, component.MinY);
+                    GL.Vertex2(component.MaxX, component.MinY);
+                    GL.Vertex2(component.MaxX, component.MaxY);
+                    GL.Vertex2(component.MinX, component.MaxY);
+                    GL.End();
+                }
             }
         }
     }

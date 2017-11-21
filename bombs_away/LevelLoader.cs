@@ -10,6 +10,7 @@ using OpenTK;
 using bombs_away.ui.elements.enemy;
 using bombs_away.ui.elements.bomb;
 using bombs_away.game;
+using bombs_away.ui.elements.portal;
 
 namespace bombs_away
 {
@@ -43,9 +44,9 @@ namespace bombs_away
             enemies.Add(enemy);
 
             List<Bomb> bombs = new List<Bomb>();
-            bombs.Add(new BombBigRadius(new Vector2(0.3f, 0), squareSize));
+            //bombs.Add(new BombBigRadius(new Vector2(0.3f, 0), squareSize)); 
 
-            return new Level(new Player(new Vector2(0f, 0f), squareSize), enemies, obstacles, bombs);
+            return new Level(new Player(new Vector2(0f, 0f), squareSize), enemies, obstacles, bombs, new Portal(new Vector2(-0.4f, -0.6f), squareSize));
         }
 
         private float CalculateSquareSize(float levelSize)

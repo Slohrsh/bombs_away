@@ -2,6 +2,7 @@
 using bombs_away.ui.elements.enemy;
 using bombs_away.ui.elements.obstacle;
 using bombs_away.ui.elements.player;
+using bombs_away.ui.elements.portal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +17,15 @@ namespace bombs_away.game
         public List<Enemy> enemies { get; set; }
         public List<Obstacle> obstacles { get; set; }
         public List<Bomb> bombs { get; set; }
+        public Portal portal { get; set; }
 
-        public Level(Player player, List<Enemy> enemies, List<Obstacle> obstacles, List<Bomb> bombs)
+        public Level(Player player, List<Enemy> enemies, List<Obstacle> obstacles, List<Bomb> bombs, Portal portal)
         {
             this.player = player;
             this.enemies = enemies != null ? enemies : new List<Enemy>();
             this.obstacles = obstacles != null ? obstacles : new List<Obstacle>();
-            this.bombs = bombs != null ? bombs : new List<Bomb>(); ;
+            this.bombs = bombs != null ? bombs : new List<Bomb>();
+            this.portal = portal;
         }
     }
 }

@@ -26,7 +26,7 @@ namespace bombs_away.game
             level = builder.Load();
             logic = new GameLogic(level);
             view = new GameView(level);
-            logic.onLost += (sender, args) => { };
+            logic.onLost += (sender, args) => {  };
             logic.onThrowBomb += (sender, args) => {  };
             logic.onEnemyDestroy += (sender, args) => { };
         }

@@ -10,6 +10,9 @@ namespace bombs_away.ui
     class GameObject 
     {
         protected Box2D component;
+        protected bool isVisible = true;
+
+        public bool IsVisible { get { return isVisible; } }
 
         public Box2D Component { get { return component; } }
 
