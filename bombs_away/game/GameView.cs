@@ -10,11 +10,11 @@ namespace bombs_away.controller
 {
     class GameView
     {
-        private Level level;
+        private ModelView modelView;
 
-        public GameView(Level level)
+        public GameView(ModelView modelView)
         {
-            this.level = level;
+            this.modelView = modelView;
         }
 
         internal void DrawScreen()
@@ -23,29 +23,29 @@ namespace bombs_away.controller
             //Wichtig für Kamera:
             //GL.Translate()
             //GL.Scale()
-            if (level.obstacles != null)
+            if (modelView.Obstacles != null)
             {
-                foreach (Obstacle obstacle in level.obstacles)
+                foreach (Obstacle obstacle in modelView.Obstacles)
                 {
                     Draw(obstacle.Component, Color4.White, obstacle.IsVisible);
                 }
             }
-            if (level.enemies != null)
+            if (modelView.Enemies != null)
             {
-                foreach (Enemy enemy in level.enemies)
+                foreach (Enemy enemy in modelView.Enemies)
                 {
                     Draw(enemy.Component, Color4.Red, enemy.IsVisible);
                 }
             }
-            if (level.bombs != null)
+            if (modelView.Bombs != null)
             {
-                foreach (Bomb bomb in level.bombs)
+                foreach (Bomb bomb in modelView.Bombs)
                 {
                     Draw(bomb.Component, Color4.Pink, bomb.IsVisible);
                 }
             }
-            Draw(level.player.Component, Color4.Green, level.player.IsVisible);
-            Draw(level.portal.Component, Color4.Blue, level.portal.IsVisible);
+            Draw(modelView.Player.Component, Color4.Green, modelView.Player.IsVisible);
+            Draw(modelView.Portal.Component, Color4.Blue, modelView.Portal.IsVisible);
         }
 
         private void Draw(Box2D component, Color4 color, bool isVisible)

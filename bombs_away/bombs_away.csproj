@@ -81,6 +81,7 @@
     <Compile Include="game\GameView.cs" />
     <Compile Include="game\InputHandler.cs" />
     <Compile Include="game\Level.cs" />
+    <Compile Include="game\ModelView.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="ui\elements\portal\Portal.cs" />
     <Compile Include="ui\enums\Directions.cs" />

@@ -7,7 +7,7 @@ using Zenseless.Geometry;
 
 namespace bombs_away.ui
 {
-    class GameObject 
+    public class GameObject 
     {
         protected Box2D component;
         protected bool isVisible = true;

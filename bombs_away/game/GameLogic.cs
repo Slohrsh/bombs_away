@@ -8,6 +8,8 @@ using System;
 using System.Linq;
 using OpenTK;
 using bombs_away.ui.interactive;
+using bombs_away.ui;
+using System.Collections.Generic;
 
 namespace bombs_away.game
 {
@@ -17,6 +19,10 @@ namespace bombs_away.game
         public event EventHandler onThrowBomb;
         public event EventHandler onEnemyDestroy;
         private bool isGameOver = false;
+        private ModelView modelView;
+
+        public ModelView ModelView { get { return modelView; } }
+
 
         private Level level;
 
@@ -24,6 +30,7 @@ namespace bombs_away.game
         {
             this.level = level;
             level.player.onPlantBomb += (sender, args) => plantBomb(sender, args);
+            modelView = new ModelView();
         }
 
         private void plantBomb(object sender, EventArgs args)
@@ -44,6 +51,16 @@ namespace bombs_away.game
                     ShowPortal();
                 }
             }
+            TransformModelView();
+        }
+
+        private void TransformModelView()
+        {
+            modelView.Obstacles = TransformObstacles();
+            modelView.Enemies = TransformEnemies();
+            modelView.Bombs = TransformBombs();
+            modelView.Player = level.player;
+            modelView.Portal = level.portal;
         }
 
         private void ExecuteAllElements(float updatePeriod)
@@ -158,6 +175,35 @@ namespace bombs_away.game
         private void Win()
         {
             isGameOver = true;
+        }
+        private List<GameObject> TransformEnemies()
+        {
+            List<GameObject> enemies = new List<GameObject>();
+            foreach (Enemy enemy in level.enemies)
+            {
+                enemies.Add(enemy);
+            }
+            return enemies;
+        }
+
+        private List<GameObject> TransformObstacles()
+        {
+            List<GameObject> obstacles = new List<GameObject>();
+            foreach (Obstacle obstacle in level.obstacles)
+            {
+                obstacles.Add(obstacle);
+            }
+            return obstacles;
+        }
+
+        private List<GameObject> TransformBombs()
+        {
+            List<GameObject> bombs = new List<GameObject>();
+            foreach (Bomb bomb in level.bombs)
+            {
+                bombs.Add(bomb);
+            }
+            return bombs;
         }
     }
 }
