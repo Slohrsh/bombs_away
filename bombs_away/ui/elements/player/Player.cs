@@ -4,6 +4,7 @@ using bombs_away.ui.zenseless;
 using OpenTK;
 using OpenTK.Input;
 using System;
+using Zenseless.Geometry;
 
 namespace bombs_away.ui.elements.player
 {
@@ -15,6 +16,10 @@ namespace bombs_away.ui.elements.player
         public Player(Vector2 position, float squareSize)
         {
             this.component = Box2DFactory.CreateSquare(position, squareSize);
+        }
+        public Player(Box2D component)
+        {
+            this.component = new Box2D(component);
         }
         private void HandleUserInput(float updatePeriod)
         {
@@ -50,10 +55,10 @@ namespace bombs_away.ui.elements.player
             onPlantBomb?.Invoke(this, null);
         }
 
-        public override void Execute(float updatePeriod)
+        public override Vector2 Execute(float updatePeriod)
         {
             HandleUserInput(updatePeriod);
-            base.Execute(updatePeriod);
+            return base.Execute(updatePeriod);
         }
        
     }

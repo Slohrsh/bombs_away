@@ -1,6 +1,6 @@
 ﻿using bombs_away.ui.zenseless;
 using OpenTK;
-
+using Zenseless.Geometry;
 
 namespace bombs_away.ui.elements.portal
 {
@@ -11,10 +11,9 @@ namespace bombs_away.ui.elements.portal
             isVisible = false;
             this.component = Box2DFactory.CreateSquare(position, squareSize);
         }
-
-        public void setVisible()
+        public Portal(Box2D component)
         {
-            isVisible = true;
+            this.component = new Box2D(component);
         }
     }
 }

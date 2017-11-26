@@ -1,20 +1,25 @@
-﻿using bombs_away.ui.physics;
+﻿using bombs_away.game;
+using bombs_away.ui.enums;
+using bombs_away.ui.physics;
+using bombs_away.ui.zenseless;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Zenseless.Geometry;
 
 namespace bombs_away.ui.interactive
 {
     class Moveable : GameObject
     {
-        protected void MoveX(float value)
+
+        protected virtual void MoveX(float value)
         {
             component.MinX += value;
         }
 
-        protected void MoveY(float value)
+        protected virtual void MoveY(float value)
         {
             component.MinY += value;
         }

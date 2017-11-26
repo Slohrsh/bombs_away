@@ -8,7 +8,7 @@ using Zenseless.Geometry;
 
 namespace bombs_away.ui.zenseless
 {
-    static class Box2DFactory
+    public static class Box2DFactory
     {
         public static Box2D CreateSquare(Vector2 position, float size)
         {

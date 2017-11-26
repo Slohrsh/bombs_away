@@ -6,10 +6,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Zenseless.Geometry;
 using OpenTK.Graphics;
+using bombs_away.ui.zenseless;
+using OpenTK;
 
 namespace bombs_away.ui.elements.obstacle
 {
-    abstract class Obstacle : PhysicsObject
+    class Obstacle : PhysicsObject
     {
+        public Obstacle(Vector2 position, float squareSize)
+        {
+            this.component = Box2DFactory.CreateSquare(position, squareSize);
+        }
+        public Obstacle(Box2D component)
+        {
+            this.component = new Box2D(component);
+        }
     }
 }

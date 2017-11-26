@@ -14,7 +14,7 @@ namespace bombs_away.ui.elements.bomb
         public BombBigRadius(Vector2 position, float squareSize)
         {
             this.component = Box2DFactory.CreateSquare(position, squareSize);
-            this.timeDeltaToExplode = 3;
+            this.timeDeltaToExplode = 1;
         }
 
         public override void Explode(float updatePeriod)

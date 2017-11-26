@@ -5,16 +5,18 @@ using bombs_away.ui.elements.obstacle;
 using OpenTK.Graphics;
 using bombs_away.game;
 using Zenseless.Geometry;
+using bombs_away.ui.elements.ground;
+using bombs_away.ui.zenseless;
 
 namespace bombs_away.controller
 {
     class GameView
     {
-        private ModelView modelView;
+        private ModelView modelView = ModelView.Instance;
 
-        public GameView(ModelView modelView)
+        public GameView()
         {
-            this.modelView = modelView;
+
         }
 
         internal void DrawScreen()
@@ -23,32 +25,22 @@ namespace bombs_away.controller
             //Wichtig für Kamera:
             //GL.Translate()
             //GL.Scale()
-            if (modelView.Obstacles != null)
+
+            for (int y = 0; y < (int)StaticValues.GRIDSIZE; y++)
             {
-                foreach (Obstacle obstacle in modelView.Obstacles)
+                for (int x = 0; x < (int)StaticValues.GRIDSIZE; x++)
                 {
-                    Draw(obstacle.Component, Color4.White, obstacle.IsVisible);
+                    Block block = modelView.StaticGrid[x, y];
+                    Draw(block.Component, block.IsVisible, block.Color);
                 }
             }
-            if (modelView.Enemies != null)
+            foreach(Block block in modelView.InteractiveObjects)
             {
-                foreach (Enemy enemy in modelView.Enemies)
-                {
-                    Draw(enemy.Component, Color4.Red, enemy.IsVisible);
-                }
+                Draw(block.Component, block.IsVisible, block.Color);
             }
-            if (modelView.Bombs != null)
-            {
-                foreach (Bomb bomb in modelView.Bombs)
-                {
-                    Draw(bomb.Component, Color4.Pink, bomb.IsVisible);
-                }
-            }
-            Draw(modelView.Player.Component, Color4.Green, modelView.Player.IsVisible);
-            Draw(modelView.Portal.Component, Color4.Blue, modelView.Portal.IsVisible);
         }
 
-        private void Draw(Box2D component, Color4 color, bool isVisible)
+        private void Draw(Box2D component, bool isVisible, Color4 color)
         {
             if (isVisible)
             {

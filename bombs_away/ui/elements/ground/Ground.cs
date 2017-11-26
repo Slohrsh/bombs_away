@@ -7,11 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Zenseless.Geometry;
 
-namespace bombs_away.ui.elements.obstacle
+namespace bombs_away.ui.elements.ground
 {
-    class ObstacleDestroyable : Obstacle
+    public class Ground : GameObject
     {
-        public ObstacleDestroyable(Vector2 position, float squareSize)
+        public Ground(Vector2 position, float squareSize)
         {
             this.component = Box2DFactory.CreateSquare(position, squareSize);
         }

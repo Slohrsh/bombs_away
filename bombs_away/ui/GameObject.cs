@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTK;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,12 +11,17 @@ namespace bombs_away.ui
     public class GameObject 
     {
         protected Box2D component;
-        protected bool isVisible = true;
+        public Vector2 Position { get { return new Vector2(component.MinX, component.MinY); } }
+        protected bool isVisible;
 
         public bool IsVisible { get { return isVisible; } }
 
         public Box2D Component { get { return component; } }
 
+        public void setVisible()
+        {
+            isVisible = true;
+        }
 
         public bool Intersects(GameObject rectangle)
         {
