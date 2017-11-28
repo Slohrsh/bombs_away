@@ -17,14 +17,14 @@ namespace bombs_away.ui.elements.bomb
 
         protected float timeDeltaToExplode;
 
-        public override Vector2 Execute(float updatePeriod)
+        public override void Execute(float updatePeriod)
         {
             timeDeltaToExplode -= updatePeriod;
             if (timeDeltaToExplode < 0)
             {
                 Explode(updatePeriod);
             }
-            return base.Execute(updatePeriod);
+            base.Execute(updatePeriod);
         }
 
         public virtual void Explode(float updatePeriod)

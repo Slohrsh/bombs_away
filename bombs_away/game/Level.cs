@@ -35,12 +35,12 @@ namespace bombs_away.game
         private void plantBomb(object sender, EventArgs args)
         {
             Player player = (Player)sender;
-            Bomb bomb = new BombBigRadius(new Vector2(player.Component.MinX, 
-                player.Component.MinY),
-                player.Component.SizeX);
+            Bomb bomb = new BombBigRadius(new Vector2(player.Body.MinX, 
+                player.Body.MinY),
+                player.Body.SizeX);
             bombs.Add(bomb);
-            Block block = AddComponentToGrid(bomb.Component, BlockType.BOMB);
-            RegisterComponent(bomb.Component, block);
+            Block block = AddComponentToGrid(bomb.Body, BlockType.BOMB);
+            RegisterComponent(bomb.Body, block);
         }
 
         private void RegisterComponent(Box2D origin, Block reference)
@@ -89,12 +89,12 @@ namespace bombs_away.game
                 case BlockType.PLAYER:
                     player = new Player(block.Component);
                     player.onPlantBomb += (sender, args) => plantBomb(sender, args);
-                    RegisterComponent(player.Component, block);
+                    RegisterComponent(player.Body, block);
                     break;
                 case BlockType.OBSTACLE:
                     Obstacle obstacle = new Obstacle(block.Component);
                     obstacles.Add(obstacle);
-                    RegisterComponent(obstacle.Component, block);
+                    RegisterComponent(obstacle.Body, block);
                     break;
                 case BlockType.PORTAL:
                     portal = new Portal(block.Component);
@@ -102,7 +102,7 @@ namespace bombs_away.game
                 case BlockType.ENEMY:
                     Enemy enemy = new Enemy(block.Component);
                     enemies.Add(enemy);
-                    RegisterComponent(enemy.Component, block);
+                    RegisterComponent(enemy.Body, block);
                     break;
             }
         }
@@ -125,14 +125,14 @@ namespace bombs_away.game
             if (!enemies.Any())
             {
                 portal.setVisible();
-                portal.Component.SetReferencedBlockVisible(modelView.InteractiveObjects);
+                portal.Body.SetReferencedBlockVisible(modelView.InteractiveObjects);
             }
         }
 
         private float timeDelta;
         public void HandleCollisions(float updatePeriod)
         {
-            player.Grounded = false;
+            //player.Grounded = false;
 
             if (portal.IsVisible)
             {
@@ -142,11 +142,11 @@ namespace bombs_away.game
                 }
             }
 
-            player.ResolveCollision();
+            //player.ResolveCollision();
 
             foreach (Enemy enemy in enemies.ToList())
             {
-                enemy.ResolveCollision();
+                //enemy.ResolveCollision();
 
                 if (enemy.Intersects(player))
                 {
@@ -161,7 +161,7 @@ namespace bombs_away.game
                         if (bomb.Intersects(enemy))
                         {
                             enemies.Remove(enemy);
-                            enemy.Component.RemoveReferencedObject(modelView.InteractiveObjects);
+                            enemy.Body.RemoveReferencedObject(modelView.InteractiveObjects);
                             Console.WriteLine("Wuhuu! I've killed the Enemy!");
                             onEnemyDestroy?.Invoke(this, null);
                         }
@@ -171,7 +171,7 @@ namespace bombs_away.game
 
             foreach (Bomb bomb in bombs.ToList())
             {
-                bomb.ResolveCollision();
+                //bomb.ResolveCollision();
 
                 if (bomb.State == BombState.EXPLODE)
                 {
@@ -184,7 +184,7 @@ namespace bombs_away.game
                     if (timeDelta > 1)
                     {
                         bombs.Remove(bomb);
-                        bomb.Component.RemoveReferencedObject(modelView.InteractiveObjects);
+                        bomb.Body.RemoveReferencedObject(modelView.InteractiveObjects);
                         timeDelta = 0;
                     }
                 }

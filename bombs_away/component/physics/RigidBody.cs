@@ -1,23 +1,36 @@
-﻿using bombs_away.game;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using bombs_away.ui;
-using bombs_away.ui.enums;
-using bombs_away.ui.interactive;
-using bombs_away.ui.zenseless;
-using OpenTK;
-using System;
-using Zenseless.Geometry;
 
-namespace bombs_away.ui.physics
+namespace bombs_away.component.physics
 {
-    class PhysicsObject : Moveable
+    class RigidBody : IRigidBody
     {
-        
         private float acceleration = -9.81f;
         private float jumpAcc = 1;
         private float velocity = 0;
         private const float JUMP_ACC = -20;
 
         private bool grounded = false;
+        private GameObject gameObject;
+
+        public void Initialize(GameObject gameObject)
+        {
+            this.gameObject = gameObject;
+        }
+
+        public void AddForceX(float force)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void AddForceY(float force)
+        {
+            throw new NotImplementedException();
+        }
 
         public bool Grounded
         {
@@ -32,13 +45,22 @@ namespace bombs_away.ui.physics
             }
         }
 
-        public override void Execute(float updatePeriod)
+        public void Execute(float updatePeriod)
         {
             //Console.WriteLine(velocity);
             velocity = acceleration * jumpAcc * updatePeriod;
 
             MoveY(velocity * updatePeriod);
-            base.Execute(updatePeriod);
+        }
+
+        private void MoveX(float value)
+        {
+            gameObject.Body.MinX += value;
+        }
+
+        private void MoveY(float value)
+        {
+            gameObject.Body.MinY += value;
         }
 
         protected void Jump(float updatePeriod)
