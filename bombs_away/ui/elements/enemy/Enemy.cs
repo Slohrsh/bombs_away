@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Zenseless.Geometry;
 using bombs_away.game;
 using bombs_away.ui.enums;
+using bombs_away.component.interactive;
 
 namespace bombs_away.ui.elements.enemy
 {
@@ -16,33 +17,17 @@ namespace bombs_away.ui.elements.enemy
     {
         public Enemy(Vector2 position, float squareSize)
         {
-            this.component = Box2DFactory.CreateSquare(position, squareSize);
+            this.body = Box2DFactory.CreateSquare(position, squareSize);
+            ICollidable collidable = new Collidable();
+            collidable.Initialize(this);
+            components.Add(collidable);
         }
         public Enemy(Box2D component)
         {
-            this.component = new Box2D(component);
-        }
-
-        protected override void UndoOverlap(Block block)
-        {
-            if (block.Type == BlockType.GROUND)
-            {
-                Box2D ground = block.Component;
-                if (component.Intersects(ground))
-                {
-                    Directions pushDirection =
-                        Box2DextensionsCustom.UndoOverlap(component, ground);
-                    if (pushDirection == Directions.UP)
-                    {
-                        Grounded = true;
-                    }
-                    if(pushDirection == Directions.LEFT 
-                        || pushDirection == Directions.RIGHT)
-                    {
-                        IsMovingRight = !IsMovingRight;
-                    }
-                }
-            }
+            this.body = new Box2D(component);
+            ICollidable collidable = new Collidable();
+            collidable.Initialize(this);
+            components.Add(collidable);
         }
     }
 }
