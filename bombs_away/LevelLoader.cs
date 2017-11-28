@@ -26,7 +26,7 @@ namespace bombs_away
 
             Block[,] grid = new Block[levelSize, levelSize];
             List<Block> interactiveObjects = new List<Block>();
-            StreamReader reader = new StreamReader("C:\\Users\\Slohrsh\\Source\\Repos\\bombs_away\\bombs_away\\resources\\game\\map\\Primitive.txt");
+            StreamReader reader = new StreamReader("..\\..\\resources\\game\\map\\Primitive.txt");
 		    
             for (int y = levelSize-1; y >= 0; y--)
             {
