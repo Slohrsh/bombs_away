@@ -1,6 +1,4 @@
-﻿using bombs_away.component.interactive;
-using bombs_away.component.physics;
-using bombs_away.ui.interactive;
+﻿using bombs_away.ui.interactive;
 using bombs_away.ui.physics;
 using bombs_away.ui.zenseless;
 using OpenTK;
@@ -10,30 +8,18 @@ using Zenseless.Geometry;
 
 namespace bombs_away.ui.elements.player
 {
-    class Player : GameObject
+    class Player : PhysicsObject
     {
         public event EventHandler onPlantBomb;
 
         private float timeDelta;
         public Player(Vector2 position, float squareSize)
         {
-            this.body = Box2DFactory.CreateSquare(position, squareSize);
-            ICollidable collidable = new Collidable();
-            collidable.Initialize(this);
-            components.Add(collidable);
-            IRigidBody rigidBody = new RigidBody();
-            rigidBody.Initialize(this);
-            components.Add(rigidBody);
+            this.component = Box2DFactory.CreateSquare(position, squareSize);
         }
         public Player(Box2D component)
         {
-            this.body = new Box2D(component);
-            ICollidable collidable = new Collidable();
-            collidable.Initialize(this);
-            components.Add(collidable);
-            IRigidBody rigidBody = new RigidBody();
-            rigidBody.Initialize(this);
-            components.Add(rigidBody);
+            this.component = new Box2D(component);
         }
         private void HandleUserInput(float updatePeriod)
         {
@@ -69,10 +55,10 @@ namespace bombs_away.ui.elements.player
             onPlantBomb?.Invoke(this, null);
         }
 
-        public override void Execute(float updatePeriod)
+        public override Vector2 Execute(float updatePeriod)
         {
             HandleUserInput(updatePeriod);
-            base.Execute(updatePeriod);
+            return base.Execute(updatePeriod);
         }
        
     }

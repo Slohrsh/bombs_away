@@ -16,12 +16,12 @@ namespace bombs_away.ui.interactive
 
         protected virtual void MoveX(float value)
         {
-            body.MinX += value;
+            component.MinX += value;
         }
 
         protected virtual void MoveY(float value)
         {
-            body.MinY += value;
+            component.MinY += value;
         }
     }
 }

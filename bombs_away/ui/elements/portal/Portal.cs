@@ -9,11 +9,11 @@ namespace bombs_away.ui.elements.portal
         public Portal(Vector2 position, float squareSize)
         {
             isVisible = false;
-            this.body = Box2DFactory.CreateSquare(position, squareSize);
+            this.component = Box2DFactory.CreateSquare(position, squareSize);
         }
         public Portal(Box2D component)
         {
-            this.body = new Box2D(component);
+            this.component = new Box2D(component);
         }
     }
 }

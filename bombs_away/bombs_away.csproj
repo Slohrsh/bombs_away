@@ -79,10 +79,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="component\collision\ICollidable.cs" />
-    <Compile Include="component\IComponent.cs" />
-    <Compile Include="component\physics\IRigidBody.cs" />
-    <Compile Include="component\physics\RigidBody.cs" />
     <Compile Include="game\Block.cs" />
     <Compile Include="game\GameLogic.cs" />
     <Compile Include="game\GameView.cs" />
@@ -106,7 +102,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ui\enums\BombState.cs" />
     <Compile Include="ui\enums\Movement.cs" />
-    <Compile Include="component\collision\Collidable.cs" />
+    <Compile Include="ui\interactive\Colidable.cs" />
     <Compile Include="ui\interactive\MovableStaticMoves.cs" />
     <Compile Include="ui\interactive\Moveable.cs" />
     <Compile Include="ui\physics\PhysicsObject.cs" />

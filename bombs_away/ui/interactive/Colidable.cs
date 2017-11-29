@@ -1,6 +1,4 @@
-﻿using bombs_away.component.interactive;
-using bombs_away.game;
-using bombs_away.ui;
+﻿using bombs_away.game;
 using bombs_away.ui.enums;
 using bombs_away.ui.zenseless;
 using System;
@@ -10,21 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Zenseless.Geometry;
 
-namespace bombs_away.component.interactive
+namespace bombs_away.ui.interactive
 {
-    class Collidable : ICollidable
+    class Colidable : Moveable
     {
-        GameObject gameObject;
-        public void Initialize(GameObject gameObject)
-        {
-            this.gameObject = gameObject;
-        }
-        public void Execute(float updatePeriod)
-        {
-            ResolveCollision();
-        }
-
-        public void ResolveCollision()
+        public virtual void ResolveCollision()
         {
             ModelView model = ModelView.Instance;
             UndoOverlapRelativeToComponent(-1, -1, model);
@@ -43,8 +31,8 @@ namespace bombs_away.component.interactive
 
         private void UndoOverlapRelativeToComponent(int x, int y, ModelView model)
         {
-            int positionX = TransformPositionRelative(gameObject.Body.CenterX, x);
-            int positionY = TransformPositionRelative(gameObject.Body.CenterY, y);
+            int positionX = TransformPositionRelative(component.CenterX, x);
+            int positionY = TransformPositionRelative(component.CenterY, y);
 
             if (positionX >= 0 && positionX <= (int)StaticValues.GRIDSIZE-1 &&
                 positionY >= 0 && positionY <= (int)StaticValues.GRIDSIZE-1)
@@ -60,15 +48,15 @@ namespace bombs_away.component.interactive
             return relativePosition + position;
         }
 
-        protected void UndoOverlap(Block block)
+        protected virtual void UndoOverlap(Block block)
         {
             if (block.Type == BlockType.GROUND)
             {
                 Box2D ground = block.Component;
-                if (gameObject.Body.Intersects(ground))
+                if (component.Intersects(ground))
                 {
                     Directions pushDirection = 
-                        Box2DextensionsCustom.UndoOverlap(gameObject.Body, ground);
+                        Box2DextensionsCustom.UndoOverlap(component, ground);
                 }
             }
         }

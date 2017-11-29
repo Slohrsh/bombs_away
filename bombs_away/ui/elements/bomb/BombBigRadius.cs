@@ -13,14 +13,14 @@ namespace bombs_away.ui.elements.bomb
     {
         public BombBigRadius(Vector2 position, float squareSize)
         {
-            this.body = Box2DFactory.CreateSquare(position, squareSize);
+            this.component = Box2DFactory.CreateSquare(position, squareSize);
             this.timeDeltaToExplode = 1;
         }
 
         public override void Explode(float updatePeriod)
         {
-            body.MaxX += updatePeriod * 2;
-            body.MinX -= updatePeriod;
+            component.MaxX += updatePeriod * 2;
+            component.MinX -= updatePeriod;
             base.Explode(updatePeriod);
         }
     }

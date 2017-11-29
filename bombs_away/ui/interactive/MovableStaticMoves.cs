@@ -16,7 +16,7 @@ namespace bombs_away.ui.interactive
         private float speed = 0.3f;
         public bool IsMovingRight { get { return isMovingRight; } set { isMovingRight = value; } }
 
-        public override void Execute(float updatePeriod)
+        public override Vector2 Execute(float updatePeriod)
         {
             if (isMovingRight)
             {
@@ -26,7 +26,7 @@ namespace bombs_away.ui.interactive
             {
                 MoveX(-1*updatePeriod*speed);
             }
-            base.Execute(updatePeriod);
+            return base.Execute(updatePeriod);
         }
     }
 }

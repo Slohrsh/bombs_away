@@ -1,5 +1,4 @@
-﻿using bombs_away.component;
-using OpenTK;
+﻿using OpenTK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,25 +10,17 @@ namespace bombs_away.ui
 {
     public class GameObject 
     {
-        public Vector2 Position { get { return new Vector2(body.MinX, body.MinY); } }
-        public bool IsVisible { get { return isVisible; } }
-        public Box2D Body { get { return body; } }
-
-        protected List<IComponent> components = new List<IComponent>();
-        protected Box2D body;
+        protected Box2D component;
+        public Vector2 Position { get { return new Vector2(component.MinX, component.MinY); } }
         protected bool isVisible;
+
+        public bool IsVisible { get { return isVisible; } }
+
+        public Box2D Component { get { return component; } }
 
         public void setVisible()
         {
             isVisible = true;
-        }
-
-        public virtual void Execute(float updatePeriod)
-        {
-            foreach (IComponent component in components)
-            {
-                component.Execute(updatePeriod);
-            }
         }
 
         public bool Intersects(GameObject rectangle)
@@ -38,7 +29,7 @@ namespace bombs_away.ui
             {
                 return false;
             }
-            return body.Intersects(rectangle.body);
+            return component.Intersects(rectangle.component);
         }
     }
 }
