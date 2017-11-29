@@ -13,8 +13,6 @@ namespace bombs_away.component.physics
         private const float EARTH_MASS = 10;
         private const float DEFAULT_MASS = 1;
 
-        private float acceleration = -9.81f;
-        private Vector2 velocity = new Vector2();
         private Vector2 force;
         private float mass;
 
@@ -34,7 +32,6 @@ namespace bombs_away.component.physics
 
         public void Execute(float updatePeriod)
         {
-            //velocity.Y = acceleration * updatePeriod * updatePeriod;
             Console.WriteLine(force.Y);
             if(gameObject.Body.CenterY > 0)
             {
