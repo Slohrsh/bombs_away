@@ -4,74 +4,56 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using bombs_away.ui;
+using OpenTK;
 
 namespace bombs_away.component.physics
 {
     class RigidBody : IRigidBody
     {
-        private float acceleration = -9.81f;
-        private float jumpAcc = 1;
-        private float velocity = 0;
-        private const float JUMP_ACC = -20;
+        private const float EARTH_MASS = 10;
+        private const float DEFAULT_MASS = 1;
 
-        private bool grounded = false;
+        private float acceleration = -9.81f;
+        private Vector2 velocity = new Vector2();
+        private Vector2 force;
+        private float mass;
+
         private GameObject gameObject;
 
-        public void Initialize(GameObject gameObject)
+        public void Initialize(GameObject gameObject, float mass)
         {
             this.gameObject = gameObject;
+            this.mass = mass;
         }
 
-        public void AddForceX(float force)
+        public void AddForce(Vector2 direction)
         {
-            throw new NotImplementedException();
-        }
-
-        public void AddForceY(float force)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Grounded
-        {
-            set
-            {
-                if (value)
-                {
-                    velocity = 0f;
-                    grounded = value;
-                }
-                grounded = value;
-            }
+            force.X += direction.X;
+            force.Y += direction.Y;
         }
 
         public void Execute(float updatePeriod)
         {
-            //Console.WriteLine(velocity);
-            velocity = acceleration * jumpAcc * updatePeriod;
-
-            MoveY(velocity * updatePeriod);
-        }
-
-        private void MoveX(float value)
-        {
-            gameObject.Body.MinX += value;
-        }
-
-        private void MoveY(float value)
-        {
-            gameObject.Body.MinY += value;
-        }
-
-        protected void Jump(float updatePeriod)
-        {
-            if (!grounded)
+            //velocity.Y = acceleration * updatePeriod * updatePeriod;
+            Console.WriteLine(force.Y);
+            if(gameObject.Body.CenterY > 0)
             {
-                jumpAcc = 1;
-                return;
+                float distance = gameObject.Body.CenterY * 1000;
+                force.Y -= (mass * EARTH_MASS) / (distance * distance);
+                Move(force);
             }
-            jumpAcc = JUMP_ACC;
-            Grounded = false;
+
+        }
+
+        private void Move(Vector2 direction)
+        {
+            gameObject.Body.MinX += direction.X;
+            gameObject.Body.MinY += direction.Y;
+        }
+
+        public void Initialize(GameObject gameObject)
+        {
+            Initialize(gameObject, DEFAULT_MASS);
         }
     }
 }

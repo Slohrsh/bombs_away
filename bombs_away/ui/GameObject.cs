@@ -9,7 +9,7 @@ using Zenseless.Geometry;
 
 namespace bombs_away.ui
 {
-    public class GameObject 
+    public class GameObject
     {
         public Vector2 Position { get { return new Vector2(body.MinX, body.MinY); } }
         public bool IsVisible { get { return isVisible; } }
@@ -23,6 +23,11 @@ namespace bombs_away.ui
         {
             isVisible = true;
         }
+
+        /*protected T[] GetComponent<T>()
+        {
+            return components.ToArray<T>();
+        }*/
 
         public virtual void Execute(float updatePeriod)
         {

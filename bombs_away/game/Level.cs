@@ -109,11 +109,12 @@ namespace bombs_away.game
 
         public void ExecuteAllElements(float updatePeriod)
         {
-            player.Execute(updatePeriod);
+            
             foreach (Enemy enemy in enemies)
             {
                 enemy.Execute(updatePeriod);
             }
+            player.Execute(updatePeriod);
             foreach (Obstacle obstacle in obstacles)
             {
                 obstacle.Execute(updatePeriod);

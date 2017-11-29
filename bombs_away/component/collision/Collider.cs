@@ -12,9 +12,13 @@ using Zenseless.Geometry;
 
 namespace bombs_away.component.interactive
 {
-    class Collidable : ICollidable
+    class Collider : ICollider
     {
-        GameObject gameObject;
+        public event EventHandler onCollision;
+
+        private GameObject gameObject;
+
+
         public void Initialize(GameObject gameObject)
         {
             this.gameObject = gameObject;
@@ -50,7 +54,7 @@ namespace bombs_away.component.interactive
                 positionY >= 0 && positionY <= (int)StaticValues.GRIDSIZE-1)
                 {
                 Block block = model.StaticGrid[positionX, positionY];
-                UndoOverlap(block);
+                onCollision?.Invoke(block, null);
             }
         }
 
@@ -58,19 +62,6 @@ namespace bombs_away.component.interactive
         {
             int relativePosition = (int)(componentPosition * 10);
             return relativePosition + position;
-        }
-
-        protected void UndoOverlap(Block block)
-        {
-            if (block.Type == BlockType.GROUND)
-            {
-                Box2D ground = block.Component;
-                if (gameObject.Body.Intersects(ground))
-                {
-                    Directions pushDirection = 
-                        Box2DextensionsCustom.UndoOverlap(gameObject.Body, ground);
-                }
-            }
         }
     }
 }

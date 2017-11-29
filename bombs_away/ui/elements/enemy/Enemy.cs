@@ -18,16 +18,41 @@ namespace bombs_away.ui.elements.enemy
         public Enemy(Vector2 position, float squareSize)
         {
             this.body = Box2DFactory.CreateSquare(position, squareSize);
-            ICollidable collidable = new Collidable();
-            collidable.Initialize(this);
-            components.Add(collidable);
+            RegisterComponents();
         }
         public Enemy(Box2D component)
         {
             this.body = new Box2D(component);
-            ICollidable collidable = new Collidable();
-            collidable.Initialize(this);
-            components.Add(collidable);
+            RegisterComponents();
+        }
+        private void RegisterComponents()
+        {
+            ICollider collider = new Collider();
+            collider.Initialize(this);
+            collider.onCollision += (sender, args) => UndoOverlap(sender, args);
+            components.Add(collider);
+        }
+
+        private void UndoOverlap(object sender, EventArgs args)
+        {
+            Block block = (Block)sender;
+            if (block.Type == BlockType.GROUND)
+            {
+                Box2D ground = block.Component;
+                if (body.Intersects(ground))
+                {
+                    Directions pushDirection =
+                        Box2DextensionsCustom.UndoOverlap(body, ground);
+                    if (pushDirection == Directions.UP)
+                    {
+                        Grounded = true;
+                    }
+                    if(pushDirection == Directions.LEFT || pushDirection == Directions.RIGHT)
+                    {
+                        IsMovingRight = !IsMovingRight;
+                    }
+                }
+            }
         }
     }
 }

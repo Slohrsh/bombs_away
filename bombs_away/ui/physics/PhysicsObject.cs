@@ -35,9 +35,9 @@ namespace bombs_away.ui.physics
         public override void Execute(float updatePeriod)
         {
             //Console.WriteLine(velocity);
-            velocity = acceleration * jumpAcc * updatePeriod;
+            velocity += acceleration * updatePeriod * updatePeriod;
 
-            MoveY(velocity * updatePeriod);
+            MoveY(velocity);
             base.Execute(updatePeriod);
         }
 
