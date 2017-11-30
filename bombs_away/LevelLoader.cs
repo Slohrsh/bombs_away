@@ -2,6 +2,7 @@
 using bombs_away.ui.elements.player;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using bombs_away.ui.elements.ground;
 using System.IO;
 using System.Xml;
 using Microsoft.VisualBasic.FileIO;
+using static bombs_away.TiledObjectCodes;
 
 namespace bombs_away
 {
@@ -23,6 +25,7 @@ namespace bombs_away
         private float squareSize;
         private XmlDocument doc;
         private int mapWidth;
+
         private int mapHeight;
         /*public Level Load()
         {
@@ -31,7 +34,7 @@ namespace bombs_away
 
             Block[,] grid = new Block[levelSize, levelSize];
             List<Block> interactiveObjects = new List<Block>();
-            StreamReader reader = new StreamReader("..\\..\\resources\\game\\map\\Primitive.txt");
+            StreamReader reader = new StreamReader("../../resources/game/map/Primitive.txt");
 		    
             for (int y = levelSize-1; y >= 0; y--)
             {
@@ -55,9 +58,8 @@ namespace bombs_away
 
         public Level Load()
         {
-
             doc = new XmlDocument();
-            doc.Load("..\\..\\resources\\game\\map\\BasicMap.tmx");
+            doc.Load("../../resources/game/map/BasicMap.tmx");
             setMapDimensions();
 
             squareSize = CalculateSquareSize(mapWidth);
@@ -67,11 +69,14 @@ namespace bombs_away
             Stream stream = GenerateStreamFromString(getNodeValue("/map/layer/data"));
             TextFieldParser parser = new TextFieldParser(stream);
             parser.TextFieldType = FieldType.Delimited;
-            parser.SetDelimiters(",");        
+            parser.SetDelimiters(",");
+
 
             for (int y = mapHeight - 1; y >= 0; y--)
             {
+                //Console.WriteLine(y);
                 string[] line = parser.ReadFields();
+
                 for (int x = mapWidth - 1; x >= 0; x--)
                 {
                     if (isComponentStatic(line[x]))
@@ -81,12 +86,12 @@ namespace bombs_away
                     else
                     {
                         interactiveObjects.Add(LoadComponent(x, y, line[x]));
-                        //grid[x, y] = LoadComponent(x, y, '&');
+                        grid[x, y] = LoadComponent(x, y, "0");
                     }
                 }
             }
 
-            return new Level(grid, interactiveObjects); 
+            return new Level(grid, interactiveObjects);
 
             return null;
         }
@@ -97,10 +102,9 @@ namespace bombs_away
             StreamWriter writer = new StreamWriter(stream);
             writer.Write(s);
             writer.Flush();
-            stream.Position = 0;
+            stream.Position = 1; //Curser auf 1 da die erste Zeile leer ist
             return stream;
         }
-
 
 
         private void setMapDimensions()
@@ -124,35 +128,39 @@ namespace bombs_away
 
         private bool isComponentStatic(String type)
         {
-            return type.Equals('&') || type.Equals('_');
+            return type.Equals(TiledObjectCodes.EMPTY_SPACE) || type.Equals(TiledObjectCodes.DIRT)
+                   || type.Equals(TiledObjectCodes.GROUND_WITH_GRASS);
         }
 
         private Block LoadComponent(int gridX, int gridY, String type)
         {
             float x = TransformPositionRelative(gridX);
             float y = TransformPositionRelative(gridY);
-            /*switch (type)
+            if (type == "22")
             {
-                case '&': return new Block(BlockType.EMPTY, squareSize, x, y, false);
-                case 'E': return new Block(BlockType.ENEMY, squareSize, x, y);
-                case 'p': return new Block(BlockType.PLAYER, squareSize, x, y);
-                case 'P': return new Block(BlockType.PORTAL, squareSize, x, y, false);
-                case '_': return new Block(BlockType.GROUND, squareSize, x, y);
+                Console.WriteLine(type);
             }
-            return new Block(BlockType.EMPTY, squareSize, x, y, false);*/
+            switch (type)
+            {
+                case TiledObjectCodes.EMPTY_SPACE: return new Block(BlockType.EMPTY, squareSize, x, y, false);
+                case TiledObjectCodes.ENEMY: return new Block(BlockType.ENEMY, squareSize, x, y);
+                case TiledObjectCodes.PLAYER: return new Block(BlockType.PLAYER, squareSize, x, y);
+                case TiledObjectCodes.PORTAL: return new Block(BlockType.PORTAL, squareSize, x, y, false);
+                case TiledObjectCodes.GROUND_WITH_GRASS: return new Block(BlockType.GROUND, squareSize, x, y);
+                case TiledObjectCodes.DIRT: return new Block(BlockType.GROUND, squareSize, x, y);
+            }
+            return new Block(BlockType.EMPTY, squareSize, x, y, false);
             return null;
         }
 
         private float TransformPositionRelative(int gridPosition)
         {
-            return (float)gridPosition / (float)StaticValues.GRIDSIZE;
+            return (float) gridPosition / (float) StaticValues.GRIDSIZE;
         }
 
         private float CalculateSquareSize(float levelSize)
         {
-            return 1/levelSize;
+            return 1 / levelSize;
         }
-
- 
     }
 }

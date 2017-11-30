@@ -88,6 +88,7 @@
     <Compile Include="game\ModelView.cs" />
     <Compile Include="game\StaticValues.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="TiledObjectCodes.cs" />
     <Compile Include="ui\elements\portal\Portal.cs" />
     <Compile Include="ui\enums\Directions.cs" />
     <Compile Include="ui\exceptions\ComponentNotSetException.cs" />
