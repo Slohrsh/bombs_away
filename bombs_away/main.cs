@@ -18,7 +18,7 @@ namespace bombs_away
             //window.GameWindow.WindowState = OpenTK.WindowState.Fullscreen;
             var controller = new Controller();
             window.Render += controller.Render;
-            window.Update += (t) => controller.Update(t*1f);
+            window.Update += (t) => controller.Update(t*0.1f);
             window.Run();
         }
     }
