@@ -60,7 +60,7 @@ namespace bombs_away.component.interactive
 
         private int TransformPositionRelative(float componentPosition, int position)
         {
-            int relativePosition = (int)(componentPosition * 10);
+            int relativePosition = (int)(componentPosition * (int)StaticValues.GRIDSIZE);
             return relativePosition + position;
         }
     }
