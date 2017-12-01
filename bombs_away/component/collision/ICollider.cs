@@ -1,7 +1,6 @@
-﻿
-using System;
+﻿using System;
 
-namespace bombs_away.component.interactive
+namespace bombs_away.component.collision
 {
     internal interface ICollider : IComponent
     {

@@ -1,9 +1,7 @@
-﻿using bombs_away.component.interactive;
-using bombs_away.component.physics;
+﻿using bombs_away.component.physics;
+using bombs_away.component.collision;
 using bombs_away.game;
 using bombs_away.ui.enums;
-using bombs_away.ui.interactive;
-using bombs_away.ui.physics;
 using bombs_away.ui.zenseless;
 using OpenTK;
 using OpenTK.Input;

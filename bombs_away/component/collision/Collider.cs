@@ -1,16 +1,8 @@
-﻿using bombs_away.component.interactive;
-using bombs_away.game;
+﻿using bombs_away.game;
 using bombs_away.ui;
-using bombs_away.ui.enums;
-using bombs_away.ui.zenseless;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Zenseless.Geometry;
 
-namespace bombs_away.component.interactive
+namespace bombs_away.component.collision
 {
     class Collider : ICollider
     {

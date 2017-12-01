@@ -2,14 +2,10 @@
 using bombs_away.ui.zenseless;
 using OpenTK;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zenseless.Geometry;
 using bombs_away.game;
 using bombs_away.ui.enums;
-using bombs_away.component.interactive;
+using bombs_away.component.collision;
 
 namespace bombs_away.ui.elements.enemy
 {
