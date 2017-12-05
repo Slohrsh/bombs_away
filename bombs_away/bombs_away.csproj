@@ -88,6 +88,12 @@
     <Compile Include="game\ModelView.cs" />
     <Compile Include="game\StaticValues.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="resources\game\map\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="TextureLoader.cs" />
     <Compile Include="TiledObjectCodes.cs" />
     <Compile Include="ui\elements\portal\Portal.cs" />
     <Compile Include="ui\enums\Directions.cs" />
@@ -117,9 +123,17 @@
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="resources\game\map\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="resources\game\map\Primitive.txt" />
+    <None Include="resources\game\map\BasicMap.tmx" />
+    <None Include="resources\game\map\tilesetOpenGame.png" />
+    <None Include="resources\NatureTileset.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -8,15 +8,25 @@ using Zenseless.Geometry;
 using bombs_away.ui.elements.ground;
 using bombs_away.ui.zenseless;
 
+using Zenseless.HLGL;
+using System.Drawing;
+
 namespace bombs_away.controller
 {
     class GameView
     {
         private ModelView modelView = ModelView.Instance;
+        private ITexture texture;
 
         public GameView()
         {
-
+            TextureLoader textureLoader = new TextureLoader();
+            texture = textureLoader.LoadContent("../../resources/game/map/BasicMap.tmx");
+            GL.ClearColor(Color.White);
+            //for transparency in textures we use blending
+            GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
+            GL.Enable(EnableCap.Blend); // for transparency in textures we use blending
+            GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
         }
 
         internal void DrawScreen()
@@ -46,13 +56,16 @@ namespace bombs_away.controller
             {
                 if (component != null)
                 {
-                    GL.Begin(PrimitiveType.LineLoop);
+                    texture.Activate();
+                    GL.Begin(PrimitiveType.Quads);
                     GL.Color4(color);
-                    GL.Vertex2(component.MinX, component.MinY);
-                    GL.Vertex2(component.MaxX, component.MinY);
-                    GL.Vertex2(component.MaxX, component.MaxY);
-                    GL.Vertex2(component.MinX, component.MaxY);
+                    GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(component.MinX, component.MinY);
+                    GL.TexCoord2(1.0f, 0.0f); GL.Vertex2(component.MaxX, component.MinY);
+                    GL.TexCoord2(1.0f, 1.0f); GL.Vertex2(component.MaxX, component.MaxY);
+                    GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(component.MinX, component.MaxY);
                     GL.End();
+                    texture.Deactivate();
+
                 }
             }
         }
