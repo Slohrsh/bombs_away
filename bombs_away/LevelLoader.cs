@@ -92,8 +92,6 @@ namespace bombs_away
             }
 
             return new Level(grid, interactiveObjects);
-
-            return null;
         }
 
         public static Stream GenerateStreamFromString(string s)
@@ -132,7 +130,7 @@ namespace bombs_away
                    || type.Equals(TiledObjectCodes.GROUND_WITH_GRASS);
         }
 
-        private Block LoadComponent(int gridX, int gridY, char type)
+        private Block LoadComponent(int gridX, int gridY, String type)
         {
             float x = TransformPositionRelative(gridX);
             float y = TransformPositionRelative(gridY);
@@ -150,7 +148,6 @@ namespace bombs_away
                 case TiledObjectCodes.DIRT: return new Block(BlockType.GROUND, squareSize, x, y);
             }
             return new Block(BlockType.EMPTY, squareSize, x, y, false);
-            return null;
         }
 
         private float TransformPositionRelative(int gridPosition)
