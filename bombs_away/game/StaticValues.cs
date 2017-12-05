@@ -8,6 +8,6 @@ namespace bombs_away.game
 {
     enum StaticValues
     {
-        GRIDSIZE = 10
+        GRIDSIZE = 50
     }
 }

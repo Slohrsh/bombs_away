@@ -15,6 +15,9 @@ namespace bombs_away.ui.interactive
         public virtual void ResolveCollision()
         {
             ModelView model = ModelView.Instance;
+            
+            float huhu = TransformPositionRelative(component.CenterY, 0);
+            
             UndoOverlapRelativeToComponent(-1, -1, model);
             UndoOverlapRelativeToComponent(0, -1, model);
             UndoOverlapRelativeToComponent(1, -1, model);
@@ -37,6 +40,10 @@ namespace bombs_away.ui.interactive
             if (positionX >= 0 && positionX <= (int)StaticValues.GRIDSIZE-1 &&
                 positionY >= 0 && positionY <= (int)StaticValues.GRIDSIZE-1)
                 {
+                    if (positionX == 12 && positionY == 18)
+                    {
+                        Console.WriteLine("huhu");
+                    }
                 Block block = model.StaticGrid[positionX, positionY];
                 UndoOverlap(block);
             }
@@ -44,7 +51,7 @@ namespace bombs_away.ui.interactive
 
         private int TransformPositionRelative(float componentPosition, int position)
         {
-            int relativePosition = (int)(componentPosition * 10);
+            int relativePosition = (int)(componentPosition * (int)StaticValues.GRIDSIZE);
             return relativePosition + position;
         }
 
