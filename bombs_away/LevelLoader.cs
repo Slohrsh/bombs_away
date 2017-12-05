@@ -132,7 +132,7 @@ namespace bombs_away
                    || type.Equals(TiledObjectCodes.GROUND_WITH_GRASS);
         }
 
-        private Block LoadComponent(int gridX, int gridY, String type)
+        private Block LoadComponent(int gridX, int gridY, char type)
         {
             float x = TransformPositionRelative(gridX);
             float y = TransformPositionRelative(gridY);
