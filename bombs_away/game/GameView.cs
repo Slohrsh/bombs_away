@@ -41,16 +41,16 @@ namespace bombs_away.controller
                 for (int x = 0; x < (int)StaticValues.GRIDSIZE; x++)
                 {
                     Block block = modelView.StaticGrid[x, y];
-                    Draw(block.Component, block.IsVisible, block.Color);
+                    Draw(block.Component, block.IsVisible, block.TextureCoordinates);
                 }
             }
             foreach(Block block in modelView.InteractiveObjects)
             {
-                Draw(block.Component, block.IsVisible, block.Color);
+                Draw(block.Component, block.IsVisible, block.TextureCoordinates);
             }
         }
 
-        private void Draw(Box2D component, bool isVisible, Color4 color)
+        private void Draw(Box2D component, bool isVisible, Box2D textureCoordinates)
         {
             if (isVisible)
             {
@@ -58,11 +58,10 @@ namespace bombs_away.controller
                 {
                     texture.Activate();
                     GL.Begin(PrimitiveType.Quads);
-                    GL.Color4(color);
-                    GL.TexCoord2(0.0f, 0.0f); GL.Vertex2(component.MinX, component.MinY);
-                    GL.TexCoord2(1.0f, 0.0f); GL.Vertex2(component.MaxX, component.MinY);
-                    GL.TexCoord2(1.0f, 1.0f); GL.Vertex2(component.MaxX, component.MaxY);
-                    GL.TexCoord2(0.0f, 1.0f); GL.Vertex2(component.MinX, component.MaxY);
+                    GL.TexCoord2(textureCoordinates.MinX, textureCoordinates.MinY); GL.Vertex2(component.MinX, component.MinY);
+                    GL.TexCoord2(textureCoordinates.MaxX, textureCoordinates.MinY); GL.Vertex2(component.MaxX, component.MinY);
+                    GL.TexCoord2(textureCoordinates.MaxX, textureCoordinates.MaxY); GL.Vertex2(component.MaxX, component.MaxY);
+                    GL.TexCoord2(textureCoordinates.MinX, textureCoordinates.MaxY); GL.Vertex2(component.MinX, component.MaxY);
                     GL.End();
                     texture.Deactivate();
 
