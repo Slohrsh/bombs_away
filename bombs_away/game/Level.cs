@@ -109,6 +109,7 @@ namespace bombs_away.game
 
         public void ExecuteAllElements(float updatePeriod)
         {
+            //Console.WriteLine(player.Component.CenterY);
             player.Execute(updatePeriod);
             foreach (Enemy enemy in enemies)
             {
