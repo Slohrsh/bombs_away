@@ -21,7 +21,7 @@ namespace bombs_away.controller
         public GameView()
         {
             TextureLoader textureLoader = new TextureLoader();
-            texture = textureLoader.LoadContent("../../resources/game/map/BasicMap.tmx");
+            texture = textureLoader.LoadContent();
             GL.ClearColor(Color.White);
             //for transparency in textures we use blending
             GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
@@ -33,8 +33,9 @@ namespace bombs_away.controller
         {
             GL.Clear(ClearBufferMask.ColorBufferBit);
             //Wichtig für Kamera:
-            //GL.Translate()
-            //GL.Scale()
+            //GL.Scale(2,2,1);
+            //GL.Translate(1, -1, 0);
+
 
             for (int y = 0; y < (int)StaticValues.GRIDSIZE; y++)
             {

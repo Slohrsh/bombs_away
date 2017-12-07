@@ -16,6 +16,9 @@ using bombs_away.ui.elements.ground;
 using System.IO;
 using System.Xml;
 using Microsoft.VisualBasic.FileIO;
+using TiledSharp;
+using Zenseless.Geometry;
+using Zenseless.HLGL;
 using static bombs_away.TiledObjectCodes;
 
 namespace bombs_away
@@ -24,9 +27,7 @@ namespace bombs_away
     {
         private float squareSize;
         private XmlDocument doc;
-        private int mapWidth;
-
-        private int mapHeight;
+        private SpriteSheet spriteSheet;
         /*public Level Load()
         {
             int levelSize = CalculateAmountOfBlocksInXDirection();
@@ -58,26 +59,30 @@ namespace bombs_away
 
         public Level Load()
         {
+            TmxMap map = new TmxMap("../../resources/game/map/BasicMap.tmx");
+            TextureLoader textureLoader = new TextureLoader();
+            ITexture texture = textureLoader.LoadContent();          
+            spriteSheet = new SpriteSheet(texture, 10, 6);
+
+            
             doc = new XmlDocument();
             doc.Load("../../resources/game/map/BasicMap.tmx");
-            setMapDimensions();
 
-            squareSize = CalculateSquareSize(mapWidth);
+            squareSize = CalculateSquareSize(map.Width);
 
-            Block[,] grid = new Block[mapWidth, mapHeight];
+            Block[,] grid = new Block[map.Width, map.Height];
             List<Block> interactiveObjects = new List<Block>();
             Stream stream = GenerateStreamFromString(getNodeValue("/map/layer/data"));
             TextFieldParser parser = new TextFieldParser(stream);
             parser.TextFieldType = FieldType.Delimited;
             parser.SetDelimiters(",");
 
-
-            for (int y = mapHeight - 1; y >= 0; y--)
+            for (int y = map.Height - 1; y >= 0; y--)
             {
                 //Console.WriteLine(y);
                 string[] line = parser.ReadFields();
 
-                for (int x = mapWidth - 1; x >= 0; x--)
+                for (int x = map.Width - 1; x >= 0; x--)
                 {
                     if (isComponentStatic(line[x]))
                     {
@@ -104,14 +109,6 @@ namespace bombs_away
             return stream;
         }
 
-
-        private void setMapDimensions()
-        {
-            XmlNode node = doc.DocumentElement.SelectSingleNode("/map");
-            mapWidth = getAttribute(node, "width");
-            mapHeight = getAttribute(node, "height");
-        }
-
         private int getAttribute(XmlNode node, String attributeName)
         {
             String mapWidthString = node.Attributes[attributeName]?.InnerText;
@@ -134,20 +131,32 @@ namespace bombs_away
         {
             float x = TransformPositionRelative(gridX);
             float y = TransformPositionRelative(gridY);
-            if (type == "22")
-            {
-                Console.WriteLine(type);
-            }
+     
+            uint typeUint = stringToUint(type)-1;
             switch (type)
             {
-                case TiledObjectCodes.EMPTY_SPACE: return new Block(BlockType.EMPTY, squareSize, x, y, false);
-                case TiledObjectCodes.ENEMY: return new Block(BlockType.ENEMY, squareSize, x, y);
-                case TiledObjectCodes.PLAYER: return new Block(BlockType.PLAYER, squareSize, x, y);
-                case TiledObjectCodes.PORTAL: return new Block(BlockType.PORTAL, squareSize, x, y, false);
-                case TiledObjectCodes.GROUND_WITH_GRASS: return new Block(BlockType.GROUND, squareSize, x, y);
-                case TiledObjectCodes.DIRT: return new Block(BlockType.GROUND, squareSize, x, y);
+                case TiledObjectCodes.EMPTY_SPACE: return new Block(BlockType.EMPTY, 
+                    spriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x,  y, false);
+                case TiledObjectCodes.ENEMY: return new Block(BlockType.ENEMY, 
+                    spriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
+                case TiledObjectCodes.PLAYER: return new Block(BlockType.PLAYER, 
+                    spriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
+                case TiledObjectCodes.PORTAL: return new Block(BlockType.PORTAL, 
+                    spriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y, false);
+                case TiledObjectCodes.GROUND_WITH_GRASS: return new Block(BlockType.GROUND, 
+                    spriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
+                case TiledObjectCodes.DIRT: return new Block(BlockType.GROUND, 
+                    spriteSheet.CalcSpriteTexCoords(typeUint),squareSize, x, y);
             }
-            return new Block(BlockType.EMPTY, squareSize, x, y, false);
+            return new Block(BlockType.EMPTY, null, squareSize, x, y, false);
+            return null;
+        }
+
+        private static uint stringToUint(string type)
+        {
+            int typeInt = Int32.Parse(type);
+            uint typeUint = (uint) typeInt;
+            return typeUint;
         }
 
         private float TransformPositionRelative(int gridPosition)

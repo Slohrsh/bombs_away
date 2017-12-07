@@ -17,9 +17,8 @@ namespace bombs_away
     {
         TmxMap map;
 
-        public ITexture LoadContent(String mapFilePath)
+        public ITexture LoadContent()
         {
-            TmxMap map = new TmxMap(mapFilePath);
             Bitmap bitmap = new Bitmap(resources.game.map.Resources.Tileset);
 
             var texture = new Texture2dGL()
