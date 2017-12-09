@@ -12,10 +12,10 @@ namespace bombs_away.ui.physics
     class PhysicsObject : Colidable
     {
         
-        private float acceleration = -0.981f;
+        private float acceleration = -9.81f;
         private float jumpAcc = 1;
         private float velocity = 0;
-        private const float JUMP_ACC = -20;
+        private const float JUMP_ACC = -40;
 
         private bool grounded = false;
 

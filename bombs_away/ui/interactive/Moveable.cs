@@ -16,12 +16,12 @@ namespace bombs_away.ui.interactive
 
         protected virtual void MoveX(float value)
         {
-            component.MinX += value;
+            component.MinX += value * 5 / (int) StaticValues.GRIDSIZE;
         }
 
         protected virtual void MoveY(float value)
         {
-            component.MinY += value;
+            component.MinY += value / (int)StaticValues.GRIDSIZE;
         }
     }
 }

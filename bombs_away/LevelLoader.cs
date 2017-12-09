@@ -149,7 +149,6 @@ namespace bombs_away
                     spriteSheet.CalcSpriteTexCoords(typeUint),squareSize, x, y);
             }
             return new Block(BlockType.EMPTY, null, squareSize, x, y, false);
-            return null;
         }
 
         private static uint stringToUint(string type)
