@@ -33,10 +33,7 @@ namespace bombs_away.controller
         {
             GL.Clear(ClearBufferMask.ColorBufferBit);
             //Wichtig für Kamera:
-            //GL.Scale(2,2,1);
-            //GL.Translate(1, -1, 0);
-
-
+            //GL.Scale(2, 2, 0);
             for (int y = 0; y < (int)StaticValues.GRIDSIZE; y++)
             {
                 for (int x = 0; x < (int)StaticValues.GRIDSIZE; x++)

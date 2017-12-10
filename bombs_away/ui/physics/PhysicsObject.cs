@@ -12,10 +12,10 @@ namespace bombs_away.ui.physics
     class PhysicsObject : Colidable
     {
         
-        private float acceleration = -9.81f;
+        private float acceleration = -981f;
         private float jumpAcc = 1;
         private float velocity = 0;
-        private const float JUMP_ACC = -40;
+        private const float JUMP_ACC = -20;
 
         private bool grounded = false;
 
@@ -35,9 +35,9 @@ namespace bombs_away.ui.physics
         public virtual Vector2 Execute(float updatePeriod)
         {
             //Console.WriteLine(velocity);
-            velocity += acceleration * jumpAcc * updatePeriod;
+            velocity += (acceleration * jumpAcc * updatePeriod * updatePeriod) / (int) StaticValues.GRIDSIZE;
 
-            MoveY(velocity * updatePeriod);
+            MoveY(velocity);
             return Position;
         }
 

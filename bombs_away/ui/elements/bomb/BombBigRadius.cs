@@ -1,4 +1,5 @@
-﻿using bombs_away.ui.zenseless;
+﻿using bombs_away.game;
+using bombs_away.ui.zenseless;
 using OpenTK;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,8 @@ namespace bombs_away.ui.elements.bomb
 
         public override void Explode(float updatePeriod)
         {
-            component.MaxX += updatePeriod * 2;
-            component.MinX -= updatePeriod;
+            component.MaxX += (updatePeriod * 2) / (int) StaticValues.GRIDSIZE;
+            component.MinX -= updatePeriod / (int) StaticValues.GRIDSIZE;
             base.Explode(updatePeriod);
         }
     }
