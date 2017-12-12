@@ -13,10 +13,9 @@ namespace bombs_away.game
     public class Block
     {
         private BlockType type;
-        private Box2D component;
         private Box2D textureCoordinates;
         private bool isVisible = true;
-        public Box2D Component { get { return component; } set { component = value; } }
+        public Box2D Bounds { get; set; }
 
         public BlockType Type { get { return type; } }
         public bool IsVisible { get { return isVisible; } set { isVisible = value; } }
@@ -26,13 +25,13 @@ namespace bombs_away.game
         {
             this.type = type;
             this.textureCoordinates = textureCoordinates;
-            this.component = Box2DFactory.CreateSquare(new Vector2(positionX, positionY), size);
+            this.Bounds = Box2DFactory.CreateSquare(new Vector2(positionX, positionY), size);
         }
         public Block(BlockType type, Box2D textureCoordinates, float size, float positionX, float positionY, bool isVisible)
         {
             this.type = type;
             this.textureCoordinates = textureCoordinates;
-            this.component = Box2DFactory.CreateSquare(new Vector2(positionX, positionY), size);
+            this.Bounds = Box2DFactory.CreateSquare(new Vector2(positionX, positionY), size);
             this.isVisible = isVisible;
         }
     }

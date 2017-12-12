@@ -27,7 +27,7 @@ namespace bombs_away.ui.elements.enemy
         {
             if (block.Type == BlockType.GROUND)
             {
-                Box2D ground = block.Component;
+                Box2D ground = block.Bounds;
                 if (Bounds.Intersects(ground))
                 {
                     Directions pushDirection =

@@ -45,7 +45,7 @@ namespace bombs_away.game
 
         private void RegisterComponent(Box2D origin, Block reference)
         {
-            reference.Component = origin;
+            reference.Bounds = origin;
         }
 
         private Block AddComponentToGrid(Box2D component, BlockType type)
@@ -87,20 +87,22 @@ namespace bombs_away.game
             switch (block.Type)
             {
                 case BlockType.PLAYER:
-                    player = new Player(block.Component);
+                    player = new Player(block.Bounds);
                     player.onPlantBomb += (sender, args) => plantBomb(sender, args);
                     RegisterComponent(player.Bounds, block);
+                    Camera camera = Camera.Instance;
+                    camera.FocusedElement = player.Bounds;
                     break;
                 case BlockType.OBSTACLE:
-                    Obstacle obstacle = new Obstacle(block.Component);
+                    Obstacle obstacle = new Obstacle(block.Bounds);
                     obstacles.Add(obstacle);
                     RegisterComponent(obstacle.Bounds, block);
                     break;
                 case BlockType.PORTAL:
-                    portal = new Portal(block.Component);
+                    portal = new Portal(block.Bounds);
                     break;
                 case BlockType.ENEMY:
-                    Enemy enemy = new Enemy(block.Component);
+                    Enemy enemy = new Enemy(block.Bounds);
                     enemies.Add(enemy);
                     RegisterComponent(enemy.Bounds, block);
                     break;

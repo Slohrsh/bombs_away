@@ -59,7 +59,7 @@ namespace bombs_away.ui.interactive
         {
             if (block.Type == BlockType.GROUND)
             {
-                Box2D ground = block.Component;
+                Box2D ground = block.Bounds;
                 if (Bounds.Intersects(ground))
                 {
                     Directions pushDirection = 

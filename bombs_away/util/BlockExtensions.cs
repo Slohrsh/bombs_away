@@ -14,7 +14,7 @@ namespace bombs_away.util
         {
             foreach (Block block in list.ToList())
             {
-                if (component.Equals(block.Component))
+                if (component.Equals(block.Bounds))
                 {
                     list.Remove(block);
                 }
@@ -25,7 +25,7 @@ namespace bombs_away.util
         {
             foreach (Block block in list.ToList())
             {
-                if (component.Equals(block.Component))
+                if (component.Equals(block.Bounds))
                 {
                     block.IsVisible = true;
                 }
