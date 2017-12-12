@@ -2,14 +2,19 @@
 {
     public class TiledObjectCodes
     {
-        public const string EMPTY_SPACE = "0";
-        public const string GROUND_WITH_GRASS = "44";
-        public const string DIRT = "54";
-        public const string ENEMY = "666";
-        public const string PLAYER = "22";
-        public const string PORTAL = "33";
+        public enum mapCodes
+        {
+            EMPTY_SPACE = 0,
+            GROUND_WITH_GRASS = 44,
+            DIRT = 54
+        }
 
-
-
+        //+60 da tiled bei dem zweiten tileset bei der letzten zahl vom ersten tileset weiterzählt
+        public enum characterCodes
+        {
+            ENEMY_VAMPIRE = 173+60,
+            PLAYER = 207+60,
+            PORTAL = 23+60
+        }
     }
 }

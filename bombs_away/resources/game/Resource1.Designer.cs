@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace bombs_away.resources.game.map {
+namespace bombs_away.resources.game {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace bombs_away.resources.game.map {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class Resource1 {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Resource1() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace bombs_away.resources.game.map {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("bombs_away.resources.game.map.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("bombs_away.resources.game.Resource1", typeof(Resource1).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,21 +61,21 @@ namespace bombs_away.resources.game.map {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] BasicMap {
+        internal static System.Drawing.Bitmap TilesetCharacters {
             get {
-                object obj = ResourceManager.GetObject("BasicMap", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("TilesetCharacters", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Tileset {
+        internal static System.Drawing.Bitmap TilesetMap {
             get {
-                object obj = ResourceManager.GetObject("Tileset", resourceCulture);
+                object obj = ResourceManager.GetObject("TilesetMap", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

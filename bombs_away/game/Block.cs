@@ -40,6 +40,7 @@ namespace bombs_away.game
     public enum BlockType
     {
         GROUND,
+        DIRT,
         OBSTACLE,
         PLAYER,
         PORTAL,

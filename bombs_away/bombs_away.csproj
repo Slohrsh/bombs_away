@@ -88,10 +88,10 @@
     <Compile Include="game\ModelView.cs" />
     <Compile Include="game\StaticValues.cs" />
     <Compile Include="Main.cs" />
-    <Compile Include="resources\game\map\Resources.Designer.cs">
+    <Compile Include="resources\game\Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
+      <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
     <Compile Include="TextureLoader.cs" />
     <Compile Include="TiledObjectCodes.cs" />
@@ -124,15 +124,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="resources\game\map\Primitive.txt" />
+    <None Include="resources\game\TilesetImages\TilesetMap.png" />
+    <None Include="resources\game\TilesetImages\TilesetCharacters.png" />
     <None Include="resources\game\map\BasicMap.tmx" />
-    <None Include="resources\game\map\tilesetOpenGame.png" />
-    <None Include="resources\NatureTileset.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="resources\game\map\Resources.resx">
+    <EmbeddedResource Include="resources\game\Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -17,10 +17,21 @@ namespace bombs_away
     {
         TmxMap map;
 
-        public ITexture LoadContent()
+        public IList<ITexture> LoadContent()
         {
-            Bitmap bitmap = new Bitmap(resources.game.map.Resources.Tileset);
+            IList<ITexture> textureList = new List<ITexture>();
 
+            ITexture textureCharacters = getTextureFromResource(resources.game.Resource1.TilesetCharacters);
+            ITexture textureMap = getTextureFromResource(resources.game.Resource1.TilesetMap);
+
+            textureList.Add(textureCharacters);
+            textureList.Add(textureMap);
+
+            return textureList;
+        }
+
+        private ITexture getTextureFromResource(Bitmap bitmap)
+        {
             var texture = new Texture2dGL()
             {
                 Filter = TextureFilterMode.Mipmap
