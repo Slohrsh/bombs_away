@@ -39,8 +39,19 @@ namespace bombs_away.game
             GL.LoadIdentity(); //
             GL.Translate(0,0,0.1);
             GL.Ortho(Bounds.MinX, Bounds.MaxX, Bounds.MinY, Bounds.MaxY, 0.1 , 100.0); // danach alles rendern / auch Game Objects
-            Bounds.CenterX = FocusedElement.CenterX;
-            Bounds.CenterY = FocusedElement.CenterY;
+            float borderX = FocusedElement.CenterX - Bounds.SizeX / 2;
+            Console.WriteLine(borderX);
+            if (FocusedElement.CenterX - Bounds.SizeX / 2 > 0 
+                && FocusedElement.CenterX + Bounds.SizeX / 2 < 1)
+            {
+                Bounds.CenterX = FocusedElement.CenterX;
+            }
+            if (FocusedElement.CenterY - Bounds.SizeY / 2 > 0
+                && FocusedElement.CenterY + Bounds.SizeY / 2 < 1)
+            {
+                Bounds.CenterY = FocusedElement.CenterY;
+            }
+
         }
 
         public void endDraw()
