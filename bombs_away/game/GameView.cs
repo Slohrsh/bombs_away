@@ -10,6 +10,8 @@ using bombs_away.ui.zenseless;
 
 using Zenseless.HLGL;
 using System.Drawing;
+using System;
+using OpenTK;
 
 namespace bombs_away.controller
 {
@@ -28,12 +30,21 @@ namespace bombs_away.controller
             GL.Enable(EnableCap.Blend); // for transparency in textures we use blending
             GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
         }
+        private Camera camera = new Camera(new Box2D(0,0,0.5f,0.5f));
 
         internal void DrawScreen()
         {
             GL.Clear(ClearBufferMask.ColorBufferBit);
             //Wichtig für Kamera:
-            //GL.Scale(2, 2, 0);
+            GL.Viewport(0,0, 800, 800);
+
+            var target = modelView.InteractiveObjects[0].Component;
+
+            camera.setCenter(new Vector2(target.CenterX, target.CenterY));
+
+            camera.beginDraw();
+
+            //GL.Scale(2, 2, 1);
             for (int y = 0; y < (int)StaticValues.GRIDSIZE; y++)
             {
                 for (int x = 0; x < (int)StaticValues.GRIDSIZE; x++)
@@ -46,6 +57,7 @@ namespace bombs_away.controller
             {
                 Draw(block.Component, block.IsVisible, block.TextureCoordinates);
             }
+            camera.endDraw();
         }
 
         private void Draw(Box2D component, bool isVisible, Box2D textureCoordinates)

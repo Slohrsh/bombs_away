@@ -56,10 +56,10 @@ namespace bombs_away.ui.physics
             if (block.Type == BlockType.GROUND)
             {
                 Box2D ground = block.Component;
-                if (component.Intersects(ground))
+                if (Bounds.Intersects(ground))
                 {
                     Directions pushDirection =
-                        Box2DextensionsCustom.UndoOverlap(component, ground);
+                        Box2DextensionsCustom.UndoOverlap(Bounds, ground);
                     if(pushDirection == Directions.UP)
                     {
                         Grounded = true;

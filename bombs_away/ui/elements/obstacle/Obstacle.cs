@@ -15,11 +15,11 @@ namespace bombs_away.ui.elements.obstacle
     {
         public Obstacle(Vector2 position, float squareSize)
         {
-            this.component = Box2DFactory.CreateSquare(position, squareSize);
+            this.Bounds = Box2DFactory.CreateSquare(position, squareSize);
         }
         public Obstacle(Box2D component)
         {
-            this.component = new Box2D(component);
+            this.Bounds = new Box2D(component);
         }
     }
 }

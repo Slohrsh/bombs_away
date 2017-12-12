@@ -16,7 +16,7 @@ namespace bombs_away.ui.interactive
         {
             ModelView model = ModelView.Instance;
             
-            float huhu = TransformPositionRelative(component.CenterY, 0);
+            float huhu = TransformPositionRelative(Bounds.CenterY, 0);
             
             UndoOverlapRelativeToComponent(-1, -1, model);
             UndoOverlapRelativeToComponent(0, -1, model);
@@ -34,8 +34,8 @@ namespace bombs_away.ui.interactive
 
         private void UndoOverlapRelativeToComponent(int x, int y, ModelView model)
         {
-            int positionX = TransformPositionRelative(component.CenterX, x);
-            int positionY = TransformPositionRelative(component.CenterY, y);
+            int positionX = TransformPositionRelative(Bounds.CenterX, x);
+            int positionY = TransformPositionRelative(Bounds.CenterY, y);
 
             if (positionX >= 0 && positionX <= (int)StaticValues.GRIDSIZE-1 &&
                 positionY >= 0 && positionY <= (int)StaticValues.GRIDSIZE-1)
@@ -60,10 +60,10 @@ namespace bombs_away.ui.interactive
             if (block.Type == BlockType.GROUND)
             {
                 Box2D ground = block.Component;
-                if (component.Intersects(ground))
+                if (Bounds.Intersects(ground))
                 {
                     Directions pushDirection = 
-                        Box2DextensionsCustom.UndoOverlap(component, ground);
+                        Box2DextensionsCustom.UndoOverlap(Bounds, ground);
                 }
             }
         }

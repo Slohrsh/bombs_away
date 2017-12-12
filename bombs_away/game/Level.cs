@@ -35,12 +35,12 @@ namespace bombs_away.game
         private void plantBomb(object sender, EventArgs args)
         {
             Player player = (Player)sender;
-            Bomb bomb = new BombBigRadius(new Vector2(player.Component.MinX, 
-                player.Component.MinY),
-                player.Component.SizeX);
+            Bomb bomb = new BombBigRadius(new Vector2(player.Bounds.MinX, 
+                player.Bounds.MinY),
+                player.Bounds.SizeX);
             bombs.Add(bomb);
-            Block block = AddComponentToGrid(bomb.Component, BlockType.BOMB);
-            RegisterComponent(bomb.Component, block);
+            Block block = AddComponentToGrid(bomb.Bounds, BlockType.BOMB);
+            RegisterComponent(bomb.Bounds, block);
         }
 
         private void RegisterComponent(Box2D origin, Block reference)
@@ -89,12 +89,12 @@ namespace bombs_away.game
                 case BlockType.PLAYER:
                     player = new Player(block.Component);
                     player.onPlantBomb += (sender, args) => plantBomb(sender, args);
-                    RegisterComponent(player.Component, block);
+                    RegisterComponent(player.Bounds, block);
                     break;
                 case BlockType.OBSTACLE:
                     Obstacle obstacle = new Obstacle(block.Component);
                     obstacles.Add(obstacle);
-                    RegisterComponent(obstacle.Component, block);
+                    RegisterComponent(obstacle.Bounds, block);
                     break;
                 case BlockType.PORTAL:
                     portal = new Portal(block.Component);
@@ -102,7 +102,7 @@ namespace bombs_away.game
                 case BlockType.ENEMY:
                     Enemy enemy = new Enemy(block.Component);
                     enemies.Add(enemy);
-                    RegisterComponent(enemy.Component, block);
+                    RegisterComponent(enemy.Bounds, block);
                     break;
             }
         }
@@ -126,7 +126,7 @@ namespace bombs_away.game
             if (!enemies.Any())
             {
                 portal.setVisible();
-                portal.Component.SetReferencedBlockVisible(modelView.InteractiveObjects);
+                portal.Bounds.SetReferencedBlockVisible(modelView.InteractiveObjects);
             }
         }
 
@@ -162,7 +162,7 @@ namespace bombs_away.game
                         if (bomb.Intersects(enemy))
                         {
                             enemies.Remove(enemy);
-                            enemy.Component.RemoveReferencedObject(modelView.InteractiveObjects);
+                            enemy.Bounds.RemoveReferencedObject(modelView.InteractiveObjects);
                             Console.WriteLine("Wuhuu! I've killed the Enemy!");
                             onEnemyDestroy?.Invoke(this, null);
                         }
@@ -185,7 +185,7 @@ namespace bombs_away.game
                     if (timeDelta > 1)
                     {
                         bombs.Remove(bomb);
-                        bomb.Component.RemoveReferencedObject(modelView.InteractiveObjects);
+                        bomb.Bounds.RemoveReferencedObject(modelView.InteractiveObjects);
                         timeDelta = 0;
                     }
                 }

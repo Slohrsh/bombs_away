@@ -16,11 +16,11 @@ namespace bombs_away.ui.elements.enemy
     {
         public Enemy(Vector2 position, float squareSize)
         {
-            this.component = Box2DFactory.CreateSquare(position, squareSize);
+            this.Bounds = Box2DFactory.CreateSquare(position, squareSize);
         }
         public Enemy(Box2D component)
         {
-            this.component = new Box2D(component);
+            this.Bounds = new Box2D(component);
         }
 
         protected override void UndoOverlap(Block block)
@@ -28,10 +28,10 @@ namespace bombs_away.ui.elements.enemy
             if (block.Type == BlockType.GROUND)
             {
                 Box2D ground = block.Component;
-                if (component.Intersects(ground))
+                if (Bounds.Intersects(ground))
                 {
                     Directions pushDirection =
-                        Box2DextensionsCustom.UndoOverlap(component, ground);
+                        Box2DextensionsCustom.UndoOverlap(Bounds, ground);
                     if (pushDirection == Directions.UP)
                     {
                         Grounded = true;

@@ -15,11 +15,11 @@ namespace bombs_away.ui.elements.player
         private float timeDelta;
         public Player(Vector2 position, float squareSize)
         {
-            this.component = Box2DFactory.CreateSquare(position, squareSize);
+            this.Bounds = Box2DFactory.CreateSquare(position, squareSize);
         }
         public Player(Box2D component)
         {
-            this.component = new Box2D(component);
+            this.Bounds = new Box2D(component);
         }
         private void HandleUserInput(float updatePeriod)
         {

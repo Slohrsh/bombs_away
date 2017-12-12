@@ -10,13 +10,13 @@ namespace bombs_away.ui
 {
     public class GameObject 
     {
-        protected Box2D component;
-        public Vector2 Position { get { return new Vector2(component.MinX, component.MinY); } }
+       
+        public Vector2 Position { get { return new Vector2(Bounds.MinX, Bounds.MinY); } }
         protected bool isVisible;
 
         public bool IsVisible { get { return isVisible; } }
 
-        public Box2D Component { get { return component; } }
+        public Box2D Bounds { get; protected set; }
 
         public void setVisible()
         {
@@ -29,7 +29,7 @@ namespace bombs_away.ui
             {
                 return false;
             }
-            return component.Intersects(rectangle.component);
+            return Bounds.Intersects(rectangle.Bounds);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace bombs_away.ui.elements.ground
     {
         public Ground(Vector2 position, float squareSize)
         {
-            this.component = Box2DFactory.CreateSquare(position, squareSize);
+            this.Bounds = Box2DFactory.CreateSquare(position, squareSize);
         }
     }
 }
