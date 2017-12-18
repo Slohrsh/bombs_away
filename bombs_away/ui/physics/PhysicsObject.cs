@@ -15,9 +15,11 @@ namespace bombs_away.ui.physics
         private float acceleration = -981f;
         private float jumpAcc = 1;
         private float velocity = 0;
-        private const float JUMP_ACC = -20;
+        private const float JUMP_ACC = -28;
 
         private bool grounded = false;
+        
+        ModelView modelView = ModelView.Instance;
 
         public bool Grounded
         {
@@ -35,7 +37,7 @@ namespace bombs_away.ui.physics
         public virtual Vector2 Execute(float updatePeriod)
         {
             //Console.WriteLine(velocity);
-            velocity += (acceleration * jumpAcc * updatePeriod * updatePeriod) / (int) StaticValues.GRIDSIZE;
+            velocity += (acceleration * jumpAcc * updatePeriod * updatePeriod) / modelView.gridSize;
 
             MoveY(velocity);
             return Position;

@@ -1,17 +1,9 @@
 ﻿using OpenTK.Graphics.OpenGL;
-using bombs_away.ui.elements.bomb;
-using bombs_away.ui.elements.enemy;
-using bombs_away.ui.elements.obstacle;
-using OpenTK.Graphics;
 using bombs_away.game;
 using Zenseless.Geometry;
-using bombs_away.ui.elements.ground;
-using bombs_away.ui.zenseless;
 
 using Zenseless.HLGL;
 using System.Drawing;
-using System;
-using OpenTK;
 
 namespace bombs_away.controller
 {
@@ -39,9 +31,9 @@ namespace bombs_away.controller
 
             camera.beginDraw();
 
-            for (int y = 0; y < (int)StaticValues.GRIDSIZE; y++)
+            for (int y = 0; y < modelView.gridSize; y++)
             {
-                for (int x = 0; x < (int)StaticValues.GRIDSIZE; x++)
+                for (int x = 0; x < modelView.gridSize; x++)
                 {
                     Block block = modelView.StaticGrid[x, y];
                     Draw(block.Bounds, block.IsVisible, block.TextureCoordinates);

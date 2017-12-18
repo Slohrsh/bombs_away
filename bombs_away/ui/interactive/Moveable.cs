@@ -13,15 +13,15 @@ namespace bombs_away.ui.interactive
 {
     class Moveable : GameObject
     {
-
+        ModelView modelView = ModelView.Instance;
         protected virtual void MoveX(float value)
         {
-            Bounds.MinX += value * 5 / (int) StaticValues.GRIDSIZE;
+            Bounds.MinX += value * 5 / modelView.gridSize;
         }
 
         protected virtual void MoveY(float value)
         {
-            Bounds.MinY += value / (int)StaticValues.GRIDSIZE;
+            Bounds.MinY += value / modelView.gridSize;
         }
     }
 }

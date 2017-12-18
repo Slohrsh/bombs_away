@@ -12,9 +12,10 @@ namespace bombs_away.ui.interactive
 {
     class Colidable : Moveable
     {
+        ModelView model = ModelView.Instance;
+
         public virtual void ResolveCollision()
         {
-            ModelView model = ModelView.Instance;
             
             float huhu = TransformPositionRelative(Bounds.CenterY, 0);
             
@@ -37,8 +38,8 @@ namespace bombs_away.ui.interactive
             int positionX = TransformPositionRelative(Bounds.CenterX, x);
             int positionY = TransformPositionRelative(Bounds.CenterY, y);
 
-            if (positionX >= 0 && positionX <= (int)StaticValues.GRIDSIZE-1 &&
-                positionY >= 0 && positionY <= (int)StaticValues.GRIDSIZE-1)
+            if (positionX >= 0 && positionX <= model.gridSize-1 &&
+                positionY >= 0 && positionY <= model.gridSize-1)
                 {
                     if (positionX == 12 && positionY == 18)
                     {
@@ -51,7 +52,7 @@ namespace bombs_away.ui.interactive
 
         private int TransformPositionRelative(float componentPosition, int position)
         {
-            int relativePosition = (int)(componentPosition * (int)StaticValues.GRIDSIZE);
+            int relativePosition = (int)(componentPosition * model.gridSize);
             return relativePosition + position;
         }
 
