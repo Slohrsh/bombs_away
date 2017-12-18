@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL4;
 using System.Drawing;
 using Zenseless.HLGL;
@@ -10,17 +6,23 @@ using Zenseless.OpenGL;
 using TiledSharp;
 using SysDraw = System.Drawing.Imaging;
 using System.IO;
+using bombs_away.resources.game.map;
 
 namespace bombs_away
 {
     class TextureLoader
     {
-        TmxMap map;
-
-        public ITexture LoadContent()
+        public IList<ITexture> LoadContent()
         {
-            Bitmap bitmap = new Bitmap(resources.game.map.Resources.Tileset);
+            IList<ITexture> textureList = new List<ITexture>();
+            textureList.Add(getTextureFromResource(Resources.Tileset));
+            textureList.Add(getTextureFromResource(Resources.TilesetCharacters));
+            
+            return textureList;
+        }
 
+        private ITexture getTextureFromResource(Bitmap bitmap)
+        {
             var texture = new Texture2dGL()
             {
                 Filter = TextureFilterMode.Mipmap

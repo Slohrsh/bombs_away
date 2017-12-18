@@ -51,7 +51,7 @@ namespace bombs_away.game
 
         private Block AddComponentToGrid(Box2D component, BlockType type)
         {
-            Block block = new Block(type, new Box2D(0,0,0,0), component.SizeX, component.MinX, component.MinY);
+            Block block = new Block(type, "char",new Box2D(0,0,0,0), component.SizeX, component.MinX, component.MinY);
             modelView.InteractiveObjects.Add(block);
             return block;
         }

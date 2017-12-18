@@ -75,7 +75,14 @@ namespace bombs_away.resources.game.map {
         /// </summary>
         internal static System.Drawing.Bitmap Tileset {
             get {
-                object obj = ResourceManager.GetObject("Tileset", resourceCulture);
+                object obj = ResourceManager.GetObject("TilesetMap", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap TilesetCharacters {
+            get {
+                object obj = ResourceManager.GetObject("TilesetCharacters", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

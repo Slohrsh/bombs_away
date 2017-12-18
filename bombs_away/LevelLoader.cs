@@ -14,44 +14,21 @@ namespace bombs_away
     {
         private float squareSize;
         private XmlDocument doc;
-        private SpriteSheet spriteSheet;
+        private SpriteSheet spriteSheetMap;
+        private SpriteSheet spriteSheetChar;
+
         private ModelView modelView = ModelView.Instance;
         
-        /*public Level Load()
-        {
-            int levelSize = CalculateAmountOfBlocksInXDirection();
-            squareSize = CalculateSquareSize(levelSize);
-
-            Block[,] grid = new Block[levelSize, levelSize];
-            List<Block> interactiveObjects = new List<Block>();
-            StreamReader reader = new StreamReader("../../resources/game/map/Primitive.txt");
-		    
-            for (int y = levelSize-1; y >= 0; y--)
-            {
-                string line = reader.ReadLine();
-                for (int x = levelSize-1; x >= 0; x--)
-                {
-                    if (isComponentStatic(line[x]))
-                    {
-                        grid[x, y] = LoadComponent(x, y, line[x]);
-                    }
-                    else
-                    {
-                        interactiveObjects.Add(LoadComponent(x, y, line[x]));
-                        grid[x, y] = LoadComponent(x, y, '&');
-                    }
-                }
-            }
-
-            return new Level(grid, interactiveObjects);
-        }*/
+        
 
         public Level Load()
         {
             TmxMap map = new TmxMap("../../resources/game/map/BasicMap.tmx");
             TextureLoader textureLoader = new TextureLoader();
-            ITexture texture = textureLoader.LoadContent();          
-            spriteSheet = new SpriteSheet(texture, 10, 6);
+            IList<ITexture> textureList = textureLoader.LoadContent();          
+            spriteSheetMap = new SpriteSheet(textureList[0], 10, 6);
+            spriteSheetChar = new SpriteSheet(textureList[1], 8, 26);
+
 
             modelView.gridSize = map.Height;
             
@@ -125,22 +102,22 @@ namespace bombs_away
             uint typeUint = stringToUint(type)-1;
             switch (type)
             {
-                case TiledObjectCodes.EMPTY_SPACE: return new Block(BlockType.EMPTY, 
-                    spriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x,  y, false);
-                case TiledObjectCodes.ENEMY: return new Block(BlockType.ENEMY, 
-                    spriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
-                case TiledObjectCodes.PLAYER: return new Block(BlockType.PLAYER, 
-                    spriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
-                case TiledObjectCodes.PORTAL: return new Block(BlockType.PORTAL, 
-                    spriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y, false);
-                case TiledObjectCodes.GROUND_WITH_GRASS: return new Block(BlockType.GROUND, 
-                    spriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
-                case TiledObjectCodes.DIRT: return new Block(BlockType.GROUND, 
-                    spriteSheet.CalcSpriteTexCoords(typeUint),squareSize, x, y);
-                case TiledObjectCodes.OBSTACLE: return new Block(BlockType.OBSTACLE,
-                    spriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
+                case TiledObjectCodes.EMPTY_SPACE: return new Block(BlockType.EMPTY, "map",
+                    spriteSheetMap.CalcSpriteTexCoords(typeUint), squareSize, x,  y, false);
+                case TiledObjectCodes.ENEMY: return new Block(BlockType.ENEMY, "char",
+                    spriteSheetChar.CalcSpriteTexCoords(typeUint), squareSize, x, y);
+                case TiledObjectCodes.PLAYER: return new Block(BlockType.PLAYER, "char",
+                    spriteSheetChar.CalcSpriteTexCoords(typeUint), squareSize, x, y);
+                case TiledObjectCodes.PORTAL: return new Block(BlockType.PORTAL, "char",
+                    spriteSheetChar.CalcSpriteTexCoords(typeUint), squareSize, x, y, false);
+                case TiledObjectCodes.GROUND_WITH_GRASS: return new Block(BlockType.GROUND, "map",
+                    spriteSheetMap.CalcSpriteTexCoords(typeUint), squareSize, x, y);
+                case TiledObjectCodes.DIRT: return new Block(BlockType.GROUND, "map",
+                    spriteSheetMap.CalcSpriteTexCoords(typeUint),squareSize, x, y);
+                case TiledObjectCodes.OBSTACLE: return new Block(BlockType.OBSTACLE, "map",
+                    spriteSheetMap.CalcSpriteTexCoords(typeUint), squareSize, x, y);
             }
-            return new Block(BlockType.EMPTY, null, squareSize, x, y, false);
+            return new Block(BlockType.EMPTY, "map", null, squareSize, x, y, false);
         }
 
         private static uint stringToUint(string type)
