@@ -32,11 +32,16 @@ namespace bombs_away.game
             Bounds = bounds;
         }
 
+        public void onResize()
+        {
+
+        }
+
         public void beginDraw()
         {
             //nach Kamera aktivierung dieser Ablauf
             GL.PushMatrix(); //speichert die aktuelle Matrix
-            GL.LoadIdentity(); //
+            GL.LoadIdentity();
             GL.Translate(0,0,0.1);
             GL.Ortho(Bounds.MinX, Bounds.MaxX, Bounds.MinY, Bounds.MaxY, 0.1 , 100.0); // danach alles rendern / auch Game Objects
             float borderX = FocusedElement.CenterX - Bounds.SizeX / 2;
@@ -51,7 +56,6 @@ namespace bombs_away.game
             {
                 Bounds.CenterY = FocusedElement.CenterY;
             }
-
         }
 
         public void endDraw()

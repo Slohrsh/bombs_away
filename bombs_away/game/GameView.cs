@@ -35,7 +35,7 @@ namespace bombs_away.controller
         internal void DrawScreen()
         {
             GL.Clear(ClearBufferMask.ColorBufferBit);
-            GL.Viewport(0,0, 800, 800);
+            //GL.Viewport(0,0, 800, 800);
 
             camera.beginDraw();
 

@@ -30,7 +30,13 @@ namespace bombs_away.game
             level.onThrowBomb += (sender, args) => {  };
             level.onEnemyDestroy += (sender, args) => { };
         }
-		public void Update(float updatePeriod)
+
+        internal void onResize(int width, int height)
+        {
+            GL.Viewport(0, 0, width, height);
+        }
+
+        public void Update(float updatePeriod)
 		{
             logic.Update(updatePeriod);
 		}
