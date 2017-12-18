@@ -1,25 +1,12 @@
-﻿using bombs_away.controller;
-using bombs_away.ui.elements.player;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using bombs_away.ui.elements.obstacle;
-using OpenTK;
-using bombs_away.ui.elements.enemy;
-using bombs_away.ui.elements.bomb;
 using bombs_away.game;
-using bombs_away.ui.elements.portal;
-using bombs_away.ui.elements.ground;
 using System.IO;
 using System.Xml;
 using Microsoft.VisualBasic.FileIO;
 using TiledSharp;
-using Zenseless.Geometry;
 using Zenseless.HLGL;
-using static bombs_away.TiledObjectCodes;
+
 
 namespace bombs_away
 {
@@ -28,6 +15,8 @@ namespace bombs_away
         private float squareSize;
         private XmlDocument doc;
         private SpriteSheet spriteSheet;
+        private ModelView modelView = ModelView.Instance;
+        
         /*public Level Load()
         {
             int levelSize = CalculateAmountOfBlocksInXDirection();
@@ -64,6 +53,7 @@ namespace bombs_away
             ITexture texture = textureLoader.LoadContent();          
             spriteSheet = new SpriteSheet(texture, 10, 6);
 
+            modelView.gridSize = map.Height;
             
             doc = new XmlDocument();
             doc.Load("../../resources/game/map/BasicMap.tmx");
@@ -160,7 +150,7 @@ namespace bombs_away
 
         private float TransformPositionRelative(int gridPosition)
         {
-            return (float) gridPosition / (float) StaticValues.GRIDSIZE;
+            return (float) gridPosition / (float)modelView.gridSize;
         }
 
         private float CalculateSquareSize(float levelSize)

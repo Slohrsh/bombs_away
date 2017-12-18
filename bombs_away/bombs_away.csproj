@@ -87,7 +87,6 @@
     <Compile Include="game\InputHandler.cs" />
     <Compile Include="game\Level.cs" />
     <Compile Include="game\ModelView.cs" />
-    <Compile Include="game\StaticValues.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="resources\game\map\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
