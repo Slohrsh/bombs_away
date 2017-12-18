@@ -21,7 +21,7 @@ namespace bombs_away.game
             {
                 if (instance == null)
                 {
-                    instance = new Camera(new Box2D(0, 0, 0.5f, 0.5f));
+                    instance = new Camera(new Box2D(0, 0, 0.5f, 0.325f));
                 }
                 return instance;
             }
@@ -32,9 +32,10 @@ namespace bombs_away.game
             Bounds = bounds;
         }
 
-        public void onResize()
+        public void SetResolution(int width, int heigth)
         {
-
+            Bounds.SizeX = width;
+            Bounds.SizeY = heigth;
         }
 
         public void beginDraw()
@@ -45,7 +46,6 @@ namespace bombs_away.game
             GL.Translate(0,0,0.1);
             GL.Ortho(Bounds.MinX, Bounds.MaxX, Bounds.MinY, Bounds.MaxY, 0.1 , 100.0); // danach alles rendern / auch Game Objects
             float borderX = FocusedElement.CenterX - Bounds.SizeX / 2;
-            Console.WriteLine(borderX);
             if (FocusedElement.CenterX - Bounds.SizeX / 2 > 0 
                 && FocusedElement.CenterX + Bounds.SizeX / 2 < 1)
             {

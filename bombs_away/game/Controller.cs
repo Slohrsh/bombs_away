@@ -31,9 +31,10 @@ namespace bombs_away.game
             level.onEnemyDestroy += (sender, args) => { };
         }
 
-        internal void onResize(int width, int height)
+        internal void onResize(int width, int heigth)
         {
-            GL.Viewport(0, 0, width, height);
+            GL.Viewport(0, 0, width, heigth);
+            //Camera.Instance.SetResolution(width, heigth);
         }
 
         public void Update(float updatePeriod)
