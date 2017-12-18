@@ -21,7 +21,7 @@ namespace bombs_away.game
             {
                 if (instance == null)
                 {
-                    instance = new Camera(new Box2D(0, 0, 0.5f, 0.325f));
+                    instance = new Camera(new Box2D(0, 0, 0.5f, 0.5f));
                 }
                 return instance;
             }
@@ -34,8 +34,8 @@ namespace bombs_away.game
 
         public void SetResolution(int width, int heigth)
         {
-            Bounds.SizeX = width;
-            Bounds.SizeY = heigth;
+            float relativeY = (((float)heigth / (float)width) * (10f * Bounds.SizeX)) / 10;
+            Bounds.SizeY = relativeY;
         }
 
         public void beginDraw()

@@ -6,7 +6,7 @@ namespace bombs_away.game
 {
     public class ModelView
     {
-        public Block[,] StaticGrid { get; set; }
+        public Block[,] ConstantGrid { get; set; }
         public List<Block> InteractiveObjects { get; set; }
         public int gridSize { get; set; }
 

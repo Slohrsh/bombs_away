@@ -137,6 +137,8 @@ namespace bombs_away
                     spriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
                 case TiledObjectCodes.DIRT: return new Block(BlockType.GROUND, 
                     spriteSheet.CalcSpriteTexCoords(typeUint),squareSize, x, y);
+                case TiledObjectCodes.OBSTACLE: return new Block(BlockType.OBSTACLE,
+                    spriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
             }
             return new Block(BlockType.EMPTY, null, squareSize, x, y, false);
         }

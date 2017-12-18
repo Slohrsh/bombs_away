@@ -34,7 +34,7 @@ namespace bombs_away.game
         internal void onResize(int width, int heigth)
         {
             GL.Viewport(0, 0, width, heigth);
-            //Camera.Instance.SetResolution(width, heigth);
+            Camera.Instance.SetResolution(width, heigth);
         }
 
         public void Update(float updatePeriod)

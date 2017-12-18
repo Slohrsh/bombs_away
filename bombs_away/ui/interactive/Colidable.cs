@@ -45,7 +45,7 @@ namespace bombs_away.ui.interactive
                     {
                         Console.WriteLine("huhu");
                     }
-                Block block = model.StaticGrid[positionX, positionY];
+                Block block = model.ConstantGrid[positionX, positionY];
                 UndoOverlap(block);
             }
         }

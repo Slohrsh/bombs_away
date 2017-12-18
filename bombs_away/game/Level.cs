@@ -1,4 +1,5 @@
-﻿using bombs_away.ui.elements.bomb;
+﻿using bombs_away.ui;
+using bombs_away.ui.elements.bomb;
 using bombs_away.ui.elements.enemy;
 using bombs_away.ui.elements.ground;
 using bombs_away.ui.elements.obstacle;
@@ -58,7 +59,7 @@ namespace bombs_away.game
 
         public Level(Block[,] grid, List<Block> interactiveObjects)
         {
-            modelView.StaticGrid = grid;
+            modelView.ConstantGrid = grid;
             modelView.InteractiveObjects = interactiveObjects;
             GenerateImplementation(grid, interactiveObjects);
         }
@@ -147,6 +148,35 @@ namespace bombs_away.game
 
             player.ResolveCollision();
 
+            foreach(Obstacle obstacle in obstacles.ToList())
+            {
+                obstacle.ResolveCollision();
+                if (IntersectionWithBomb(obstacle))
+                {
+                    obstacle.Bounds.RemoveReferencedObject(modelView.InteractiveObjects);
+                    obstacles.Remove(obstacle);
+                }
+                if (player.Intersects(obstacle))
+                {
+                    Directions direction = Box2DextensionsCustom.UndoOverlap(player.Bounds, obstacle.Bounds);
+                    if(direction == Directions.UP)
+                    {
+                        player.Grounded = true;
+                    }
+                }
+                foreach(Enemy enemy in enemies)
+                {
+                    if(enemy.Intersects(obstacle))
+                    {
+                        Directions direction = Box2DextensionsCustom.UndoOverlap(enemy.Bounds, obstacle.Bounds);
+                        if (direction == Directions.UP)
+                        {
+                            enemy.Grounded = true;
+                        }
+                    }
+                }
+            }
+
             foreach (Enemy enemy in enemies.ToList())
             {
                 enemy.ResolveCollision();
@@ -156,20 +186,14 @@ namespace bombs_away.game
                     Console.WriteLine("Lost");
                     Lost();
                 }
-
-                foreach (Bomb bomb in bombs.ToList())
+                if(IntersectionWithBomb(enemy))
                 {
-                    if (bomb.State == BombState.EXPLODE)
-                    {
-                        if (bomb.Intersects(enemy))
-                        {
-                            enemies.Remove(enemy);
-                            enemy.Bounds.RemoveReferencedObject(modelView.InteractiveObjects);
-                            Console.WriteLine("Wuhuu! I've killed the Enemy!");
-                            onEnemyDestroy?.Invoke(this, null);
-                        }
-                    }
+                    enemies.Remove(enemy);
+                    enemy.Bounds.RemoveReferencedObject(modelView.InteractiveObjects);
+                    Console.WriteLine("Wuhuu! I've killed the Enemy!");
+                    onEnemyDestroy?.Invoke(this, null);
                 }
+                
             }
 
             foreach (Bomb bomb in bombs.ToList())
@@ -192,6 +216,21 @@ namespace bombs_away.game
                     }
                 }
             }
+        }
+
+        private bool IntersectionWithBomb(GameObject gameObject)
+        {
+            foreach (Bomb bomb in bombs.ToList())
+            {
+                if (bomb.State == BombState.EXPLODE)
+                {
+                    if (bomb.Intersects(gameObject))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         private void Lost()

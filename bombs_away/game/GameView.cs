@@ -35,7 +35,7 @@ namespace bombs_away.controller
             {
                 for (int x = 0; x < modelView.gridSize; x++)
                 {
-                    Block block = modelView.StaticGrid[x, y];
+                    Block block = modelView.ConstantGrid[x, y];
                     Draw(block.Bounds, block.IsVisible, block.TextureCoordinates);
                 }
             }

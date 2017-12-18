@@ -8,5 +8,6 @@
         public const string ENEMY = "666";
         public const string PLAYER = "22";
         public const string PORTAL = "33";
+        public const string OBSTACLE = "12";
     }
 }
