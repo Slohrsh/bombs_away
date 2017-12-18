@@ -12,9 +12,9 @@
         //+60 da tiled bei dem zweiten tileset bei der letzten zahl vom ersten tileset weiterzählt
         public enum characterCodes
         {
-            ENEMY_VAMPIRE = 173+60,
-            PLAYER = 207+60,
-            PORTAL = 23+60
+            ENEMY_VAMPIRE = 233,
+            PLAYER = 207,
+            PORTAL = 83
         }
     }
 }

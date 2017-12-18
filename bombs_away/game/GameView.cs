@@ -55,14 +55,22 @@ namespace bombs_away.controller
             {
                 if (component != null)
                 {
-                    textureList[0].Activate();
+                    /*textureList[0].Activate();
                     GL.Begin(PrimitiveType.Quads);
                     GL.TexCoord2(textureCoordinates.MinX, textureCoordinates.MinY); GL.Vertex2(component.MinX, component.MinY);
                     GL.TexCoord2(textureCoordinates.MaxX, textureCoordinates.MinY); GL.Vertex2(component.MaxX, component.MinY);
                     GL.TexCoord2(textureCoordinates.MaxX, textureCoordinates.MaxY); GL.Vertex2(component.MaxX, component.MaxY);
                     GL.TexCoord2(textureCoordinates.MinX, textureCoordinates.MaxY); GL.Vertex2(component.MinX, component.MaxY);
                     GL.End();
-                    textureList[0].Deactivate();
+                    textureList[0].Deactivate();*/
+                    textureList[1].Activate();
+                    GL.Begin(PrimitiveType.Quads);
+                    GL.TexCoord2(textureCoordinates.MinX, textureCoordinates.MinY); GL.Vertex2(component.MinX, component.MinY);
+                    GL.TexCoord2(textureCoordinates.MaxX, textureCoordinates.MinY); GL.Vertex2(component.MaxX, component.MinY);
+                    GL.TexCoord2(textureCoordinates.MaxX, textureCoordinates.MaxY); GL.Vertex2(component.MaxX, component.MaxY);
+                    GL.TexCoord2(textureCoordinates.MinX, textureCoordinates.MaxY); GL.Vertex2(component.MinX, component.MaxY);
+                    GL.End();
+                    textureList[1].Deactivate();
 
                 }
             }

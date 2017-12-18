@@ -65,25 +65,55 @@ namespace bombs_away
             IList<SpriteSheet> spriteSheetList = loadSpriteSheets(textureList);
             IList<TmxLayer> layerList = map.Layers.ToList();
 
-            Block[,] grid = new Block[map.Width, map.Height];
+            Block[,] mapGrid = new Block[map.Width, map.Height];
+            Block[,] charactersGrid = new Block[map.Width, map.Height];
+
             List<Block> interactiveObjects = new List<Block>();
 
+            TmxLayer charLayer = layerList[1];
+            
             foreach (TmxLayer layer in layerList)
             {
+                Console.WriteLine(layer.Name);
                 IList<TmxLayerTile> tileList = layer.Tiles;
-
-                foreach (TmxLayerTile tile in tileList)
+                
+                if (layer.Name.Equals("Map"))
                 {
-                    if (isComponentStatic(tile.Gid.ToString()))
+                    foreach (TmxLayerTile tile in tileList)
                     {
-                        grid[tile.X, tile.Y] = LoadComponent(tile.X, tile.Y, tile.Gid.ToString(), layer.Name, spriteSheetList);
-                    }
-                    else
-                    {
-                        interactiveObjects.Add(LoadComponent(tile.X, tile.Y, tile.Gid.ToString(), layer.Name, spriteSheetList));
-                        grid[tile.X, tile.Y] = LoadComponent(tile.X, tile.Y, "0", layer.Name, spriteSheetList);
+                        if (isComponentStatic(tile.Gid))
+                        {
+                            Block block = LoadComponent(tile.X, tile.Y, tile.Gid.ToString(), layer.Name, spriteSheetList);
+                            mapGrid[tile.X, tile.Y] = block;
+                        }
+                        else
+                        {
+                            interactiveObjects.Add(LoadComponent(tile.X, tile.Y, tile.Gid.ToString(), layer.Name, spriteSheetList));
+                            mapGrid[tile.X, tile.Y] = LoadComponent(tile.X, tile.Y, "0", layer.Name, spriteSheetList);
+                        }
                     }
                 }
+
+                if (layer.Name.Equals("Characters"))
+                {
+                    foreach (TmxLayerTile tile in tileList)
+                    {
+                        if (isComponentStatic(tile.Gid))
+                        {
+                            Block block = LoadComponent(tile.X, tile.Y, tile.Gid.ToString(), layer.Name,
+                                spriteSheetList);
+                            charactersGrid[tile.X, tile.Y] = block;
+                        }
+                        else
+                        {
+                            interactiveObjects.Add(LoadComponent(tile.X, tile.Y, tile.Gid.ToString(), layer.Name,
+                                spriteSheetList));
+                            charactersGrid[tile.X, tile.Y] =
+                                LoadComponent(tile.X, tile.Y, "0", layer.Name, spriteSheetList);
+                        }
+                    }
+                }
+
             }
 
             //doc = new XmlDocument();
@@ -118,8 +148,9 @@ namespace bombs_away
             //}
 
             //return new Level(grid, interactiveObjects);
-            return new Level(grid, interactiveObjects);
+            return new Level(mapGrid, interactiveObjects);
         }
+            
 
         private IList<SpriteSheet> loadSpriteSheets(IList<ITexture> textureList)
         {
@@ -147,17 +178,12 @@ namespace bombs_away
             return Int32.Parse(mapWidthString);
         }
 
-        private String getNodeValue(String nodeName)
+        private bool isComponentStatic(int type)
         {
-            XmlNode node = doc.DocumentElement.SelectSingleNode(nodeName);
-            return node?.InnerText;
-        }
-
-        private bool isComponentStatic(String type)
-        {
-            return type.Equals(TiledObjectCodes.mapCodes.EMPTY_SPACE) || type.Equals(TiledObjectCodes.mapCodes.DIRT)
-                   || type.Equals(TiledObjectCodes.mapCodes.GROUND_WITH_GRASS);
-        }
+            return type.Equals((int)TiledObjectCodes.mapCodes.EMPTY_SPACE) | type.Equals((int)TiledObjectCodes.mapCodes.DIRT)
+                            | type.Equals((int)TiledObjectCodes.mapCodes.GROUND_WITH_GRASS);
+            }
+        
 
         private Block LoadComponent(int gridX, int gridY, String type, String layerName, IList<SpriteSheet> spriteSheetList)
         {
@@ -174,13 +200,17 @@ namespace bombs_away
                 switch (stringToInt(type))
                 {
                     case (int)TiledObjectCodes.mapCodes.EMPTY_SPACE:
-                        return new Block(BlockType.EMPTY, mapSpriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y, false);
+                        Block emptyBlock = new Block(BlockType.EMPTY, mapSpriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y, false);
+                        return emptyBlock;
                     case (int)TiledObjectCodes.mapCodes.GROUND_WITH_GRASS:
-                        return new Block(BlockType.GROUND, mapSpriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
+                        Block block = new Block(BlockType.GROUND, mapSpriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
+                        return block;
                     case (int)TiledObjectCodes.mapCodes.DIRT:
-                        return new Block(BlockType.DIRT, mapSpriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
+                        Block dirtBlock = new Block(BlockType.DIRT, mapSpriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
+                        return dirtBlock;
                     default:
-                        return new Block(BlockType.EMPTY, null, squareSize, x, y, false);
+                        Block emptyBlock2 = new Block(BlockType.EMPTY, null, squareSize, x, y, false);
+                        return emptyBlock2;
                 }
             }
 
@@ -189,11 +219,11 @@ namespace bombs_away
                 switch (stringToInt(type))
                 {
                     case (int)TiledObjectCodes.characterCodes.ENEMY_VAMPIRE:
-                        return new Block(BlockType.ENEMY, mapSpriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
+                        return new Block(BlockType.ENEMY, charactersSpriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
                     case (int)TiledObjectCodes.characterCodes.PLAYER:
-                        return new Block(BlockType.PLAYER, mapSpriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
+                        return new Block(BlockType.PLAYER, charactersSpriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
                     case (int)TiledObjectCodes.characterCodes.PORTAL:
-                        return new Block(BlockType.PORTAL, mapSpriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
+                        return new Block(BlockType.PORTAL, charactersSpriteSheet.CalcSpriteTexCoords(typeUint), squareSize, x, y);
                     default:
                         return new Block(BlockType.EMPTY, null, squareSize, x, y, false);
                 }
