@@ -49,7 +49,7 @@ namespace bombs_away.ui.physics
             if (grounded)
             {
                 velocity += (acceleration * JUMP_ACC * updatePeriod * updatePeriod) / modelView.gridSize;
-                MoveY(velocity);
+                //MoveY(velocity);
                 Grounded = false;
             }
         }
@@ -62,9 +62,13 @@ namespace bombs_away.ui.physics
                 {
                     Directions pushDirection =
                         Box2DextensionsCustom.UndoOverlap(Bounds, ground);
-                    if(pushDirection == Directions.UP || pushDirection == Directions.DOWN)
+                    if(pushDirection == Directions.UP)
                     {
                         Grounded = true;
+                    }
+                    if(pushDirection == Directions.DOWN)
+                    {
+                        velocity = 0;
                     }
                 }
             }
