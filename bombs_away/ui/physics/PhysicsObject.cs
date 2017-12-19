@@ -37,6 +37,10 @@ namespace bombs_away.ui.physics
         public virtual Vector2 Execute(float updatePeriod)
         {
             //Console.WriteLine(velocity);
+            if(velocity > 50)
+            {
+                velocity = 20;
+            }
             velocity += (acceleration * jumpAcc * updatePeriod * updatePeriod) / modelView.gridSize;
 
             MoveY(velocity);
