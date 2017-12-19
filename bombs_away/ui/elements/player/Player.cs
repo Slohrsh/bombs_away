@@ -40,7 +40,7 @@ namespace bombs_away.ui.elements.player
                 Console.WriteLine("Jump");
                 Jump(updatePeriod);
             }
-            if (Keyboard.GetState()[Key.E])
+            if (Keyboard.GetState()[Key.Down])
             {
                 if (timeDelta > 3f)
                 {

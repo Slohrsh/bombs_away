@@ -2,7 +2,7 @@
 <map version="1.0" tiledversion="2017.11.22" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" infinite="0" nextobjectid="1">
  <tileset firstgid="1" source="Tilesets/TilesetMap.tsx"/>
  <tileset firstgid="61" source="Tilesets/TilesetCharacters.tsx"/>
- <tileset firstgid="269" source="../../../../../../bombs_away/bombs_away/resources/game/map/Tilesets/TilesetCharacters.tsx"/>
+ <tileset firstgid="269" source="../../../../../bombs_away/bombs_away/resources/game/map/Tilesets/TilesetCharacters.tsx"/>
  <layer name="Map" width="50" height="50">
   <data encoding="csv">
 54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,54,
