@@ -14,7 +14,7 @@ namespace bombs_away.ui.physics
         
         private float acceleration = -981f;
         private float jumpAcc = 1;
-        private float velocity = 0;
+        protected float velocity = 0;
         private const float JUMP_ACC = -28;
 
         private bool grounded = false;
@@ -37,11 +37,8 @@ namespace bombs_away.ui.physics
         public virtual Vector2 Execute(float updatePeriod)
         {
             //Console.WriteLine(velocity);
-            if(velocity > 50)
-            {
-                velocity = 20;
-            }
-            velocity += (acceleration * jumpAcc * updatePeriod * updatePeriod) / modelView.gridSize;
+
+            velocity += (acceleration * updatePeriod * updatePeriod) / modelView.gridSize;
 
             MoveY(velocity);
             return Position;
@@ -49,13 +46,12 @@ namespace bombs_away.ui.physics
 
         protected void Jump(float updatePeriod)
         {
-            if (!grounded)
+            if (grounded)
             {
-                jumpAcc = 1;
-                return;
+                velocity += (acceleration * JUMP_ACC * updatePeriod * updatePeriod) / modelView.gridSize;
+                MoveY(velocity);
+                Grounded = false;
             }
-            jumpAcc = JUMP_ACC;
-            Grounded = false;
         }
         protected override void UndoOverlap(Block block)
         {
@@ -66,7 +62,7 @@ namespace bombs_away.ui.physics
                 {
                     Directions pushDirection =
                         Box2DextensionsCustom.UndoOverlap(Bounds, ground);
-                    if(pushDirection == Directions.UP)
+                    if(pushDirection == Directions.UP || pushDirection == Directions.DOWN)
                     {
                         Grounded = true;
                     }

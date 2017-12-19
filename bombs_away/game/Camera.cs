@@ -21,7 +21,7 @@ namespace bombs_away.game
             {
                 if (instance == null)
                 {
-                    instance = new Camera(new Box2D(0, 0, 0.5f, 0.5f));
+                    instance = new Camera(new Box2D(0, 0, 0.2f, 0.2f));
                 }
                 return instance;
             }

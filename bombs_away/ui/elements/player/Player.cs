@@ -58,6 +58,7 @@ namespace bombs_away.ui.elements.player
         public override Vector2 Execute(float updatePeriod)
         {
             HandleUserInput(updatePeriod);
+            Console.WriteLine(velocity);
             return base.Execute(updatePeriod);
         }
        
