@@ -6,6 +6,7 @@ using Zenseless.Geometry;
 using Zenseless.HLGL;
 using System.Drawing;
 
+
 namespace bombs_away.controller
 {
     class GameView
