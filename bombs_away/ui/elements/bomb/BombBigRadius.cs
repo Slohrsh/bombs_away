@@ -15,14 +15,14 @@ namespace bombs_away.ui.elements.bomb
         ModelView modelView = ModelView.Instance;
         public BombBigRadius(Vector2 position, float squareSize)
         {
-            this.Bounds = Box2DFactory.CreateSquare(position, squareSize);
+            this.Bounds = Box2DFactory.CreateSquare(position, squareSize / 1.5f);
             this.timeDeltaToExplode = 1;
         }
 
         public override void Explode(float updatePeriod)
         {
-            Bounds.MaxX += (updatePeriod * 2) / modelView.gridSize;
-            Bounds.MinX -= updatePeriod / modelView.gridSize;
+            Bounds.MaxX += ((updatePeriod * 2) / modelView.gridSize) * 5;
+            Bounds.MinX -= (updatePeriod / modelView.gridSize) * 5;
             base.Explode(updatePeriod);
         }
     }

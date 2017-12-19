@@ -37,13 +37,12 @@ namespace bombs_away.controller
             {
                 for (int x = 0; x < modelView.gridSize; x++)
                 {
-                    Block block = modelView.ConstantGrid[x, y];
-                    Draw(block.Bounds, block.IsVisible, block.TextureCoordinates, block.TextureType);
+                    List<Block> blocks = modelView.ConstantGrid[x, y];
+                    foreach(Block block in blocks)
+                    {
+                        Draw(block.Bounds, block.IsVisible, block.TextureCoordinates, block.TextureType);
+                    }
                 }
-            }
-            foreach(Block block in modelView.InteractiveObjects)
-            {
-                Draw(block.Bounds, block.IsVisible, block.TextureCoordinates, block.TextureType);
             }
             camera.endDraw();
         }

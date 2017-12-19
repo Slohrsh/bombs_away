@@ -15,7 +15,7 @@ namespace bombs_away.ui.elements.bomb
         private BombState state = BombState.IDLE;
         public BombState State { get { return state; } }
 
-        protected float timeDeltaToExplode;
+        protected float timeDeltaToExplode = 1;
 
         public override Vector2 Execute(float updatePeriod)
         {

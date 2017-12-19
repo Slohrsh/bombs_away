@@ -36,8 +36,8 @@ namespace bombs_away.game
         private void plantBomb(object sender, EventArgs args)
         {
             Player player = (Player)sender;
-            Bomb bomb = new BombBigRadius(new Vector2(player.Bounds.MinX, 
-                player.Bounds.MinY),
+            Bomb bomb = new BombBigRadius(new Vector2(player.Bounds.MinX + player.Bounds.SizeX * 0.25f, 
+                player.Bounds.MinY + player.Bounds.SizeY * 0.25f),
                 player.Bounds.SizeX);
             bombs.Add(bomb);
             Block block = AddComponentToGrid(bomb.Bounds, BlockType.BOMB);
@@ -57,22 +57,28 @@ namespace bombs_away.game
         }
         
 
-        public Level(Block[,] grid, List<Block> interactiveObjects)
+        public Level(List<Block>[,] grid)
         {
             modelView.ConstantGrid = grid;
-            modelView.InteractiveObjects = interactiveObjects;
-            GenerateImplementation(grid, interactiveObjects);
+            GenerateImplementation(grid);
         }
 
-        private void GenerateImplementation(Block[,] grid, List<Block> interactiveObjects)
+        private void GenerateImplementation(List<Block>[,] grid)
         {
             this.enemies = new List<Enemy>();
             this.obstacles = new List<Obstacle>();
             this.bombs = new List<Bomb>();
-            foreach(Block block in interactiveObjects)
+            for(int y = 0; y < ModelView.Instance.gridSize; y++)
             {
-                Generate(block);
+                for (int x = 0; x < ModelView.Instance.gridSize; x++)
+                {
+                    foreach (Block block in grid[x,y])
+                    {
+                        Generate(block);
+                    }
+                }
             }
+            
             if(player == null)
             {
                 throw new Exception("No existing Player in Level");
@@ -181,7 +187,7 @@ namespace bombs_away.game
             {
                 enemy.ResolveCollision();
 
-                if (enemy.Intersects(player))
+                if (enemy.Hitbox.Intersects(player.Bounds))
                 {
                     Console.WriteLine("Lost");
                     Lost();
@@ -208,7 +214,7 @@ namespace bombs_away.game
                         Console.WriteLine("Oh snap! I committed suicide!");
                         Lost();
                     }
-                    if (timeDelta > 1)
+                    if (timeDelta > 0.3f)
                     {
                         bombs.Remove(bomb);
                         bomb.Bounds.RemoveReferencedObject(modelView.InteractiveObjects);

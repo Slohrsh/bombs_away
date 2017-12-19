@@ -15,7 +15,7 @@ namespace bombs_away.ui.elements.player
         private float timeDelta;
         public Player(Vector2 position, float squareSize)
         {
-            this.Bounds = Box2DFactory.CreateSquare(position, squareSize);
+            this.Bounds = Box2DFactory.CreateSquare(position, squareSize - (squareSize / 1.9f));
         }
         public Player(Box2D component)
         {

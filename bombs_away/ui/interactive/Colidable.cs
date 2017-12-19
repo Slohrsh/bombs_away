@@ -41,12 +41,10 @@ namespace bombs_away.ui.interactive
             if (positionX >= 0 && positionX <= model.gridSize-1 &&
                 positionY >= 0 && positionY <= model.gridSize-1)
                 {
-                    if (positionX == 12 && positionY == 18)
-                    {
-                        Console.WriteLine("huhu");
-                    }
-                Block block = model.ConstantGrid[positionX, positionY];
-                UndoOverlap(block);
+                foreach(Block block in model.ConstantGrid[positionX, positionY])
+                {
+                    UndoOverlap(block);
+                }
             }
         }
 

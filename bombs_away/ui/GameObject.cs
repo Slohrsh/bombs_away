@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿using bombs_away.game;
+using OpenTK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,17 @@ namespace bombs_away.ui
         public bool IsVisible { get { return isVisible; } }
 
         public Box2D Bounds { get; protected set; }
+        public Box2D Hitbox
+        {
+            get
+            {
+                return new Box2D(
+                    Bounds.MinX + Bounds.SizeX * 0.2f,
+                    Bounds.MinY,
+                    Bounds.SizeX * 0.6f,
+                    Bounds.SizeY);
+            }
+        }
 
         public void setVisible()
         {

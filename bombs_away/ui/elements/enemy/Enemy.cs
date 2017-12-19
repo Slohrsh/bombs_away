@@ -16,7 +16,7 @@ namespace bombs_away.ui.elements.enemy
     {
         public Enemy(Vector2 position, float squareSize)
         {
-            this.Bounds = Box2DFactory.CreateSquare(position, squareSize);
+            this.Bounds = Box2DFactory.CreateSquare(position, squareSize - (squareSize / 1.9f));
         }
         public Enemy(Box2D component)
         {
