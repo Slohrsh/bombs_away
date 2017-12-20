@@ -27,8 +27,7 @@ namespace bombs_away.game
         {
             if (!level.IsGameOver)
             {
-                level.ExecuteAllElements(updatePeriod);
-                level.HandleCollisions(updatePeriod);
+                level.Execute(updatePeriod);
             }
         }
     }

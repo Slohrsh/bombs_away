@@ -34,10 +34,9 @@ namespace bombs_away.ui.physics
             }
         }
 
-        public virtual Vector2 Execute(float updatePeriod)
+        public override Vector2 Execute(float updatePeriod)
         {
-            //Console.WriteLine(velocity);
-
+            base.Execute(updatePeriod);
             velocity += (acceleration * updatePeriod * updatePeriod) / modelView.gridSize;
 
             MoveY(velocity);
@@ -53,24 +52,18 @@ namespace bombs_away.ui.physics
                 Grounded = false;
             }
         }
-        protected override void UndoOverlap(Block block)
+        protected override void HandleGroundCollision(Block block)
         {
-            if (block.Type == BlockType.GROUND)
+            Box2D ground = block.Bounds;
+            Directions pushDirection =
+                Box2DextensionsCustom.UndoOverlap(Bounds, ground);
+            if(pushDirection == Directions.UP)
             {
-                Box2D ground = block.Bounds;
-                if (Bounds.Intersects(ground))
-                {
-                    Directions pushDirection =
-                        Box2DextensionsCustom.UndoOverlap(Bounds, ground);
-                    if(pushDirection == Directions.UP)
-                    {
-                        Grounded = true;
-                    }
-                    if(pushDirection == Directions.DOWN)
-                    {
-                        velocity = 0;
-                    }
-                }
+                Grounded = true;
+            }
+            if(pushDirection == Directions.DOWN)
+            {
+                velocity = 0;
             }
         }
     }

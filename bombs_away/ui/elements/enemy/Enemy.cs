@@ -23,25 +23,19 @@ namespace bombs_away.ui.elements.enemy
             this.Bounds = new Box2D(component);
         }
 
-        protected override void UndoOverlap(Block block)
+        protected override void HandleGroundCollision(Block block)
         {
-            if (block.Type == BlockType.GROUND)
+            Box2D ground = block.Bounds;
+            Directions pushDirection =
+                Box2DextensionsCustom.UndoOverlap(Bounds, ground);
+            if (pushDirection == Directions.UP)
             {
-                Box2D ground = block.Bounds;
-                if (Bounds.Intersects(ground))
-                {
-                    Directions pushDirection =
-                        Box2DextensionsCustom.UndoOverlap(Bounds, ground);
-                    if (pushDirection == Directions.UP)
-                    {
-                        Grounded = true;
-                    }
-                    if(pushDirection == Directions.LEFT 
-                        || pushDirection == Directions.RIGHT)
-                    {
-                        IsMovingRight = !IsMovingRight;
-                    }
-                }
+                Grounded = true;
+            }
+            if(pushDirection == Directions.LEFT 
+                || pushDirection == Directions.RIGHT)
+            {
+                IsMovingRight = !IsMovingRight;
             }
         }
     }

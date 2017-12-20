@@ -12,13 +12,14 @@ namespace bombs_away.ui.interactive
 {
     class Colidable : Moveable
     {
-        ModelView model = ModelView.Instance;
+        private ModelView model = ModelView.Instance;
+        public event EventHandler onEnemyCollision;
+        public event EventHandler onBombCollision;
+        public event EventHandler onPortalCollision;
+
 
         public virtual void ResolveCollision()
         {
-            
-            float huhu = TransformPositionRelative(Bounds.CenterY, 0);
-            
             UndoOverlapRelativeToComponent(-1, -1, model);
             UndoOverlapRelativeToComponent(0, -1, model);
             UndoOverlapRelativeToComponent(1, -1, model);
@@ -35,36 +36,55 @@ namespace bombs_away.ui.interactive
 
         private void UndoOverlapRelativeToComponent(int x, int y, ModelView model)
         {
-            int positionX = TransformPositionRelative(Bounds.CenterX, x);
-            int positionY = TransformPositionRelative(Bounds.CenterY, y);
+            int positionX = GridUtil.TransformPositionRelative(Bounds.CenterX, x, model.gridSize);
+            int positionY = GridUtil.TransformPositionRelative(Bounds.CenterY, y, model.gridSize);
 
             if (positionX >= 0 && positionX <= model.gridSize-1 &&
                 positionY >= 0 && positionY <= model.gridSize-1)
                 {
-                foreach(Block block in model.ConstantGrid[positionX, positionY])
+                foreach(Block block in model.Grid[positionX, positionY].ToArray())
                 {
-                    UndoOverlap(block);
+                    if(block.Bounds.Equals(Bounds))
+                    {
+                        continue;
+                    }
+                    if (!IsIntersection(block.Bounds, Bounds))
+                    {
+                        continue;
+                    }
+                    switch (block.Type)
+                    {
+                        case BlockType.GROUND:
+                            HandleGroundCollision(block);
+                            break;
+                        case BlockType.OBSTACLE:
+                            HandleGroundCollision(block);
+                            break;
+                        case BlockType.ENEMY:
+                            onEnemyCollision?.Invoke(block, null);
+                            break;
+                        case BlockType.PLAYER:
+                            break;
+                        case BlockType.BOMB:
+                            onBombCollision?.Invoke(this, null);
+                            break;
+                        case BlockType.PORTAL:
+                            onPortalCollision?.Invoke(block, null);
+                            break;
+                    }
                 }
             }
         }
 
-        private int TransformPositionRelative(float componentPosition, int position)
+        private bool IsIntersection(Box2D a, Box2D b)
         {
-            int relativePosition = (int)(componentPosition * model.gridSize);
-            return relativePosition + position;
+            return a.Intersects(b);
         }
 
-        protected virtual void UndoOverlap(Block block)
+        protected virtual void HandleGroundCollision(Block block)
         {
-            if (block.Type == BlockType.GROUND)
-            {
-                Box2D ground = block.Bounds;
-                if (Bounds.Intersects(ground))
-                {
-                    Directions pushDirection = 
-                        Box2DextensionsCustom.UndoOverlap(Bounds, ground);
-                }
-            }
+            Box2D ground = block.Bounds;
+            Box2DextensionsCustom.UndoOverlap(Bounds, ground);
         }
     }
 }

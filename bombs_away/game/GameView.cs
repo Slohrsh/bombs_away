@@ -37,7 +37,7 @@ namespace bombs_away.controller
             {
                 for (int x = 0; x < modelView.gridSize; x++)
                 {
-                    List<Block> blocks = modelView.ConstantGrid[x, y];
+                    List<Block> blocks = modelView.Grid[x, y];
                     foreach(Block block in blocks)
                     {
                         Draw(block.Bounds, block.IsVisible, block.TextureCoordinates, block.TextureType);

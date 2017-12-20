@@ -84,9 +84,11 @@
     <Compile Include="game\Camera.cs" />
     <Compile Include="game\GameLogic.cs" />
     <Compile Include="game\GameView.cs" />
+    <Compile Include="game\GridUtil.cs" />
     <Compile Include="game\InputHandler.cs" />
     <Compile Include="game\Level.cs" />
     <Compile Include="game\ModelView.cs" />
+    <Compile Include="game\PositionUpdatedArgs.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="resources\game\map\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

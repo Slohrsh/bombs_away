@@ -11,9 +11,10 @@ namespace bombs_away.ui
 {
     public class GameObject 
     {
-       
+        public event EventHandler<PositionUpdatedArgs> onPositionUpdate;
         public Vector2 Position { get { return new Vector2(Bounds.MinX, Bounds.MinY); } }
         protected bool isVisible;
+        private Vector2 oldCoordinates;
 
         public bool IsVisible { get { return isVisible; } }
 
@@ -42,6 +43,28 @@ namespace bombs_away.ui
                 return false;
             }
             return Bounds.Intersects(rectangle.Bounds);
+        }
+
+        public virtual Vector2 Execute(float updatePeriod)
+        {
+            int positionX = GridUtil.TransformPositionRelative(Bounds.CenterX, 0, ModelView.Instance.gridSize);
+            int positionY = GridUtil.TransformPositionRelative(Bounds.CenterY, 0, ModelView.Instance.gridSize);
+            if(oldCoordinates != Vector2.Zero)
+            {
+                if(oldCoordinates.X != positionX || oldCoordinates.Y != positionY)
+                {
+                    PositionUpdatedArgs args = new PositionUpdatedArgs();
+                    args.OldCoordinates = oldCoordinates;
+                    args.NewCoordinates = new Vector2(positionX, positionY);
+                    oldCoordinates = args.NewCoordinates;
+                    onPositionUpdate?.Invoke(this, args);
+                }
+            }
+            else
+            {
+                oldCoordinates = new Vector2(positionX, positionY);
+            }
+            return Position;
         }
     }
 }
