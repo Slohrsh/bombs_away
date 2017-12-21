@@ -35,12 +35,12 @@ namespace bombs_away.ui.elements.player
             {
                 MoveX(updatePeriod);
             }
-            if (Keyboard.GetState()[Key.Space])
+            if (Keyboard.GetState()[Key.Up] || Keyboard.GetState()[Key.W])
             {
                 Console.WriteLine("Jump");
                 Jump(updatePeriod);
             }
-            if (Keyboard.GetState()[Key.Down])
+            if (Keyboard.GetState()[Key.Space])
             {
                 if (timeDelta > 3f)
                 {
