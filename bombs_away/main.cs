@@ -22,7 +22,5 @@ namespace bombs_away
             window.Resize += (width, height) => controller.onResize(width, height);
             window.Run();
         }
-
-
     }
 }

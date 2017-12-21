@@ -20,17 +20,25 @@ namespace bombs_away.ui.interactive
 
         public virtual void ResolveCollision()
         {
+            //oben
             UndoOverlapRelativeToComponent(-1, -1, model);
             UndoOverlapRelativeToComponent(0, -1, model);
             UndoOverlapRelativeToComponent(1, -1, model);
 
+            //mitte
+            UndoOverlapRelativeToComponent(-2, 0, model);
+            UndoOverlapRelativeToComponent(-1, 0, model);
+            UndoOverlapRelativeToComponent(0, 0, model);
+            UndoOverlapRelativeToComponent(1, 0, model);
+            UndoOverlapRelativeToComponent(2, 0, model);
+
+            //unten
             UndoOverlapRelativeToComponent(-1, 1, model);
             UndoOverlapRelativeToComponent(0, 1, model);
             UndoOverlapRelativeToComponent(1, 1, model);
 
-            UndoOverlapRelativeToComponent(-1, 0, model);
-            UndoOverlapRelativeToComponent(0, 0, model);
-            UndoOverlapRelativeToComponent(1, 0, model);
+
+            
 
         }
 
@@ -45,18 +53,13 @@ namespace bombs_away.ui.interactive
                 foreach(Block block in model.Grid[positionX, positionY].ToArray())
                 {
                     if(block.Bounds.Equals(Bounds))
-                    {
                         continue;
-                    }
                     if (!IsIntersection(block.Bounds, Bounds))
-                    {
                         continue;
-                    }
+
                     switch (block.Type)
                     {
                         case BlockType.GROUND:
-                            HandleGroundCollision(block);
-                            break;
                         case BlockType.OBSTACLE:
                             HandleGroundCollision(block);
                             break;

@@ -14,7 +14,6 @@ namespace bombs_away.game
 {
 	class Controller
 	{
-
         private GameLogic logic;
         private Level level;
         private GameView view;
