@@ -71,6 +71,7 @@ namespace bombs_away.ui.interactive
                             break;
                         case BlockType.BOMB:
                             onBombCollision?.Invoke(this, null);
+                            HandleGroundCollision(block);
                             break;
                         case BlockType.PORTAL:
                             onPortalCollision?.Invoke(block, null);
