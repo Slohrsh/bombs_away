@@ -1,11 +1,6 @@
 ﻿using bombs_away.game;
-using bombs_away.ui.enums;
 using bombs_away.ui.zenseless;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Zenseless.Geometry;
 
 namespace bombs_away.ui.interactive
@@ -49,7 +44,7 @@ namespace bombs_away.ui.interactive
 
             if (positionX >= 0 && positionX <= model.gridSize-1 &&
                 positionY >= 0 && positionY <= model.gridSize-1)
-                {
+            {
                 foreach(Block block in model.Grid[positionX, positionY].ToArray())
                 {
                     if(block.Bounds.Equals(Bounds))
