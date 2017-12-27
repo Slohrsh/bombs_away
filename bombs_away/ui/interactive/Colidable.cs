@@ -64,7 +64,8 @@ namespace bombs_away.ui.interactive
                             HandleGroundCollision(block);
                             break;
                         case BlockType.ENEMY:
-                            onEnemyCollision?.Invoke(block, null);
+                            if(IsIntersection(block.Bounds, Hitbox))
+                                onEnemyCollision?.Invoke(block, null);
                             break;
                         case BlockType.PLAYER:
                             break;
