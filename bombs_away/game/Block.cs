@@ -48,6 +48,7 @@ namespace bombs_away.game
         PORTAL,
         ENEMY,
         EMPTY,
-        BOMB
+        BOMB,
+        ITEM
     }  
 }

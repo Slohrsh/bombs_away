@@ -27,6 +27,7 @@ namespace bombs_away.game
         private List<Obstacle> obstacles;
         private List<Bomb> bombs;
         private Portal portal;
+        private int availableAmountOfBombs = 1;
 
         public Level(List<Block>[,] grid)
         {
@@ -100,13 +101,17 @@ namespace bombs_away.game
 
         private void plantBomb(object sender, EventArgs args)
         {
-            Player player = (Player)sender;
-            Bomb bomb = new BombBigRadius(new Vector2(player.Bounds.MinX + player.Bounds.SizeX * 0.25f,
-                player.Bounds.MinY + player.Bounds.SizeY * 0.25f),
-                player.Bounds.SizeX);
-            bombs.Add(bomb);
-            Block block = AddComponentToGrid(bomb.Bounds, BlockType.BOMB);
-            modelView.RegisterComponent(bomb, block);
+            if(availableAmountOfBombs>0)
+            {
+                Player player = (Player)sender;
+                Bomb bomb = new BombBigRadius(new Vector2(player.Bounds.MinX + player.Bounds.SizeX * 0.25f,
+                    player.Bounds.MinY + player.Bounds.SizeY * 0.25f),
+                    player.Bounds.SizeX);
+                bombs.Add(bomb);
+                Block block = AddComponentToGrid(bomb.Bounds, BlockType.BOMB);
+                modelView.RegisterComponent(bomb, block);
+                availableAmountOfBombs--;
+            }
         }
 
         private Block AddComponentToGrid(Box2D component, BlockType type)
@@ -183,6 +188,7 @@ namespace bombs_away.game
                     player.onEnemyCollision += (sender, args) => Lost(sender, args);
                     player.onBombCollision += (sender, args) => HandlePlayerBombCollision(sender, args);
                     player.onPortalCollision += (sender, args) => Win(sender, args);
+                    player.onItemCollision += (sender, args) => AddItem(sender, args);
                     modelView.RegisterComponent(player, block);
                     Camera camera = Camera.Instance;
                     camera.FocusedElement = player.Bounds;
@@ -203,6 +209,11 @@ namespace bombs_away.game
                     modelView.RegisterComponent(enemy, block);
                     break;
             }
+        }
+
+        private void AddItem(object sender, EventArgs args)
+        {
+            availableAmountOfBombs++;
         }
 
         private void HandlePlayerBombCollision(object sender, EventArgs args)
@@ -239,15 +250,7 @@ namespace bombs_away.game
 
         private void HandleEnemyBombCollision(object sender, EventArgs args)
         {
-            GameObject block = (GameObject)sender;
-            Enemy enemy = null;
-            foreach (Enemy potentionalEnemy in enemies.ToArray())
-            {
-                if (potentionalEnemy.Bounds.Equals(block.Bounds))
-                {
-                    enemy = potentionalEnemy;
-                }
-            }
+            Enemy enemy = (Enemy)sender;
             if (enemy != null)
             {
                 foreach(Bomb bomb in bombs)

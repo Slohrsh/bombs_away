@@ -1,4 +1,5 @@
 ﻿using bombs_away.game;
+using bombs_away.ui.elements.player;
 using bombs_away.ui.zenseless;
 using System;
 using Zenseless.Geometry;
@@ -11,6 +12,7 @@ namespace bombs_away.ui.interactive
         public event EventHandler onEnemyCollision;
         public event EventHandler onBombCollision;
         public event EventHandler onPortalCollision;
+        public event EventHandler onItemCollision;
 
 
         public virtual void ResolveCollision()
@@ -66,10 +68,14 @@ namespace bombs_away.ui.interactive
                             break;
                         case BlockType.BOMB:
                             onBombCollision?.Invoke(this, null);
-                            HandleGroundCollision(block);
+                            if(!(this is Player))
+                                HandleGroundCollision(block);
                             break;
                         case BlockType.PORTAL:
                             onPortalCollision?.Invoke(block, null);
+                            break;
+                        case BlockType.ITEM:
+                            onItemCollision?.Invoke(this, null);
                             break;
                     }
                 }
