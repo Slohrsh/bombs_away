@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 using bombs_away.game;
 using Zenseless.Geometry;
-
 using Zenseless.HLGL;
 using System.Drawing;
+using Zenseless.OpenGL;
 
 
 namespace bombs_away.controller
@@ -13,6 +14,7 @@ namespace bombs_away.controller
     {
         private ModelView modelView = ModelView.Instance;
         private IList<ITexture> textureList;
+        private float deltaTime = 0;
 
         public GameView()
         {
@@ -24,10 +26,13 @@ namespace bombs_away.controller
             GL.Enable(EnableCap.Blend); // for transparency in textures we use blending
             GL.Enable(EnableCap.Texture2D); //todo: only for non shader pipeline relevant -> remove at some point
         }
+
         private Camera camera = Camera.Instance;
 
         internal void DrawScreen()
         {
+            deltaTime += 0.016f;
+            
             GL.Clear(ClearBufferMask.ColorBufferBit);
             //GL.Viewport(0,0, 800, 800);
 
@@ -38,9 +43,38 @@ namespace bombs_away.controller
                 for (int x = 0; x < modelView.gridSize; x++)
                 {
                     List<Block> blocks = modelView.Grid[x, y];
-                    foreach(Block block in blocks)
+                    foreach (Block block in blocks)
                     {
-                        Draw(block.Bounds, block.IsVisible, block.TextureCoordinates, block.TextureType);
+                        if (block.Type == BlockType.PLAYER)
+                        {
+                            if (block.WalkingState == 1)
+                            {
+                                if (deltaTime >= 1f)
+                                {
+                                    Console.WriteLine("walky right");
+                                    block.TextureCoordinates = block.animationCoordinates[1];
+                                    block.WalkingState = 0;
+                                    deltaTime = 0;
+                                }
+                                Draw(block.Bounds, block.IsVisible, block.TextureCoordinates, block.TextureType);
+                            }
+                            else if(block.WalkingState == 2)
+                            {
+                                if (deltaTime >= 1f)
+                                {
+                                    Console.WriteLine("walky left");
+                                    block.TextureCoordinates = block.animationCoordinates[0];
+                                    block.WalkingState = 0;
+                                    deltaTime = 0;
+                                }
+                                Draw(block.Bounds, block.IsVisible, block.TextureCoordinates, block.TextureType);
+                            }
+                            Draw(block.Bounds, block.IsVisible, block.TextureCoordinates, block.TextureType);
+                        }
+                        else
+                        {
+                            Draw(block.Bounds, block.IsVisible, block.TextureCoordinates, block.TextureType);
+                        }
                     }
                 }
             }
@@ -57,10 +91,14 @@ namespace bombs_away.controller
                     {
                         textureList[0].Activate();
                         GL.Begin(PrimitiveType.Quads);
-                        GL.TexCoord2(textureCoordinates.MinX, textureCoordinates.MinY); GL.Vertex2(component.MinX, component.MinY);
-                        GL.TexCoord2(textureCoordinates.MaxX, textureCoordinates.MinY); GL.Vertex2(component.MaxX, component.MinY);
-                        GL.TexCoord2(textureCoordinates.MaxX, textureCoordinates.MaxY); GL.Vertex2(component.MaxX, component.MaxY);
-                        GL.TexCoord2(textureCoordinates.MinX, textureCoordinates.MaxY); GL.Vertex2(component.MinX, component.MaxY);
+                        GL.TexCoord2(textureCoordinates.MinX, textureCoordinates.MinY);
+                        GL.Vertex2(component.MinX, component.MinY);
+                        GL.TexCoord2(textureCoordinates.MaxX, textureCoordinates.MinY);
+                        GL.Vertex2(component.MaxX, component.MinY);
+                        GL.TexCoord2(textureCoordinates.MaxX, textureCoordinates.MaxY);
+                        GL.Vertex2(component.MaxX, component.MaxY);
+                        GL.TexCoord2(textureCoordinates.MinX, textureCoordinates.MaxY);
+                        GL.Vertex2(component.MinX, component.MaxY);
                         GL.End();
                         textureList[0].Deactivate();
                     }
@@ -69,10 +107,14 @@ namespace bombs_away.controller
                     {
                         textureList[1].Activate();
                         GL.Begin(PrimitiveType.Quads);
-                        GL.TexCoord2(textureCoordinates.MinX, textureCoordinates.MinY); GL.Vertex2(component.MinX, component.MinY);
-                        GL.TexCoord2(textureCoordinates.MaxX, textureCoordinates.MinY); GL.Vertex2(component.MaxX, component.MinY);
-                        GL.TexCoord2(textureCoordinates.MaxX, textureCoordinates.MaxY); GL.Vertex2(component.MaxX, component.MaxY);
-                        GL.TexCoord2(textureCoordinates.MinX, textureCoordinates.MaxY); GL.Vertex2(component.MinX, component.MaxY);
+                        GL.TexCoord2(textureCoordinates.MinX, textureCoordinates.MinY);
+                        GL.Vertex2(component.MinX, component.MinY);
+                        GL.TexCoord2(textureCoordinates.MaxX, textureCoordinates.MinY);
+                        GL.Vertex2(component.MaxX, component.MinY);
+                        GL.TexCoord2(textureCoordinates.MaxX, textureCoordinates.MaxY);
+                        GL.Vertex2(component.MaxX, component.MaxY);
+                        GL.TexCoord2(textureCoordinates.MinX, textureCoordinates.MaxY);
+                        GL.Vertex2(component.MinX, component.MaxY);
                         GL.End();
                         textureList[1].Deactivate();
                     }

@@ -18,19 +18,67 @@ namespace bombs_away.game
         private bool isVisible = true;
         public Box2D Bounds { get; set; }
 
-        public BlockType Type { get { return type; } }
-        public bool IsVisible { get { return isVisible; } set { isVisible = value; } }
-        public string TextureType { get { return textureType; } }
-        public Box2D TextureCoordinates { get { return textureCoordinates; } }
+        public BlockType Type
+        {
+            get { return type; }
+        }
 
-        public Block(BlockType type, string textureType, Box2D textureCoordinates, float size, float positionX, float positionY)
+        public bool IsVisible
+        {
+            get { return isVisible; }
+            set { isVisible = value; }
+        }
+
+        public string TextureType
+        {
+            get { return textureType; }
+        }
+
+        public Box2D TextureCoordinates
+        {
+            get { return textureCoordinates; }
+            set { textureCoordinates = value; }
+        }
+
+        public List<Box2D> animationCoordinates = new List<Box2D>();
+
+        private int walkingState = 0;
+
+        public int WalkingState
+        {
+            get { return walkingState; }
+            set
+            {
+                if (value == 1)
+                {
+                    animationCoordinates.Add(TextureCoordinates);
+                    animationCoordinates.Add(new Box2D(textureCoordinates.MinX + 0.1f,
+                        textureCoordinates.MinY + 0.1f,
+                        textureCoordinates.SizeX,
+                        textureCoordinates.SizeY));
+                    animationCoordinates.Add(new Box2D(textureCoordinates.MinX + 0.2f,
+                        textureCoordinates.MinY + 0.2f,
+                        textureCoordinates.SizeX,
+                        textureCoordinates.SizeY));
+                }
+                else
+                {
+                }
+                walkingState = value;
+            }
+        }
+
+        public Block(BlockType type, string textureType, Box2D textureCoordinates, float size, float positionX,
+            float positionY)
         {
             this.type = type;
             this.textureType = textureType;
             this.textureCoordinates = textureCoordinates;
             this.Bounds = Box2DFactory.CreateSquare(new Vector2(positionX, positionY), size);
         }
-        public Block(BlockType type, string textureType, Box2D textureCoordinates, float size, float positionX, float positionY, bool isVisible)
+
+        public Block(BlockType type, string textureType, Box2D textureCoordinates, float size, float positionX,
+            float positionY, bool isVisible)
         {
             this.type = type;
             this.textureType = textureType;
@@ -39,6 +87,7 @@ namespace bombs_away.game
             this.isVisible = isVisible;
         }
     }
+
 
     public enum BlockType
     {
@@ -50,5 +99,5 @@ namespace bombs_away.game
         EMPTY,
         BOMB,
         ITEM
-    }  
+    }
 }

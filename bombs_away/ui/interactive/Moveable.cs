@@ -13,6 +13,8 @@ namespace bombs_away.ui.interactive
 {
     class Moveable : GameObject
     {
+        public event EventHandler<int> objectWalks;    
+        
         ModelView modelView = ModelView.Instance;
         protected virtual void MoveX(float value)
         {
@@ -22,6 +24,11 @@ namespace bombs_away.ui.interactive
         protected virtual void MoveY(float value)
         {
             Bounds.MinY += value / modelView.gridSize;
+        }
+
+        public void invoke(int directionValue)
+        {
+            objectWalks?.Invoke(this, directionValue);
         }
     }
 }

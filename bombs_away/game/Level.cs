@@ -189,6 +189,7 @@ namespace bombs_away.game
                     player.onBombCollision += (sender, args) => HandlePlayerBombCollision(sender, args);
                     player.onPortalCollision += (sender, args) => Win(sender, args);
                     player.onItemCollision += (sender, args) => AddItem(sender, args);
+                    player.objectWalks += (sender, args) => walkAnimation(block, args);
                     modelView.RegisterComponent(player, block);
                     Camera camera = Camera.Instance;
                     camera.FocusedElement = player.Bounds;
@@ -205,7 +206,8 @@ namespace bombs_away.game
                 case BlockType.ENEMY:
                     Enemy enemy = new Enemy(block.Bounds);
                     enemy.onBombCollision += (sender, args) => HandleEnemyBombCollision(sender, args);
-                    enemies.Add(enemy);
+                    enemy.objectWalks += (sender, args) => walkAnimation(block, args);
+                    enemies.Add(enemy);                
                     modelView.RegisterComponent(enemy, block);
                     break;
             }
@@ -264,6 +266,14 @@ namespace bombs_away.game
                         onEnemyDestroy?.Invoke(this, null);
                     }
                 }
+            }
+        }
+
+        private void walkAnimation(Block block, int walkState)
+        {
+            if (walkState == 1 || walkState == 2)
+            {
+                block.WalkingState = walkState;
             }
         }
     }

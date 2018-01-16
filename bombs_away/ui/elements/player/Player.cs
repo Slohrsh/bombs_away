@@ -11,8 +11,8 @@ namespace bombs_away.ui.elements.player
     class Player : PhysicsObject
     {
         public event EventHandler onPlantBomb;
-
         private float timeDelta;
+        
         public Player(Vector2 position, float squareSize)
         {
             this.Bounds = Box2DFactory.CreateSquare(position, squareSize - (squareSize / 1.9f));
@@ -29,11 +29,12 @@ namespace bombs_away.ui.elements.player
             if (Keyboard.GetState()[Key.Left] || Keyboard.GetState()[Key.A])
             {
                 MoveX(-1 * updatePeriod);
-                //ShiftLeft(updatePeriod);
+                invoke(2);
             }
             if (Keyboard.GetState()[Key.Right] || Keyboard.GetState()[Key.D])
             {
                 MoveX(updatePeriod);
+                invoke(1);
             }
             if (Keyboard.GetState()[Key.Up] || Keyboard.GetState()[Key.W])
             {
@@ -58,7 +59,7 @@ namespace bombs_away.ui.elements.player
         public override Vector2 Execute(float updatePeriod)
         {
             HandleUserInput(updatePeriod);
-            Console.WriteLine(velocity);
+            //Console.WriteLine(velocity);
             return base.Execute(updatePeriod);
         }
        

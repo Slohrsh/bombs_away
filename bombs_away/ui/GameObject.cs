@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using bombs_away.ui.elements.player;
 using Zenseless.Geometry;
 
 namespace bombs_away.ui
 {
     public class GameObject 
     {
-        public event EventHandler<PositionUpdatedArgs> onPositionUpdate;
+        public event EventHandler<PositionUpdatedArgs> onPositionUpdate;    
         public Vector2 Position { get { return new Vector2(Bounds.MinX, Bounds.MinY); } }
         protected bool isVisible;
         private Vector2 oldCoordinates;
