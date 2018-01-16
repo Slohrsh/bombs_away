@@ -40,6 +40,8 @@ namespace bombs_away.game
             set { textureCoordinates = value; }
         }
 
+        public Box2D idleCoordinates;
+
         public List<Box2D> animationCoordinates = new List<Box2D>();
 
         private int walkingState = 0;
@@ -49,20 +51,28 @@ namespace bombs_away.game
             get { return walkingState; }
             set
             {
+                animationCoordinates.Clear();
                 if (value == 1)
                 {
-                    animationCoordinates.Add(TextureCoordinates);
-                    animationCoordinates.Add(new Box2D(textureCoordinates.MinX + 0.1f,
-                        textureCoordinates.MinY + 0.1f,
-                        textureCoordinates.SizeX,
-                        textureCoordinates.SizeY));
-                    animationCoordinates.Add(new Box2D(textureCoordinates.MinX + 0.2f,
-                        textureCoordinates.MinY + 0.2f,
-                        textureCoordinates.SizeX,
-                        textureCoordinates.SizeY));
+                    animationCoordinates.Add(new Box2D(idleCoordinates.MinX + 0.1f,
+                        idleCoordinates.MinY + 0.1f,
+                        idleCoordinates.SizeX,
+                        idleCoordinates.SizeY));
+                    animationCoordinates.Add(new Box2D(idleCoordinates.MinX + 0.2f,
+                        idleCoordinates.MinY + 0.2f,
+                        idleCoordinates.SizeX,
+                        idleCoordinates.SizeY));
                 }
                 else
                 {
+                    animationCoordinates.Add(new Box2D(idleCoordinates.MinX + 0.1f,
+                        idleCoordinates.MinY + 0.3f,
+                        idleCoordinates.SizeX,
+                        idleCoordinates.SizeY));
+                    animationCoordinates.Add(new Box2D(textureCoordinates.MinX + 0.2f,
+                        idleCoordinates.MinY + 0.4f,
+                        idleCoordinates.SizeX,
+                        idleCoordinates.SizeY));
                 }
                 walkingState = value;
             }
@@ -74,6 +84,7 @@ namespace bombs_away.game
             this.type = type;
             this.textureType = textureType;
             this.textureCoordinates = textureCoordinates;
+            this.idleCoordinates = this.textureCoordinates;
             this.Bounds = Box2DFactory.CreateSquare(new Vector2(positionX, positionY), size);
         }
 
@@ -83,6 +94,7 @@ namespace bombs_away.game
             this.type = type;
             this.textureType = textureType;
             this.textureCoordinates = textureCoordinates;
+            this.idleCoordinates = this.textureCoordinates;
             this.Bounds = Box2DFactory.CreateSquare(new Vector2(positionX, positionY), size);
             this.isVisible = isVisible;
         }

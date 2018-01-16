@@ -5,6 +5,7 @@ using bombs_away.game;
 using Zenseless.Geometry;
 using Zenseless.HLGL;
 using System.Drawing;
+using OpenTK;
 using Zenseless.OpenGL;
 
 
@@ -15,6 +16,7 @@ namespace bombs_away.controller
         private ModelView modelView = ModelView.Instance;
         private IList<ITexture> textureList;
         private float deltaTime = 0;
+        private int state = 0;
 
         public GameView()
         {
@@ -45,29 +47,36 @@ namespace bombs_away.controller
                     List<Block> blocks = modelView.Grid[x, y];
                     foreach (Block block in blocks)
                     {
+                        //TODO: if weg machen, zu animierende elemente anmelden
                         if (block.Type == BlockType.PLAYER)
                         {
                             if (block.WalkingState == 1)
                             {
-                                if (deltaTime >= 1f)
+                                if (deltaTime >= 0.2f)
                                 {
-                                    Console.WriteLine("walky right");
-                                    block.TextureCoordinates = block.animationCoordinates[1];
+                                    state = ++state % 2;
+                                    Console.WriteLine("walky right: " + state);
+                                    block.TextureCoordinates = block.animationCoordinates[state];
                                     block.WalkingState = 0;
                                     deltaTime = 0;
                                 }
                                 Draw(block.Bounds, block.IsVisible, block.TextureCoordinates, block.TextureType);
                             }
-                            else if(block.WalkingState == 2)
+                            else if (block.WalkingState == 2)
                             {
-                                if (deltaTime >= 1f)
+                                if (deltaTime >= 0.2f)
                                 {
-                                    Console.WriteLine("walky left");
-                                    block.TextureCoordinates = block.animationCoordinates[0];
+                                    state = ++state % 2;
+                                    Console.WriteLine("walky left: " + state);
+                                    block.TextureCoordinates = block.animationCoordinates[state];
                                     block.WalkingState = 0;
                                     deltaTime = 0;
                                 }
                                 Draw(block.Bounds, block.IsVisible, block.TextureCoordinates, block.TextureType);
+                            }
+                            else
+                            {
+                                block.TextureCoordinates = block.idleCoordinates;
                             }
                             Draw(block.Bounds, block.IsVisible, block.TextureCoordinates, block.TextureType);
                         }
