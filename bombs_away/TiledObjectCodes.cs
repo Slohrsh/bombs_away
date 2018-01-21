@@ -10,5 +10,6 @@
         public const string PORTAL = "23";
         public const string OBSTACLE = "12";
         public const string BOMB = "83";
+        public const string INVISIBLE_ENEMY_BARRIER = "3";
     }
 }

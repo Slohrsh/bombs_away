@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="TextureLoader.cs" />
     <Compile Include="TiledObjectCodes.cs" />
+    <Compile Include="ui\elements\invisibleEnemyBarrier\InvisibleEnemyBarrier.cs" />
     <Compile Include="ui\elements\portal\Portal.cs" />
     <Compile Include="ui\enums\Directions.cs" />
     <Compile Include="ui\exceptions\ComponentNotSetException.cs" />

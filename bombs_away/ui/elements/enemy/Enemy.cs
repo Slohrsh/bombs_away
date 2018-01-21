@@ -32,8 +32,16 @@ namespace bombs_away.ui.elements.enemy
             {
                 Grounded = true;
             }
+        }
+        
+        protected override void HandleInvisibleEnemyBarrierCollision(Block block)
+        {
+            Box2D ground = block.Bounds;
+            Directions pushDirection =
+                Box2DextensionsCustom.UndoOverlap(Bounds, ground);
+            
             if(pushDirection == Directions.LEFT 
-                || pushDirection == Directions.RIGHT)
+               || pushDirection == Directions.RIGHT)
             {
                 IsMovingRight = !IsMovingRight;
             }

@@ -77,6 +77,9 @@ namespace bombs_away.ui.interactive
                         case BlockType.ITEM:
                             onItemCollision?.Invoke(this, null);
                             break;
+                        case BlockType.INVISIBLE_ENEMY_BARRIER:
+                            HandleInvisibleEnemyBarrierCollision(block);
+                            break; 
                     }
                 }
             }
@@ -91,6 +94,11 @@ namespace bombs_away.ui.interactive
         {
             Box2D ground = block.Bounds;
             Box2DextensionsCustom.UndoOverlap(Bounds, ground);
+        }
+
+        protected virtual void HandleInvisibleEnemyBarrierCollision(Block block)
+        {
+            
         }
     }
 }

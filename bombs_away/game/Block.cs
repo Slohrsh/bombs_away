@@ -110,6 +110,7 @@ namespace bombs_away.game
         ENEMY,
         EMPTY,
         BOMB,
-        ITEM
+        ITEM,
+        INVISIBLE_ENEMY_BARRIER
     }
 }

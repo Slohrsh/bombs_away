@@ -23,7 +23,7 @@ namespace bombs_away
 
         public Level Load()
         {
-            TmxMap map = new TmxMap("../../resources/game/map/BasicMap.tmx");
+            TmxMap map = new TmxMap("../../resources/game/map/Level1.tmx");
             TextureLoader textureLoader = new TextureLoader();
             IList<ITexture> textureList = textureLoader.LoadContent();          
             spriteSheetMap = new SpriteSheet(textureList[0], 10, 6);
@@ -33,7 +33,7 @@ namespace bombs_away
             modelView.gridSize = map.Height;
             
             doc = new XmlDocument();
-            doc.Load("../../resources/game/map/BasicMap.tmx");
+            doc.Load("../../resources/game/map/Level1.tmx");
 
             squareSize = CalculateSquareSize(map.Width);
 
@@ -123,6 +123,11 @@ namespace bombs_away
                 case TiledObjectCodes.OBSTACLE:
                     block = new Block(BlockType.OBSTACLE, "map",
                     spriteSheetMap.CalcSpriteTexCoords(typeUint), squareSize, x, y);
+                    break;
+                case TiledObjectCodes.INVISIBLE_ENEMY_BARRIER:
+                    block = new Block(BlockType.INVISIBLE_ENEMY_BARRIER, "map",
+                        spriteSheetMap.CalcSpriteTexCoords(typeUint), squareSize, x, y);
+                    block.IsVisible = false;
                     break;
             }
             if(block == null)
