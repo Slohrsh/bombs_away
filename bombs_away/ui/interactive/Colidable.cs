@@ -75,7 +75,7 @@ namespace bombs_away.ui.interactive
                             onPortalCollision?.Invoke(block, null);
                             break;
                         case BlockType.ITEM:
-                            onItemCollision?.Invoke(this, null);
+                            onItemCollision?.Invoke(block, null);
                             break;
                         case BlockType.INVISIBLE_ENEMY_BARRIER:
                             HandleInvisibleEnemyBarrierCollision(block);

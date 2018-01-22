@@ -129,6 +129,10 @@ namespace bombs_away
                         spriteSheetMap.CalcSpriteTexCoords(typeUint), squareSize, x, y);
                     block.IsVisible = false;
                     break;
+                case TiledObjectCodes.BOMB_ITEM:
+                    block = new Block(BlockType.ITEM, "char",
+                        spriteSheetChar.CalcSpriteTexCoords(typeUint), squareSize, x, y);
+                    break;
             }
             if(block == null)
             {

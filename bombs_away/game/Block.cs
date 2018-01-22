@@ -17,7 +17,10 @@ namespace bombs_away.game
         private Box2D textureCoordinates;
         private bool isVisible = true;
         public Box2D Bounds { get; set; }
-
+        
+        //code smell xD
+        public bool isCollected = false;
+ 
         public BlockType Type
         {
             get { return type; }
