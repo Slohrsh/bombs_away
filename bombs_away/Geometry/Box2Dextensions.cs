@@ -59,9 +59,9 @@ namespace Geometry
 
 		public static void TransformCenter(this Box2D rectangle, Matrix3 M)
 		{
-			var newPos = M.Transform(rectangle.CenterX, rectangle.CenterY);
+			/*var newPos = M.Transform(rectangle.CenterX, rectangle.CenterY);
 			rectangle.CenterX = newPos.X;
-			rectangle.CenterY = newPos.Y;
+			rectangle.CenterY = newPos.Y;*/
 		}
 
 		/// <summary>

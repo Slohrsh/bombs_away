@@ -45,7 +45,7 @@ namespace Framework
 		public void Draw(uint spriteID, Box2D rectangle)
 		{
 			Box2D texCoords = CalcSpriteTexCoords(spriteID);
-			rectangle.DrawTexturedRect(texCoords);
+			//rectangle.DrawTexturedRect(texCoords);
 		}
 
 		public float SpriteBoundingBoxWidth
