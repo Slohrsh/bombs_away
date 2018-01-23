@@ -137,6 +137,7 @@
   <ItemGroup>
     <Content Include="resources\game\map\Primitive.txt" />
     <Content Include="resources\game\map\TIlesetBombsAway.png" />
+    <None Include="resources\TilesetBombsAway.bmp" />
     <None Include="resources\game\map\BasicMap.tmx" />
     <None Include="resources\game\map\tilesetOpenGame.png" />
     <None Include="resources\NatureTileset.bmp" />
