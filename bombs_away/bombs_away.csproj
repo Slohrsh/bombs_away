@@ -80,6 +80,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Framework\SpriteSheet.cs" />
+    <Compile Include="Framework\Texture.cs" />
+    <Compile Include="Framework\TextureFont.cs" />
     <Compile Include="game\Block.cs" />
     <Compile Include="game\Camera.cs" />
     <Compile Include="game\GameLogic.cs" />
@@ -87,8 +90,12 @@
     <Compile Include="game\GridUtil.cs" />
     <Compile Include="game\InputHandler.cs" />
     <Compile Include="game\Level.cs" />
+    <Compile Include="game\Menu.cs" />
     <Compile Include="game\ModelView.cs" />
     <Compile Include="game\PositionUpdatedArgs.cs" />
+    <Compile Include="Geometry\Box.cs" />
+    <Compile Include="Geometry\Box2D.cs" />
+    <Compile Include="Geometry\Box2Dextensions.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="resources\game\map\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -129,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="resources\game\map\Primitive.txt" />
+    <Content Include="resources\game\map\TIlesetBombsAway.png" />
     <None Include="resources\game\map\BasicMap.tmx" />
     <None Include="resources\game\map\tilesetOpenGame.png" />
     <None Include="resources\NatureTileset.bmp" />
@@ -139,5 +147,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
